@@ -86,25 +86,42 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 4. Glowing Cards Effect (Aceternity Port)
+    // 4. Glowing Cards Effect (Aceternity Port) - NEW LOGIC
+    // Implements angle calculation based on mouse position relative to card center
     const glowingCards = document.querySelectorAll('.glowing-card');
 
     if (glowingCards.length > 0) {
-        window.addEventListener('mousemove', (e) => {
+        document.body.addEventListener('pointermove', (e) => {
             glowingCards.forEach(card => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
 
-                // Update CSS variables for glow position
-                card.style.setProperty('--glow-x', `${x}px`);
-                card.style.setProperty('--glow-y', `${y}px`);
+                // Center coordinates
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
 
-                // Optional: Toggle 'active' class based on proximity or hover
-                if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
-                    card.classList.add('active');
-                } else {
-                    card.classList.remove('active');
+                // Check if mouse is near or inside
+                // Use a proximity of 0 for strict hover as implied by "when hovering on block"
+                const isHovering = (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height);
+
+                card.style.setProperty('--active', isHovering ? '1' : '0');
+
+                if (isHovering) {
+                    // Calculate angle
+                    // Math.atan2(y, x) returns angle in radians.
+                    // We want 0deg at top? The CSS gradient starts from top if we use 'from ...'
+                    // Standard atan2 is 0 at right (3 o'clock).
+                    // let's try standard conversion
+                    const deltaX = x - centerX;
+                    const deltaY = y - centerY;
+                    let angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+
+                    // Adjust angle to match CSS conic-gradient 'from' orientation if needed
+                    // Usually adding 90 degrees aligns it well if 0 is top
+                    angle = angle + 90;
+
+                    card.style.setProperty('--start', angle);
                 }
             });
         });
@@ -354,3 +371,63 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+    // 10. Testimonials Infinite Scroll Data & Logic
+    const testimonials = [
+        {
+            text: "Очень удобно! Отправил фото царапины, через час получил 5 предложений. Выбрал сервис рядом с домом, сделали отлично.",
+            name: "Алексей С.",
+            role: "Toyota Camry",
+            image: "https://randomuser.me/api/portraits/men/32.jpg"
+        },
+        {
+            text: "Раньше обзванивала сервисы сама, тратила кучу времени. Тут все сразу видно — и цены, и отзывы. Сэкономила около 5000р.",
+            name: "Елена В.",
+            role: "Mazda CX-5",
+            image: "https://randomuser.me/api/portraits/women/44.jpg"
+        },
+        {
+            text: "Боялся, что накрутят цену по факту, но в AutoBid сумма фиксируется. Мастер попался толковый, рекомендую.",
+            name: "Дмитрий К.",
+            role: "Ford Focus",
+            image: "https://randomuser.me/api/portraits/men/86.jpg"
+        },
+        {
+            text: "Сервис работает как часы. Заявка -> Предложения -> Ремонт. Никаких лишних звонков от менеджеров.",
+            name: "Максим П.",
+            role: "Kia Rio",
+            image: "https://randomuser.me/api/portraits/men/22.jpg"
+        },
+        {
+            text: "Понравилось, что можно посмотреть рейтинг СТО. Выбрала тех, у кого больше всего положительных отзывов, и не прогадала.",
+            name: "Ольга М.",
+            role: "Hyundai Solaris",
+            image: "https://randomuser.me/api/portraits/women/68.jpg"
+        }
+    ];
+
+    const testimonialTracks = document.querySelectorAll('.testimonials-track');
+
+    if (testimonialTracks.length > 0) {
+        testimonialTracks.forEach(track => {
+            // Duplicate data to ensure seamless loop
+            const itemsToRender = [...testimonials, ...testimonials, ...testimonials];
+
+            itemsToRender.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'testimonial-card';
+                card.innerHTML = `
+                    <p class="testimonial-text">"${item.text}"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <img src="${item.image}" alt="${item.name}">
+                        </div>
+                        <div class="testimonial-info">
+                            <span class="testimonial-name">${item.name}</span>
+                            <span class="testimonial-role">${item.role}</span>
+                        </div>
+                    </div>
+                `;
+                track.appendChild(card);
+            });
+        });
+    }

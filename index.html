@@ -72,48 +72,12 @@
                         СТО и продавцы автозапчастей конкурируют за вашу заявку
                     </h1>
 
-                    <!-- ANIMATED BADGE BUTTON -->
-                    <a href="#request" class="animated-badge-container">
-                        <span class="animated-badge">
-                            <!-- SVG Animation Background -->
-                            <span class="badge-svg-container">
-                                <svg width="100%" height="100%" viewBox="0 0 50 50" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <g mask="url(#ml-mask-1)">
-                                        <circle class="multiline ml-light-1" cx="0" cy="0" r="20"
-                                            fill="url(#ml-white-grad)" />
-                                    </g>
-                                    <defs>
-                                        <mask id="ml-mask-1">
-                                            <path
-                                                d="M 69 49.8 h -30 q -3 0 -3 -3 v -13 q 0 -3 -3 -3 h -23 q -3 0 -3 -3 v -13 q 0 -3 -3 -3 h -30"
-                                                stroke-width="0.6" stroke="white" />
-                                        </mask>
-                                        <radialGradient id="ml-white-grad" fx="1">
-                                            <stop offset="0%" stop-color="#2563eb" />
-                                            <stop offset="20%" stop-color="#2563eb" />
-                                            <stop offset="100%" stop-color="transparent" />
-                                        </radialGradient>
-                                    </defs>
-                                </svg>
-                            </span>
-
-                            <!-- Ping Dot -->
-                            <span class="badge-dot-container">
-                                <span class="badge-dot-outer"></span>
-                                <span class="badge-dot-ping"></span>
-                                <span class="badge-dot-inner"></span>
-                            </span>
-
-                            <span class="badge-divider"></span>
-                            <span class="badge-text" style="color: #404040;">Получить предложения</span>
-
-                            <!-- Chevron Icon matches React 'ChevronRight' -->
-                            <svg class="badge-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path d="m9 18 6-6-6-6" />
-                            </svg>
+                    <!-- PULSE BEAM BUTTON -->
+                    <a href="#request" class="pulse-beam-button">
+                        <span class="pulse-beam-border"></span>
+                        <span class="pulse-beam-content">
+                            <span>Получить предложения</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                         </span>
                     </a>
 
@@ -353,41 +317,54 @@
         <!-- 6. REQUEST FORM SECTION -->
         <section class="section-request" id="request">
             <div class="container">
-                <div class="request-form-wrapper scroll-fade-in">
-                    <h2 class="form-title">Расскажите, что случилось с автомобилем</h2>
+                <div class="request-card scroll-fade-in">
+                    <div class="register-header">
+                        <h2>Расскажите, что случилось с автомобилем</h2>
+                        <p>Мы найдем лучших мастеров</p>
+                    </div>
 
-                    <form class="request-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Марка и модель автомобиля</label>
-                                <input type="text" placeholder="Например, Toyota Camry 2019">
+                    <form class="aceternity-form">
+                        <div class="aceternity-row">
+                            <div class="aceternity-input-container">
+                                <label class="aceternity-label" for="car-model">Марка и модель автомобиля</label>
+                                <input class="aceternity-input" id="car-model" type="text" placeholder="Например, Toyota Camry 2019">
                             </div>
-                            <div class="form-group">
-                                <label>Год выпуска</label>
-                                <input type="text" placeholder="2018">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Описание повреждений</label>
-                            <textarea placeholder="Кратко опишите, что произошло и какие есть повреждения"></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Фотографии автомобиля</label>
-                            <div class="file-upload-box">
-                                <span>📷 Нажмите или перетащите фото сюда</span>
-                                <small>Фото помогут СТО точнее рассчитать стоимость и сроки</small>
+                            <div class="aceternity-input-container">
+                                <label class="aceternity-label" for="car-year">Год выпуска</label>
+                                <input class="aceternity-input" id="car-year" type="text" placeholder="2018">
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label>Город ремонта</label>
-                            <input type="text" placeholder="Мы покажем заявку только автосервисам вашего города">
+                        <div class="aceternity-row">
+                            <div class="aceternity-input-container">
+                                <label class="aceternity-label" for="damage-desc">Описание повреждений</label>
+                                <textarea class="aceternity-input" id="damage-desc" style="height: auto; padding-top: 12px; min-height: 80px;" placeholder="Кратко опишите, что произошло"></textarea>
+                            </div>
                         </div>
 
-                        <button type="submit" class="btn-hero full-width">Отправить заявку и получить
-                            предложения</button>
+                        <div class="aceternity-row">
+                            <div class="aceternity-input-container">
+                                <label class="aceternity-label">Фотографии автомобиля</label>
+                                <div class="file-upload-box">
+                                    <span>📷 Нажмите или перетащите фото сюда</span>
+                                    <small>Фото помогут СТО точнее рассчитать стоимость</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="aceternity-row">
+                            <div class="aceternity-input-container">
+                                <label class="aceternity-label" for="repair-city">Город ремонта</label>
+                                <input class="aceternity-input" id="repair-city" type="text" placeholder="Москва">
+                            </div>
+                        </div>
+
+                        <button class="aceternity-button" type="submit">
+                            Отправить заявку и получить предложения &rarr;
+                            <span class="bottom-gradient"></span>
+                            <span class="bottom-gradient-blur"></span>
+                        </button>
+
                         <p class="form-note">Бесплатно. Контакты не передаются автосервисам.</p>
                     </form>
                 </div>
@@ -469,7 +446,35 @@
             </div>
         </section>
 
-        <!-- 10. FAQ SECTION -->
+                <!-- 9.5 TESTIMONIALS SECTION -->
+        <section class="section-testimonials" id="testimonials">
+            <div class="container">
+                <h2 class="section-title center">Что говорят автовладельцы</h2>
+
+                <div class="testimonials-wrapper">
+                    <!-- Column 1 -->
+                    <div class="testimonials-column">
+                        <div class="testimonials-track track-down">
+                            <!-- Items inserted by JS -->
+                        </div>
+                    </div>
+                    <!-- Column 2 -->
+                    <div class="testimonials-column">
+                        <div class="testimonials-track track-up">
+                            <!-- Items inserted by JS -->
+                        </div>
+                    </div>
+                    <!-- Column 3 -->
+                    <div class="testimonials-column desktop-only">
+                        <div class="testimonials-track track-down">
+                            <!-- Items inserted by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<!-- 10. FAQ SECTION -->
         <section class="section-faq" id="faq">
             <div class="container">
                 <h2 class="section-title center scroll-fade-in">Частые вопросы</h2>
