@@ -1,0 +1,88 @@
+/* ============================================
+   SOLUTION SECTION (UPDATED)
+   ============================================ */
+
+.section-solution {
+    padding: 100px 0;
+    background: var(--primary-gradient);
+    color: var(--text-white);
+    overflow: hidden;
+    /* Ensure car doesn't overflow if scaled */
+}
+
+/* New layout for Solution to match Hero */
+.solution-grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.4fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.solution-text {
+    text-align: left;
+    /* Was center */
+}
+
+.solution-desc {
+    font-size: 20px;
+    line-height: 1.7;
+    margin-bottom: 24px;
+    opacity: 0.9;
+}
+
+.solution-list {
+    list-style: none;
+    display: block;
+    /* Was inline-block */
+    text-align: left;
+    margin-bottom: 32px;
+}
+
+.solution-list li {
+    font-size: 18px;
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.h3-highlight {
+    font-size: 24px;
+    font-weight: 800;
+    color: #FFD700;
+    display: block;
+    margin-top: 20px;
+}
+
+/* Video Placeholder for Hero */
+.video-placeholder {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: rgba(0, 0, 0, 0.05);
+    border: 2px dashed rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0, 0, 0, 0.4);
+    font-weight: 600;
+    font-size: 18px;
+}
+
+/* Responsive adjust for solution grid */
+@media (max-width: 992px) {
+    .solution-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .solution-text {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .solution-list {
+        display: inline-block;
+        text-align: left;
+    }
+}

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoBid — СТО и продавцы автозапчастей конкурируют за вашу заявку</title>
+    <meta name="description"
+        content="Подайте одну заявку и получите предложения от СТО и продавцов автозапчастей вашего города. Сравните цену, сроки и выберите лучший вариант.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- PRELOADER -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-logo">
+            <img src="assets/images/logo.png" alt="AutoBid"
+                onerror="this.src='https://via.placeholder.com/140x50?text=AutoBid'">
+        </div>
+    </div>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="custom-cursor" id="custom-cursor"></div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content" id="main-content">
+
+        <!-- HEADER -->
+        <header class="header">
+            <div class="nav-container">
+                <a href="/" class="nav-logo">
+                    <img src="assets/images/logo2.png" alt="AutoBid"
+                        onerror="this.src='https://via.placeholder.com/120x40?text=AutoBid'">
+                </a>
+
+                <!-- Centered Navigation Links -->
+                <div class="nav-center-links">
+                    <a href="pages/b2b.html" class="btn-text">Для СТО</a>
+                    <a href="pages/quiz.html" class="btn-text">Квиз</a>
+                </div>
+
+                <div class="nav-actions">
+                    <a href="#" class="btn-text">Войти</a>
+                    <a href="#register" class="btn-primary">Создать аккаунт</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- 1. HERO SECTION -->
+        <section class="hero" id="hero">
+            <!-- Fullscreen Video Background -->
+            <div class="hero-background">
+                <video autoplay muted playsinline class="hero-bg-video">
+                    <source src="assets/videos/hero-background.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="container">
+                <!-- Text Content -->
+                <div class="hero-text scroll-fade-in">
+                    <h1 class="hero-title">
+                        <div class="hero-logo-wrapper" id="hero-logo-wrapper">
+                            <img src="assets/images/logo.png" alt="AutoBid" class="hero-logo-large">
+                        </div>
+                        СТО и продавцы автозапчастей конкурируют за вашу заявку
+                    </h1>
+
+                    <!-- ANIMATED BADGE BUTTON -->
+                    <a href="#request" class="animated-badge-container" style="margin-bottom: 32px;">
+                        <span class="animated-badge">
+                            <!-- SVG Animation Background -->
+                            <span class="badge-svg-container">
+                                <svg width="100%" height="100%" viewBox="0 0 50 50" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g mask="url(#ml-mask-1)">
+                                        <circle class="multiline ml-light-1" cx="0" cy="0" r="20"
+                                            fill="url(#ml-white-grad)" />
+                                    </g>
+                                    <defs>
+                                        <mask id="ml-mask-1">
+                                            <path
+                                                d="M 69 49.8 h -30 q -3 0 -3 -3 v -13 q 0 -3 -3 -3 h -23 q -3 0 -3 -3 v -13 q 0 -3 -3 -3 h -30"
+                                                stroke-width="0.6" stroke="white" />
+                                        </mask>
+                                        <radialGradient id="ml-white-grad" fx="1">
+                                            <stop offset="0%" stop-color="#2563eb" />
+                                            <stop offset="20%" stop-color="#2563eb" />
+                                            <stop offset="100%" stop-color="transparent" />
+                                        </radialGradient>
+                                    </defs>
+                                </svg>
+                            </span>
+
+                            <!-- Ping Dot -->
+                            <span class="badge-dot-container">
+                                <span class="badge-dot-outer"></span>
+                                <span class="badge-dot-ping"></span>
+                                <span class="badge-dot-inner"></span>
+                            </span>
+
+                            <span class="badge-divider"></span>
+                            <span class="badge-text" style="color: #404040;">Получить предложения</span>
+
+                            <!-- Chevron Icon matches React 'ChevronRight' -->
+                            <svg class="badge-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m9 18 6-6-6-6" />
+                            </svg>
+                        </span>
+                    </a>
+
+                    <div class="hero-trust">
+                        <div class="trust-item">✔ Одна заявка — несколько предложений</div>
+                        <div class="trust-item">✔ Без звонков от автосервисов</div>
+                        <div class="trust-item">✔ Вы сами выбираете, кому доверить ремонт</div>
+                        <div class="trust-item">✔ Бесплатно для автовладельцев</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WAVE DIVIDER -->
+        <div class="wave-divider">
+            <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+                <path fill="#F3F4F6" d="M0,50 C360,100 1080,0 1440,50 L1440,100 L0,100 Z"></path>
+            </svg>
+        </div>
+
+        <!-- 2. REGISTRATION SECTION -->
+        <section class="section-register" id="register">
+            <div class="container">
+                <div class="register-card scroll-fade-in">
+                    <div class="register-header">
+                        <h2>Создайте аккаунт и получите предложения</h2>
+                        <p>от СТО и продавцов автозапчастей</p>
+                    </div>
+                    <form class="register-form">
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>Имя</label>
+                                <input type="text" placeholder="Как к вам обращаться">
+                            </div>
+                            <div class="input-group">
+                                <label>Телефон</label>
+                                <input type="tel" placeholder="Для связи с автосервисами">
+                            </div>
+                            <div class="input-group">
+                                <label>Email</label>
+                                <input type="email" placeholder="Для уведомлений и входа">
+                            </div>
+                            <div class="input-group">
+                                <label>Город</label>
+                                <input type="text" placeholder="Чтобы показывать СТО рядом">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary full-width">Создать аккаунт</button>
+                        <div class="auth-divider">или войти через соцсети</div>
+                        <div class="social-auth">
+                            <button type="button" class="btn-secondary">Google</button>
+                            <button type="button" class="btn-secondary">Яндекс</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. PAIN POINTS SECTION -->
+        <section class="section-pain" id="pain">
+            <div class="container">
+                <h2 class="section-title scroll-fade-in">Почему ремонт автомобиля<br>всегда превращается в проблему?
+                </h2>
+
+                <div class="glowing-grid">
+                    <!-- Item 1: Calls -->
+                    <div class="glowing-card scroll-slide-up delay-1">
+                        <div class="glowing-card-border"></div>
+                        <div class="glowing-card-glow"></div>
+                        <div class="glowing-card-content">
+                            <div class="glowing-card-icon" id="lottie-call-container"></div>
+                            <h3>Бесконечные звонки</h3>
+                            <p>Нужно обзванивать десятки СТО, объяснять одно и то же, тратить часы на поиск.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2: Price -->
+                    <div class="glowing-card scroll-slide-up delay-2">
+                        <div class="glowing-card-border"></div>
+                        <div class="glowing-card-glow"></div>
+                        <div class="glowing-card-content">
+                            <div class="glowing-card-icon" id="lottie-money-container"></div>
+                            <h3>Цены «с потолка»</h3>
+                            <p>Стоимость называют на глаз. В итоге она вырастает в 2-3 раза в процессе ремонта.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3: Services -->
+                    <div class="glowing-card scroll-slide-up delay-3">
+                        <div class="glowing-card-border"></div>
+                        <div class="glowing-card-glow"></div>
+                        <div class="glowing-card-content">
+                            <div class="glowing-card-icon" id="lottie-services-container"></div>
+                            <h3>Навязанные услуги</h3>
+                            <p>Мастера находят «новые проблемы», чтобы увеличить чек, пользуясь вашим незнанием.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 4: Deadlines -->
+                    <div class="glowing-card scroll-slide-up delay-4">
+                        <div class="glowing-card-border"></div>
+                        <div class="glowing-card-glow"></div>
+                        <div class="glowing-card-content">
+                            <div class="glowing-card-icon" id="lottie-deadlines-container"></div>
+                            <h3>Срывы сроков</h3>
+                            <p>«Завтра будет готово» превращается в недели ожидания без машины.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 5: Risk -->
+                    <div class="glowing-card scroll-slide-up delay-5">
+                        <div class="glowing-card-border"></div>
+                        <div class="glowing-card-glow"></div>
+                        <div class="glowing-card-content">
+                            <div class="glowing-card-icon" id="lottie-risk-container"></div>
+                            <h3>Риск и недоверие</h3>
+                            <p>Страшно оставить машину в гараже у незнакомцев без гарантий и договоров.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="pain-summary scroll-fade-in">👉 Вы тратите время, деньги и нервы — ещё до начала ремонта</p>
+            </div>
+        </section>
+
+        <!-- 4. SOLUTION SECTION -->
+        <section class="section-solution" id="solution">
+            <div class="container">
+                <div class="solution-grid">
+                    <div class="solution-text scroll-fade-in">
+                        <h2 class="section-title nowrap">Теперь всё наоборот</h2>
+                        <p class="solution-desc">В AutoBid вы не ищете автосервис.<br>Вы размещаете заявку — автосервисы
+                            сами предлагают вам условия.</p>
+
+                        <p class="solution-desc">Вы спокойно сравниваете:</p>
+                        <ul class="solution-list">
+                            <li>✓ стоимость ремонта</li>
+                            <li>✓ сроки выполнения</li>
+                            <li>✓ рейтинги и отзывы</li>
+                        </ul>
+
+                        <p class="h3-highlight">И выбираете лучшее предложение.</p>
+                    </div>
+
+                    <!-- Car Interactive Zone (Moved from Hero) -->
+                    <div class="car-container scroll-slide-up delay-2" id="car-zone">
+                        <div class="scratch-container" id="scratch-container"
+                            style="position: relative; width: 100%; height: auto; min-height: 400px; border-radius: 20px; overflow: hidden; cursor: none;">
+                            <!-- Base Image (Damaged) -->
+                            <img id="car-damaged" src="assets/images/car-damaged.png" alt="Do Remonta"
+                                style="width: 100%; height: auto; display: block; object-fit: cover;">
+
+                            <!-- Lens (Window into Fixed) -->
+                            <div id="repair-lens" style="
+                                position: absolute; 
+                                top: 0; left: 0; 
+                                width: 200px; height: 200px; 
+                                border-radius: 50%; 
+                                overflow: hidden; 
+                                display: none; 
+                                border: 3px solid rgba(255, 255, 255, 0.5); 
+                                box-shadow: 0 0 20px rgba(0,0,0,0.5);
+                                z-index: 10;
+                                pointer-events: none;
+                                background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+                            ">
+                                <!-- Overlay Image (Fixed) - Moved inversely in JS -->
+                                <img id="car-fixed" src="assets/images/car-fixed.png" alt="Posle Remonta" style="
+                                    position: absolute; 
+                                    top: 0; left: 0; 
+                                    width: auto; height: auto; 
+                                    max-width: none;
+                                ">
+                            </div>
+
+                            <div id="scratch-instruction" class="car-instructions"
+                                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; font-size: 24px; font-weight: bold; color: rgba(255,255,255,0.8); text-align: center; text-shadow: 0 2px 10px rgba(0,0,0,0.8); transition: opacity 0.5s;">
+                                💡 Наведите курсор, чтобы увидеть результат
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. HOW IT WORKS SECTION -->
+        <section class="section-steps" id="steps">
+            <div class="container">
+                <h2 class="section-title center scroll-fade-in">Всего 4 простых шага</h2>
+
+                <div class="steps-container">
+                    <div class="step-card scroll-slide-up delay-1">
+                        <div class="step-num">1</div>
+                        <h3>Опишите повреждения</h3>
+                        <p>автомобиля и загрузите фото</p>
+                    </div>
+                    <div class="step-card scroll-slide-up delay-2">
+                        <div class="step-num">2</div>
+                        <h3>Получите предложения</h3>
+                        <p>от СТО вашего города</p>
+                    </div>
+                    <div class="step-card scroll-slide-up delay-3">
+                        <div class="step-num">3</div>
+                        <h3>Сравните условия</h3>
+                        <p>цену, сроки и рейтинг сервисов</p>
+                    </div>
+                    <div class="step-card scroll-slide-up delay-4">
+                        <div class="step-num">4</div>
+                        <h3>Выберите лучший вариант</h3>
+                        <p>и свяжитесь с СТО</p>
+                    </div>
+                </div>
+
+                <div class="center-cta scroll-fade-in">
+                    <a href="#request" class="btn-primary">Получить предложения бесплатно</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. REQUEST FORM SECTION -->
+        <section class="section-request" id="request">
+            <div class="container">
+                <div class="request-form-wrapper scroll-fade-in">
+                    <h2 class="form-title">Расскажите, что случилось с автомобилем</h2>
+
+                    <form class="request-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Марка и модель автомобиля</label>
+                                <input type="text" placeholder="Например, Toyota Camry 2019">
+                            </div>
+                            <div class="form-group">
+                                <label>Год выпуска</label>
+                                <input type="text" placeholder="2018">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Описание повреждений</label>
+                            <textarea placeholder="Кратко опишите, что произошло и какие есть повреждения"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Фотографии автомобиля</label>
+                            <div class="file-upload-box">
+                                <span>📷 Нажмите или перетащите фото сюда</span>
+                                <small>Фото помогут СТО точнее рассчитать стоимость и сроки</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Город ремонта</label>
+                            <input type="text" placeholder="Мы покажем заявку только автосервисам вашего города">
+                        </div>
+
+                        <button type="submit" class="btn-hero full-width">Отправить заявку и получить
+                            предложения</button>
+                        <p class="form-note">Бесплатно. Контакты не передаются автосервисам.</p>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. NO CALLS SECTION -->
+        <section class="section-nocalls" id="nocalls">
+            <div class="container">
+                <div class="nocalls-box scroll-fade-in">
+                    <h2 class="section-title">Никаких звонков и навязчивых предложений</h2>
+                    <p>Автосервисы не получают ваши контакты при подаче заявки.<br>
+                        Они видят только описание и фотографии повреждений.</p>
+                    <p>Контакты передаются только тому СТО, которое вы выберете.</p>
+                    <p class="tagline">❗ Вы полностью контролируете процесс.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. BENEFITS SECTION -->
+        <section class="section-benefits" id="benefits">
+            <div class="container">
+                <h2 class="section-title center scroll-fade-in">Почему AutoBid выгоднее обычного поиска СТО</h2>
+
+                <div class="benefits-grid">
+                    <div class="benefit-card scroll-slide-up delay-1">
+                        <h3>⏰ Экономите время</h3>
+                        <p>одна заявка вместо десятков звонков</p>
+                    </div>
+                    <div class="benefit-card scroll-slide-up delay-2">
+                        <h3>💰 Экономите деньги</h3>
+                        <p>СТО и продавцы конкурируют за заказ</p>
+                    </div>
+                    <div class="benefit-card scroll-slide-up delay-3">
+                        <h3>📊 Прозрачные цены</h3>
+                        <p>и реальные сроки выполнения</p>
+                    </div>
+                    <div class="benefit-card scroll-slide-up delay-4">
+                        <h3>🎯 Свобода выбора</h3>
+                        <p>сами решаете, где ремонтировать</p>
+                    </div>
+                    <div class="benefit-card scroll-slide-up delay-5">
+                        <h3>⭐ Рейтинги и отзывы</h3>
+                        <p>видите перед выбором</p>
+                    </div>
+                    <div class="benefit-card scroll-slide-up delay-6">
+                        <h3>🛡 Никакого давления</h3>
+                        <p>со стороны продавцов и СТО</p>
+                    </div>
+                </div>
+
+                <p class="benefits-summary scroll-fade-in">❗ Вы выбираете сервис, а не наоборот.</p>
+            </div>
+        </section>
+
+        <!-- 9. TRUST & SECURITY SECTION -->
+        <section class="section-security" id="security">
+            <div class="container">
+                <h2 class="section-title center">Безопасно и прозрачно</h2>
+
+                <div class="security-list scroll-fade-in">
+                    <div class="security-item">
+                        <span class="security-icon">✅</span>
+                        <span>Все автосервисы и продавцы проходят проверку</span>
+                    </div>
+                    <div class="security-item">
+                        <span class="security-icon">🔒</span>
+                        <span>Контакты передаются только с вашего согласия</span>
+                    </div>
+                    <div class="security-item">
+                        <span class="security-icon">🔐</span>
+                        <span>Данные защищены шифрованием SSL/TLS</span>
+                    </div>
+                    <div class="security-item">
+                        <span class="security-icon">📋</span>
+                        <span>Работаем в соответствии с законодательством РФ</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. FAQ SECTION -->
+        <section class="section-faq" id="faq">
+            <div class="container">
+                <h2 class="section-title center scroll-fade-in">Частые вопросы</h2>
+
+                <div class="faq-wrapper">
+                    <div class="faq-item scroll-slide-up delay-1">
+                        <button class="faq-question">
+                            Сколько это стоит?
+                            <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                Для автовладельцев сервис полностью бесплатен.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item scroll-slide-up delay-2">
+                        <button class="faq-question">
+                            Почему автосервисы отвечают?
+                            <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                Они платят за участие в заявке и заинтересованы предложить лучшие условия.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item scroll-slide-up delay-3">
+                        <button class="faq-question">
+                            Мои контакты увидят все?
+                            <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                Нет. Контакты получает только выбранный вами сервис.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FINAL CTA SECTION -->
+        <section class="section-final-cta" id="final-cta">
+            <div class="container scroll-fade-in">
+                <h2>Получите предложения на ремонт уже сегодня</h2>
+                <p>Без звонков. Без давления. Бесплатно.</p>
+                <a href="#request" class="btn-hero">Подать заявку на ремонт</a>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="container">
+                <p>&copy; 2024 AutoBid. Все права защищены.</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+    <script src="lottie-data.js"></script>
+    <script src="animations.js"></script>
+    <script src="cursor.js"></script>
+</body>
+
+</html>

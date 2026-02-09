@@ -1,0 +1,30 @@
+ИТАК БРО СМОТРИ СНАЧАЛА СОБЕРЕМ СКЕЛЕТЫ ВСЕХ СТРАНИЦ НО ДО КОНЦА ДЕЛАЙ ТОЛЬКО ПОКА ПЕРВУЮ ГЛАВНУЮ 
+В ФАЙЛАХ ТЕБЕ ПРИКРЕПЛЯЮ визуальный референс из которого надо вытянуть всю красоту дизайна и натянуть на структуру котора язаложена в корне
+
+РОЛЬ: Senior Frontend Developer.
+ИСТОЧНИКИ:
+1. ВИЗУАЛ: `design-tokens.md` (Visual Vibe).
+2. СТРУКТУРА: `structure.md` (Утверждена).
+3. ДАННЫЕ: `AI_DATA.md`.
+
+ЗАДАЧА:
+Сверстай сайт. Натяни Визуал на Структуру. Соблюдай `BACKEND HOOKS` и комментарии в `structure.md`.
+\"\"\"
+"""
+
+def setup_project():
+    # 1. Определяем пути
+    base_path = "My_Web_Project"
+    skills_path = os.path.join(base_path, ".agent", "skills", "web-designer-pro")
+    data_path = os.path.join(skills_path, "data")
+
+    # 2. Создаем структуру папок
+    os.makedirs(data_path, exist_ok=True)
+
+    # 3. Создаем файл SKILL.md
+    skill_content = "Role: Senior Frontend Developer.\nContext: Используй данные из папки ./data для верстки и логики."
+    with open(os.path.join(skills_path, "SKILL.md"), "w", encoding="utf-8") as f:
+        f.write(skill_content)
+
+    # 4. Парсинг входных данных
+    # Regex ищет имя файла после "
