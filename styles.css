@@ -805,3 +805,257 @@ svg {
     margin-bottom: 8px;
     font-size: 18px;
 }
+/* ============================================
+   ANIMATED BADGE BUTTON (FIX)
+   ============================================ */
+.animated-badge-container {
+    display: inline-flex;
+    justify-content: center;
+    text-decoration: none;
+    margin-bottom: 32px;
+}
+
+.animated-badge {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 16px 8px 12px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 9999px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+}
+
+.animated-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    background: #ffffff;
+    border-color: rgba(37, 99, 235, 0.2);
+}
+
+.badge-svg-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.badge-dot-container {
+    position: relative;
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.badge-dot-outer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #2563eb;
+    opacity: 0.2;
+}
+
+.badge-dot-ping {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #2563eb;
+    animation: badge-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+    opacity: 0.7;
+}
+
+.badge-dot-inner {
+    position: relative;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #2563eb;
+}
+
+.badge-divider {
+    width: 1px;
+    height: 16px;
+    background-color: rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.badge-text {
+    font-weight: 600;
+    font-size: 14px;
+    color: #374151;
+    z-index: 1;
+}
+
+.badge-icon {
+    width: 16px;
+    height: 16px;
+    color: #9ca3af;
+    transition: transform 0.2s, color 0.2s;
+    z-index: 1;
+}
+
+.animated-badge:hover .badge-icon {
+    transform: translateX(2px);
+    color: #2563eb;
+}
+
+@keyframes badge-ping {
+    75%, 100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   ACETERNITY FORM STYLES
+   ============================================ */
+.aceternity-form {
+    margin: 32px 0;
+}
+
+.aceternity-row {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+@media (min-width: 768px) {
+    .aceternity-row {
+        flex-direction: row;
+        gap: 16px;
+    }
+}
+
+.aceternity-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.aceternity-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-dark);
+    line-height: 1;
+}
+
+.aceternity-input {
+    display: flex;
+    height: 40px;
+    width: 100%;
+    border-radius: 6px;
+    border: none;
+    background-color: #f9fafb;
+    padding: 0 12px;
+    font-size: 14px;
+    color: #000;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    transition: all 0.4s;
+    outline: none;
+}
+
+.aceternity-input:focus {
+    box-shadow: 0 0 0 2px #9ca3af;
+    background-color: #fff;
+}
+
+.aceternity-button {
+    display: block;
+    width: 100%;
+    height: 40px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #000000 0%, #525252 100%);
+    color: white;
+    font-weight: 500;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0px 1px 0px 0px rgba(255, 255, 255, 0.25) inset, 0px -1px 0px 0px rgba(255, 255, 255, 0.25) inset;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.aceternity-button:hover {
+    transform: translateY(-1px);
+}
+
+.aceternity-divider {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(to right, transparent, #d1d5db, transparent);
+    margin: 32px 0;
+}
+
+.aceternity-socials {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.aceternity-social-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    height: 40px;
+    width: 100%;
+    border-radius: 6px;
+    background-color: #f9fafb;
+    padding: 0 16px;
+    font-weight: 500;
+    color: #000;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.aceternity-social-btn:hover {
+    background-color: #f3f4f6;
+}
+
+/* Bottom Gradient Effect */
+.bottom-gradient {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #06b6d4, transparent);
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.bottom-gradient-blur {
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    width: 50%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #6366f1, transparent);
+    opacity: 0;
+    filter: blur(4px);
+    transition: opacity 0.5s;
+}
+
+.aceternity-button:hover .bottom-gradient,
+.aceternity-button:hover .bottom-gradient-blur,
+.aceternity-social-btn:hover .bottom-gradient {
+    opacity: 1;
+}
