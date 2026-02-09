@@ -212,14 +212,12 @@ svg {
     position: relative;
     width: 100%;
     min-height: 100vh;
-    /* Full viewport height */
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     padding-top: 80px;
-    /* Offset for header */
     overflow: hidden;
-    text-align: center;
+    text-align: left;
 }
 
 .hero-background {
@@ -236,17 +234,17 @@ svg {
     height: 100%;
     object-fit: cover;
     opacity: 0.4;
-    /* Increased from 0.1 to reduce white film look */
 }
 
 .hero-text {
     position: relative;
     z-index: 10;
-    max-width: 900px;
-    margin: 0 auto;
+    width: 65%; /* ~30% empty space on right */
+    max-width: 800px;
+    margin: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .hero-title {
@@ -256,6 +254,7 @@ svg {
     margin-bottom: 32px;
     color: var(--text-dark);
     width: 100%;
+    text-align: left;
 }
 
 /* ... existing code ... */
@@ -294,34 +293,61 @@ svg {
     transition: opacity 0.3s;
 }
 
-/* The actual glowing gradient */
+/* The actual glowing gradient - UPDATED for GlowingEffect */
 .glowing-card-glow {
     position: absolute;
-    inset: -3px;
-    /* negative inset to cover padding */
+    inset: -1px; /* border width */
     border-radius: inherit;
-    background: radial-gradient(circle at var(--glow-x, 50%) var(--glow-y, 50%),
-            rgba(255, 255, 255, 0.9) 0%,
-            rgba(255, 255, 255, 0) 50%);
-    opacity: 0;
-    /* Hidden by default */
+    opacity: var(--active, 0);
     transition: opacity 0.3s;
-    mask-image: radial-gradient(circle at var(--glow-x) var(--glow-y), black 40%, transparent 70%);
-    -webkit-mask-image: radial-gradient(circle at var(--glow-x) var(--glow-y), black 40%, transparent 70%);
+
+    /* Conic gradient mask logic from React component */
+    mask-image: linear-gradient(#0000,#0000), conic-gradient(from calc((var(--start, 0) - 20) * 1deg), transparent 0deg, #fff, transparent 40deg);
+    -webkit-mask-image: linear-gradient(#0000,#0000), conic-gradient(from calc((var(--start, 0) - 20) * 1deg), transparent 0deg, #fff, transparent 40deg);
+    mask-composite: intersect;
+    -webkit-mask-composite: source-in; /* Use source-in for WebKit/Chrome which often behaves like intersect for this */
+    mask-clip: padding-box, border-box;
+    -webkit-mask-clip: padding-box, border-box;
+
+    padding: 1px; /* border width */
+    background: radial-gradient(circle, #dd7bbb 10%, #dd7bbb00 20%),
+                radial-gradient(circle at 40% 40%, #d79f1e 5%, #d79f1e00 15%),
+                radial-gradient(circle at 60% 60%, #5a922c 10%, #5a922c00 20%),
+                radial-gradient(circle at 40% 60%, #4c7894 10%, #4c789400 20%),
+                repeating-conic-gradient(
+                  from 236.84deg at 50% 50%,
+                  #dd7bbb 0%,
+                  #d79f1e calc(25% / 5),
+                  #5a922c calc(50% / 5),
+                  #4c7894 calc(75% / 5),
+                  #dd7bbb calc(100% / 5)
+                );
+    background-attachment: fixed;
 }
 
-/* Active state controlled by JS */
-.glowing-card.active .glowing-card-border,
-.glowing-card.active .glowing-card-glow {
-    opacity: 1;
+/* Override with the requested BLUE color scheme (Google/Yandex style) */
+.glowing-card-glow.blue-glow {
+    background: #2563eb; /* Fallback */
+    background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%); /* Blue/Cyan gradient */
+    /* Remove complex gradients if we just want the blue hover effect as requested */
 }
+
+/* Simplified approach as per user request: "Animation when hovering ... color should be blue like on Google/Yandex buttons" */
+/* The user asked to implement the logic, but use the blue color. */
+.glowing-card-glow {
+    background: #3b82f6; /* Blue-500 equivalent */
+    background: conic-gradient(from calc((var(--start, 0) - 20) * 1deg), transparent 0deg, #3b82f6 30deg, transparent 60deg);
+    /* We don't need mask composite if we just draw the gradient directly on the pseudo-border layer */
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+
 
 .glowing-card-content {
     position: relative;
     height: 100%;
     background: #ffffff;
     border-radius: 1.25rem;
-    /* slightly smaller than parent */
     padding: 24px;
     z-index: 2;
     display: flex;
@@ -330,15 +356,16 @@ svg {
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+/* Remove square background from icons */
 .glowing-card-icon {
-    width: 48px;
-    height: 48px;
+    width: 60px; /* Increased slightly */
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
-    background: #f3f4f6;
-    border: 1px solid #e5e7eb;
+    border-radius: 0; /* Remove radius */
+    background: transparent; /* Transparent */
+    border: none; /* Remove border */
     margin-bottom: 8px;
 }
 
@@ -365,7 +392,7 @@ svg {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
-    justify-content: center;
+    justify-content: flex-start;
     margin-top: 32px;
     font-size: 14px;
     color: var(--text-light);
@@ -1068,4 +1095,392 @@ svg {
 .aceternity-button:hover .bottom-gradient-blur,
 .aceternity-social-btn:hover .bottom-gradient {
     opacity: 1;
+}
+
+/* ============================================
+   PULSE BEAM BUTTON
+   ============================================ */
+.pulse-beam-button {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 24px;
+    background: transparent;
+    border-radius: 9999px;
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 600;
+    margin-bottom: 32px;
+    overflow: hidden;
+    cursor: pointer;
+    /* Create a border area via padding or pseudo element */
+    /* We'll use a pseudo element for the gradient border */
+    z-index: 1;
+}
+
+/* The running border effect */
+.pulse-beam-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 9999px;
+    padding: 2px; /* Border width */
+    background: linear-gradient(90deg, #18CCFC, #6344F5, #AE48FF, #18CCFC);
+    background-size: 300% 100%;
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    animation: pulse-beam-move 4s linear infinite;
+}
+
+@keyframes pulse-beam-move {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 0%; }
+}
+
+/* Inner content background */
+.pulse-beam-button::before {
+    content: "";
+    position: absolute;
+    inset: 2px; /* Match border width */
+    background: white;
+    border-radius: 9999px;
+    z-index: -1;
+}
+
+.pulse-beam-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 2;
+}
+
+.pulse-beam-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(99, 68, 245, 0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Glowing Card Effect - Corrected Implementation */
+.glowing-card {
+    /* ... existing props ... */
+    position: relative;
+    border-radius: 1.5rem;
+    background: transparent;
+    padding: 1px; /* Gap for border */
+}
+
+/* The glow container */
+.glowing-card-glow {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px; /* border width */
+
+    /* The gradient that rotates */
+    background: conic-gradient(
+        from calc(var(--start, 0) * 1deg),
+        transparent 0deg,
+        #2563eb 20deg,
+        transparent 40deg
+    );
+
+    /* Hide by default */
+    opacity: var(--active, 0);
+    transition: opacity 0.3s ease;
+
+    /* Masking to create border only */
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+
+    pointer-events: none;
+    z-index: 1;
+}
+
+.glowing-card-content {
+    position: relative;
+    z-index: 2;
+    background: #fff;
+    border-radius: inherit;
+    height: 100%;
+    /* ensure content covers the card background if needed */
+}
+
+/* Update request card style to match registration card */
+.request-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ============================================
+   TESTIMONIALS SECTION
+   ============================================ */
+.section-testimonials {
+    padding: 80px 0;
+    background: #f9fafb;
+    overflow: hidden;
+}
+
+.testimonials-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    height: 500px; /* Fixed height for the scrolling area */
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+}
+
+.testimonials-column {
+    flex: 1;
+    max-width: 320px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.testimonials-track {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    /* Animation duration will be set by JS or default */
+}
+
+/* Animations */
+@keyframes scroll-down {
+    0% { transform: translateY(-50%); }
+    100% { transform: translateY(0%); }
+}
+
+@keyframes scroll-up {
+    0% { transform: translateY(0%); }
+    100% { transform: translateY(-50%); }
+}
+
+.track-down {
+    animation: scroll-down 30s linear infinite;
+}
+
+.track-up {
+    animation: scroll-up 30s linear infinite;
+}
+
+/* Card Styling */
+.testimonial-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.testimonial-text {
+    font-size: 14px;
+    color: #4b5563;
+    line-height: 1.5;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.testimonial-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #e5e7eb;
+    overflow: hidden;
+}
+
+.testimonial-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.testimonial-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.testimonial-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: #111827;
+}
+
+.testimonial-role {
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+@media (max-width: 768px) {
+    .desktop-only {
+        display: none;
+    }
+}
+/* ============================================
+   REFINEMENTS & POLISH
+   ============================================ */
+
+/* Benefits Section - Aceternity Vibe */
+.benefit-card {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    border-radius: 20px;
+    padding: 32px;
+    transition: all 0.3s ease;
+}
+
+.benefit-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border-color: rgba(37, 99, 235, 0.1);
+}
+
+.benefit-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 12px;
+}
+
+.benefit-card p {
+    color: #6b7280;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* FAQ Section - Cleaner Look */
+.faq-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 0; /* Remove gap, strictly list-like */
+}
+
+.faq-item:first-child {
+    border-top: 1px solid #e5e7eb;
+}
+
+.faq-question {
+    width: 100%;
+    padding: 24px 0;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: color 0.2s;
+}
+
+.faq-question:hover {
+    color: var(--primary-color);
+}
+
+.faq-icon {
+    transition: transform 0.3s ease;
+    color: #9ca3af;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(180deg);
+    color: var(--primary-color);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.faq-answer-inner {
+    padding-bottom: 24px;
+    color: #4b5563;
+    line-height: 1.6;
+}
+
+/* No Calls Section - Refine Typography */
+.section-nocalls {
+    padding: 100px 0;
+    background: #ffffff;
+    text-align: center;
+}
+
+.nocalls-box h2 {
+    font-size: 36px;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 24px;
+}
+
+.nocalls-box p {
+    font-size: 18px;
+    color: #4b5563;
+    max-width: 700px;
+    margin: 0 auto 16px;
+    line-height: 1.6;
+}
+
+.tagline {
+    font-weight: 700;
+    color: var(--primary-color) !important;
+    margin-top: 24px !important;
+}
+
+/* Security Section - Modern List */
+.security-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    max-width: 900px;
+    margin: 48px auto 0;
+}
+
+.security-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #f9fafb;
+    padding: 16px 20px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+}
+
+.security-icon {
+    font-size: 24px;
+}
+
+.security-item span:last-child {
+    font-weight: 500;
+    color: #374151;
 }
