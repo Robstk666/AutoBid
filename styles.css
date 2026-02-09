@@ -217,7 +217,9 @@ svg {
     align-items: center;
     justify-content: flex-start; /* Left aligned content */
     padding-top: 80px;
-    padding-left: 5%; /* Shift to left */
+    /* Expanded padding-left to push content but keep right edge fixed feel */
+    padding-left: 10%;
+    padding-right: 5%;
     overflow: hidden;
     text-align: left; /* Left aligned text base */
 }
@@ -242,7 +244,8 @@ svg {
     position: relative;
     z-index: 10;
     width: 100%;
-    max-width: 600px; /* Narrower block */
+    /* Widen max-width to ensure the text fits on one line */
+    max-width: 800px;
     margin: 0; /* Remove auto margin */
     display: flex;
     flex-direction: column;
@@ -444,9 +447,19 @@ svg {
 }
 
 .glowing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centers the last row if fewer items */
+    gap: 16px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.glowing-card {
+    flex: 0 1 350px; /* Base width */
+    min-width: 300px; /* Minimum width */
+    max-width: 380px; /* Cap width for better centering appearance */
 }
 
 .glow-card {
@@ -1512,8 +1525,8 @@ svg {
 
 .glass-container .glass {
     position: relative;
-    width: 180px;
-    height: 200px;
+    width: 260px; /* Widened from 180px */
+    height: 220px; /* Increased height slightly */
     /* Glassmorphism for light background */
     background: rgba(255, 255, 255, 0.25);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
@@ -1560,7 +1573,8 @@ svg {
     font-weight: 700;
     margin: 0;
     color: #1f2937;
-    white-space: nowrap;
+    /* white-space: nowrap; Removed to allow text wrap */
+    line-height: 1.4;
 }
 
 .glass-icon {
@@ -1624,4 +1638,106 @@ svg {
 /* Specific background for Request Form as requested */
 .section-request {
     background-color: #f1f5f9; /* Slate-100 */
+}
+
+/* ============================================
+   INTERACTIVE HOVER BUTTON (Ported)
+   ============================================ */
+.interactive-hover-btn {
+    position: relative;
+    display: inline-flex; /* Changed to inline-flex for better centering */
+    align-items: center;
+    justify-content: center;
+    width: auto; /* Allow auto width for text, or fixed min-width */
+    min-width: 160px; /* Slightly wider base */
+    height: 48px; /* Fixed height for consistency */
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 9999px;
+    border: 1px solid #e5e7eb; /* border-input/border */
+    background-color: #ffffff; /* bg-background */
+    padding: 8px 24px; /* p-2 equivalent but adjusted */
+    text-align: center;
+    font-weight: 600;
+    color: #000000;
+    transition: all 0.3s ease;
+    text-decoration: none; /* For <a> tags */
+    box-sizing: border-box;
+}
+
+/* Initial Text */
+.interactive-hover-btn .btn-text-initial {
+    display: inline-block;
+    transform: translateX(4px); /* translate-x-1 */
+    transition: all 0.3s ease;
+    opacity: 1;
+}
+
+/* Hover State - Initial Text */
+.interactive-hover-btn:hover .btn-text-initial {
+    transform: translateX(48px); /* translate-x-12 */
+    opacity: 0;
+}
+
+/* Hidden Hover Content (Text + Icon) */
+.interactive-hover-btn .btn-text-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* gap-2 */
+    color: #ffffff; /* text-primary-foreground */
+    opacity: 0;
+    transform: translateX(48px); /* translate-x-12 */
+    transition: all 0.3s ease;
+}
+
+/* Hover State - Hover Content */
+.interactive-hover-btn:hover .btn-text-hover {
+    transform: translateX(-4px); /* -translate-x-1 */
+    opacity: 1;
+}
+
+/* Background Circle Animation */
+.interactive-hover-btn .btn-bg-circle {
+    position: absolute;
+    left: 20%;
+    top: 40%;
+    height: 8px; /* h-2 */
+    width: 8px; /* w-2 */
+    transform: scale(1);
+    border-radius: 8px; /* rounded-lg */
+    background-color: #2563eb; /* bg-primary (using our variable) */
+    transition: all 0.3s ease;
+    z-index: 0;
+}
+
+/* Hover State - Background Circle */
+.interactive-hover-btn:hover .btn-bg-circle {
+    left: 0%;
+    top: 0%;
+    height: 100%;
+    width: 100%;
+    transform: scale(1.8);
+}
+
+/* Ensure text is above background */
+.interactive-hover-btn span,
+.interactive-hover-btn div {
+    position: relative;
+    z-index: 10;
+}
+
+.interactive-hover-btn .btn-bg-circle {
+    z-index: 1;
+}
+
+/* Primary color override to match site theme if needed */
+:root {
+    --primary-foreground: #ffffff;
 }
