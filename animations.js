@@ -431,3 +431,22 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+// Glass Cards Expansion on Scroll (Security Section)
+document.addEventListener('DOMContentLoaded', () => {
+    const glassContainer = document.querySelector('#glass-cards-container');
+    if (glassContainer) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    glassContainer.classList.add('expanded');
+                } else {
+                    glassContainer.classList.remove('expanded');
+                }
+            });
+        }, {
+            threshold: 0.5 // Trigger when 50% visible
+        });
+        observer.observe(glassContainer);
+    }
+});
