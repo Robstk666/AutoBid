@@ -13,6 +13,7 @@
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-input: 0px 2px 3px -1px rgba(0,0,0,0.1), 0px 1px 0px 0px rgba(25,28,33,0.02), 0px 0px 0px 1px rgba(25,28,33,0.08);
     --font-main: 'Manrope', sans-serif;
 }
 
@@ -244,7 +245,8 @@ svg {
     margin: 0;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center; /* Centered alignment */
+    text-align: center; /* Centered text */
 }
 
 .hero-title {
@@ -254,7 +256,7 @@ svg {
     margin-bottom: 32px;
     color: var(--text-dark);
     width: 100%;
-    text-align: left;
+    text-align: center; /* Centered text */
 }
 
 /* ... existing code ... */
@@ -383,7 +385,7 @@ svg {
 }
 
 .hero-logo-large {
-    height: 60px;
+    height: 72px; /* Increased by 20% */
     margin-bottom: 16px;
     display: inline-block;
 }
@@ -392,7 +394,7 @@ svg {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
-    justify-content: flex-start;
+    justify-content: center; /* Centered trust items */
     margin-top: 32px;
     font-size: 14px;
     color: var(--text-light);
@@ -710,7 +712,7 @@ svg {
     border-radius: 24px;
     /* More rounded */
     padding: 48px;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    box-shadow: var(--shadow-input);
     /* Shadow-xl */
     border: 1px solid rgba(0, 0, 0, 0.05);
     max-width: 550px;
@@ -1008,6 +1010,10 @@ svg {
     background-color: #fff;
 }
 
+.aceternity-input::placeholder {
+    color: #a3a3a3; /* neutral-400/500 */
+}
+
 .aceternity-button {
     display: block;
     width: 100%;
@@ -1117,6 +1123,8 @@ svg {
     /* Create a border area via padding or pseudo element */
     /* We'll use a pseudo element for the gradient border */
     z-index: 1;
+    width: fit-content;
+    max-width: 100%;
 }
 
 /* The running border effect */
