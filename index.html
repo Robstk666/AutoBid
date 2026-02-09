@@ -142,30 +142,46 @@
                         <h2>Создайте аккаунт и получите предложения</h2>
                         <p>от СТО и продавцов автозапчастей</p>
                     </div>
-                    <form class="register-form">
-                        <div class="form-grid">
-                            <div class="input-group">
-                                <label>Имя</label>
-                                <input type="text" placeholder="Как к вам обращаться">
+                    <form class="register-form aceternity-form">
+                        <div class="aceternity-row">
+                            <div class="aceternity-input-container">
+                                <label class="aceternity-label" for="firstname">Имя</label>
+                                <input class="aceternity-input" id="firstname" type="text" placeholder="Иван">
                             </div>
-                            <div class="input-group">
-                                <label>Телефон</label>
-                                <input type="tel" placeholder="Для связи с автосервисами">
-                            </div>
-                            <div class="input-group">
-                                <label>Email</label>
-                                <input type="email" placeholder="Для уведомлений и входа">
-                            </div>
-                            <div class="input-group">
-                                <label>Город</label>
-                                <input type="text" placeholder="Чтобы показывать СТО рядом">
+                            <div class="aceternity-input-container">
+                                <label class="aceternity-label" for="phone">Телефон</label>
+                                <input class="aceternity-input" id="phone" type="tel" placeholder="+7 (999) 000-00-00">
                             </div>
                         </div>
-                        <button type="submit" class="btn-primary full-width">Создать аккаунт</button>
-                        <div class="auth-divider">или войти через соцсети</div>
-                        <div class="social-auth">
-                            <button type="button" class="btn-secondary">Google</button>
-                            <button type="button" class="btn-secondary">Яндекс</button>
+
+                        <div class="aceternity-row">
+                            <div class="aceternity-input-container">
+                                <label class="aceternity-label" for="email">Email</label>
+                                <input class="aceternity-input" id="email" type="email" placeholder="ivan@example.com">
+                            </div>
+                            <div class="aceternity-input-container">
+                                <label class="aceternity-label" for="city">Город</label>
+                                <input class="aceternity-input" id="city" type="text" placeholder="Москва">
+                            </div>
+                        </div>
+
+                        <button class="aceternity-button" type="submit">
+                            Создать аккаунт &rarr;
+                            <span class="bottom-gradient"></span>
+                            <span class="bottom-gradient-blur"></span>
+                        </button>
+
+                        <div class="aceternity-divider"></div>
+
+                        <div class="aceternity-socials">
+                            <button type="button" class="aceternity-social-btn">
+                                <span class="text-sm">Google</span>
+                                <span class="bottom-gradient"></span>
+                            </button>
+                            <button type="button" class="aceternity-social-btn">
+                                <span class="text-sm">Яндекс</span>
+                                <span class="bottom-gradient"></span>
+                            </button>
                         </div>
                     </form>
                 </div>
