@@ -1,285 +1,231 @@
 <!DOCTYPE html>
+
 <html lang="ru">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoBid — СТО и продавцы автозапчастей конкурируют за вашу заявку</title>
-    <meta name="description"
-        content="Подайте одну заявку и получите предложения от СТО и продавцов автозапчастей вашего города. Сравните цену, сроки и выберите лучший вариант.">
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
-
-    <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AutoBid — СТО и продавцы автозапчастей конкурируют за вашу заявку</title>
+<meta content="Подайте одну заявку и получите предложения от СТО и продавцов автозапчастей вашего города. Сравните цену, сроки и выберите лучший вариант." name="description"/>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet"/>
 </head>
-
 <body>
-    <!-- PRELOADER -->
-    <div class="preloader" id="preloader">
-        <div class="preloader-logo">
-            <img src="assets/images/logo.png" alt="AutoBid"
-                onerror="this.src='https://via.placeholder.com/140x50?text=AutoBid'">
-        </div>
-    </div>
-
-    <!-- CUSTOM CURSOR -->
-    <div class="custom-cursor" id="custom-cursor"></div>
-
-    <!-- MAIN CONTENT -->
-    <div class="main-content" id="main-content">
-
-        <!-- HEADER -->
-        <header class="header">
-            <div class="nav-container">
-                <a href="/" class="nav-logo">
-                    <img src="assets/images/logo2.png" alt="AutoBid"
-                        onerror="this.src='https://via.placeholder.com/120x40?text=AutoBid'">
-                </a>
-
-                <!-- Centered Navigation Links -->
-                <div class="nav-center-links">
-                    <a href="pages/b2b.html" class="btn-text">Для СТО</a>
-                    <a href="pages/quiz.html" class="btn-text">Квиз</a>
-                </div>
-
-                <div class="nav-actions">
-                    <a href="#" class="btn-text">Войти</a>
-                    <div class="button-container">
-                        <a href="#register" class="real-button"></a>
-                        <div class="button-border">
-                            <div class="button">Создать аккаунт</div>
-                        </div>
-                        <div class="backdrop"></div>
-                        <div class="spin spin-blur"></div>
-                        <div class="spin spin-intense"></div>
-                        <div class="spin spin-inside"></div>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <!-- 1. HERO SECTION -->
-        <section class="hero" id="hero">
-            <!-- Fullscreen Video Background -->
-            <div class="hero-background">
-                <video autoplay muted playsinline class="hero-bg-video">
-                    <source src="assets/videos/hero-background.mp4" type="video/mp4">
-                </video>
-            </div>
-
-            <div class="container">
-                <!-- Text Content -->
-                <div class="hero-text scroll-fade-in">
-                    <h1 class="hero-title">
-                        <div class="hero-logo-wrapper" id="hero-logo-wrapper">
-                            <img src="assets/images/logo.png" alt="AutoBid" class="hero-logo-large">
-                        </div>
+<!-- PRELOADER -->
+<div class="preloader" id="preloader">
+<div class="preloader-logo">
+<img alt="AutoBid" onerror="this.src='https://via.placeholder.com/140x50?text=AutoBid'" src="assets/images/logo.png"/>
+</div>
+</div>
+<!-- CUSTOM CURSOR -->
+<div class="custom-cursor" id="custom-cursor"></div>
+<!-- MAIN CONTENT -->
+<div class="main-content" id="main-content">
+<!-- HEADER -->
+<header class="header">
+<div class="nav-container">
+<a class="nav-logo" href="/">
+<img alt="AutoBid" onerror="this.src='https://via.placeholder.com/120x40?text=AutoBid'" src="assets/images/logo2.png"/>
+</a>
+<!-- Centered Navigation Links -->
+<div class="nav-center-links">
+<a class="btn-text" href="pages/b2b.html">Для СТО</a>
+<a class="btn-text" href="pages/quiz.html">Квиз</a>
+</div>
+<div class="nav-actions">
+<a class="btn-text" href="#">Войти</a>
+<a class="button-drawing type--A" href="#register"><div class="button-drawing__text">Создать аккаунт</div><div class="button-drawing__line"></div><div class="button-drawing__line"></div><div class="button-drawing__drow1"></div><div class="button-drawing__drow2"></div></a>
+</div>
+</div>
+</header>
+<!-- 1. HERO SECTION -->
+<section class="hero" id="hero">
+<!-- Fullscreen Video Background -->
+<div class="hero-background">
+<video autoplay="" class="hero-bg-video" muted="" playsinline="">
+<source src="assets/videos/hero-background.mp4" type="video/mp4"/>
+</video>
+</div>
+<div class="container">
+<!-- Text Content -->
+<div class="hero-text scroll-fade-in">
+<h1 class="hero-title">
+<div class="hero-logo-wrapper" id="hero-logo-wrapper">
+<img alt="AutoBid" class="hero-logo-large" src="assets/images/logo.png"/>
+</div>
                         СТО и продавцы автозапчастей конкурируют за вашу заявку
                     </h1>
-
-                    <!-- SPIN BUTTON -->
-                    <div class="button-container">
-                        <a href="#request" class="real-button"></a>
-                        <div class="button-border">
-                            <div class="button">Получить предложения</div>
-                        </div>
-                        <div class="backdrop"></div>
-                        <div class="spin spin-blur"></div>
-                        <div class="spin spin-intense"></div>
-                        <div class="spin spin-inside"></div>
-                    </div>
-
-                    <div class="hero-trust">
-                        <div class="trust-item">✔ Одна заявка — несколько предложений</div>
-                        <div class="trust-item">✔ Без звонков от автосервисов</div>
-                        <div class="trust-item">✔ Вы сами выбираете, кому доверить ремонт</div>
-                        <div class="trust-item">✔ Бесплатно для автовладельцев</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- WAVE DIVIDER -->
-        <div class="wave-divider">
-            <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
-                <path fill="#F3F4F6" d="M0,50 C360,100 1080,0 1440,50 L1440,100 L0,100 Z"></path>
-            </svg>
-        </div>
-
-        <!-- 2. REGISTRATION SECTION -->
-        <section class="section-register" id="register">
-            <div class="container">
-                <div class="register-card scroll-fade-in">
-                    <div class="register-header">
-                        <h2>Создайте аккаунт и получите предложения</h2>
-                        <p>от СТО и продавцов автозапчастей</p>
-                    </div>
-                    <form class="register-form aceternity-form">
-                        <div class="aceternity-row">
-                            <div class="aceternity-input-container">
-                                <label class="aceternity-label" for="firstname">Имя</label>
-                                <input class="aceternity-input" id="firstname" type="text" placeholder="Иван">
-                            </div>
-                            <div class="aceternity-input-container">
-                                <label class="aceternity-label" for="phone">Телефон</label>
-                                <input class="aceternity-input" id="phone" type="tel" placeholder="+7 (999) 000-00-00">
-                            </div>
-                        </div>
-
-                        <div class="aceternity-row">
-                            <div class="aceternity-input-container">
-                                <label class="aceternity-label" for="email">Email</label>
-                                <input class="aceternity-input" id="email" type="email" placeholder="ivan@example.com">
-                            </div>
-                            <div class="aceternity-input-container">
-                                <label class="aceternity-label" for="city">Город</label>
-                                <input class="aceternity-input" id="city" type="text" placeholder="Москва">
-                            </div>
-                        </div>
-
-                        <button class="aceternity-button" type="submit">
-                            Создать аккаунт &rarr;
+<!-- SPIN BUTTON -->
+<a class="button-drawing type--A" href="#request" style="margin-bottom: 32px;"><div class="button-drawing__text">Получить предложения</div><div class="button-drawing__line"></div><div class="button-drawing__line"></div><div class="button-drawing__drow1"></div><div class="button-drawing__drow2"></div></a>
+<div class="hero-trust">
+<div class="trust-item">✔ Одна заявка — несколько предложений</div>
+<div class="trust-item">✔ Без звонков от автосервисов</div>
+<div class="trust-item">✔ Вы сами выбираете, кому доверить ремонт</div>
+<div class="trust-item">✔ Бесплатно для автовладельцев</div>
+</div>
+</div>
+</div>
+</section>
+<!-- WAVE DIVIDER -->
+<div class="wave-divider">
+<svg preserveaspectratio="none" viewbox="0 0 1440 100">
+<path d="M0,50 C360,100 1080,0 1440,50 L1440,100 L0,100 Z" fill="#F3F4F6"></path>
+</svg>
+</div>
+<!-- 2. REGISTRATION SECTION -->
+<section class="section-register" id="register">
+<div class="container">
+<div class="register-card scroll-fade-in">
+<div class="register-header">
+<h2>Создайте аккаунт и получите предложения</h2>
+<p>от СТО и продавцов автозапчастей</p>
+</div>
+<form class="register-form aceternity-form">
+<div class="aceternity-row">
+<div class="aceternity-input-container">
+<label class="aceternity-label" for="firstname">Имя</label>
+<input class="aceternity-input" id="firstname" placeholder="Иван" type="text"/>
+</div>
+<div class="aceternity-input-container">
+<label class="aceternity-label" for="phone">Телефон</label>
+<input class="aceternity-input" id="phone" placeholder="+7 (999) 000-00-00" type="tel"/>
+</div>
+</div>
+<div class="aceternity-row">
+<div class="aceternity-input-container">
+<label class="aceternity-label" for="email">Email</label>
+<input class="aceternity-input" id="email" placeholder="ivan@example.com" type="email"/>
+</div>
+<div class="aceternity-input-container">
+<label class="aceternity-label" for="city">Город</label>
+<input class="aceternity-input" id="city" placeholder="Москва" type="text"/>
+</div>
+</div>
+<button class="aceternity-button" type="submit">
+                            Создать аккаунт →
                             <span class="bottom-gradient"></span>
-                            <span class="bottom-gradient-blur"></span>
-                        </button>
-
-                        <div class="aceternity-divider"></div>
-
-                        <div class="aceternity-socials">
-                            <button type="button" class="aceternity-social-btn">
-                                <svg class="h-4 w-4 text-neutral-800 dark:text-neutral-300" height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-                                <span class="text-sm">Google</span>
-                                <span class="bottom-gradient"></span>
-                            </button>
-                            <button type="button" class="aceternity-social-btn">
-                                <svg class="h-4 w-4 text-neutral-800 dark:text-neutral-300" height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#000000"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-                                <span class="text-sm">GitHub</span>
-                                <span class="bottom-gradient"></span>
-                            </button>
-                            <button type="button" class="aceternity-social-btn">
-                                <svg class="h-4 w-4 text-neutral-800 dark:text-neutral-300" height="24" width="24" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#00AFF0">
-                                    <path d="M512 251.5c-141.47 0-256.14 116.63-256.14 260.5S370.54 772.5 512 772.5 768.14 655.87 768.14 512 653.46 251.5 512 251.5zm0 493.82c-126.7 0-229.42-104.46-229.42-233.32S385.3 278.68 512 278.68 741.4 383.14 741.4 512 638.7 745.32 512 745.32z"/>
-                                    <path d="M618.23 495.2v-21.3a95.82 95.82 0 0 0-95.47-95.55h-17.11a95.81 95.81 0 0 0-95.44 95.55v21.3l-11.8 11.8a130 130 0 0 1-179.9 0 130.4 130.4 0 0 1 0-184.2 130 130 0 0 1 182.2-1.7l30.4 29.8 28.5-31.5-30.8-30.2a173.35 173.35 0 0 0-243.6 2.3 173.35 173.35 0 0 0 0 245.2 173.35 173.35 0 0 0 240 0l11.4-11.4v21.3a139 139 0 0 1 138.5 138.8h42.9a181.8 181.8 0 0 0-181.4-181.8z"/>
-                                </svg>
-                                <span class="text-sm">OnlyFans</span>
-                                <span class="bottom-gradient"></span>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <!-- 3. PAIN POINTS SECTION -->
-        <section class="section-pain" id="pain">
-            <div class="container">
-                <h2 class="section-title scroll-fade-in">Почему ремонт автомобиля<br>всегда превращается в проблему?
+<span class="bottom-gradient-blur"></span>
+</button>
+<div class="aceternity-divider"></div>
+<div class="aceternity-socials">
+<button class="aceternity-social-btn" type="button">
+<svg class="h-4 w-4 text-neutral-800 dark:text-neutral-300" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path></svg>
+<span class="text-sm">Google</span>
+<span class="bottom-gradient"></span>
+</button>
+<button class="aceternity-social-btn" type="button">
+<svg class="h-4 w-4 text-neutral-800 dark:text-neutral-300" fill="#000000" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg>
+<span class="text-sm">GitHub</span>
+<span class="bottom-gradient"></span>
+</button>
+<button class="aceternity-social-btn" type="button">
+<svg class="h-4 w-4 text-neutral-800 dark:text-neutral-300" fill="#00AFF0" height="24" viewbox="0 0 1024 1024" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M512 251.5c-141.47 0-256.14 116.63-256.14 260.5S370.54 772.5 512 772.5 768.14 655.87 768.14 512 653.46 251.5 512 251.5zm0 493.82c-126.7 0-229.42-104.46-229.42-233.32S385.3 278.68 512 278.68 741.4 383.14 741.4 512 638.7 745.32 512 745.32z"></path>
+<path d="M618.23 495.2v-21.3a95.82 95.82 0 0 0-95.47-95.55h-17.11a95.81 95.81 0 0 0-95.44 95.55v21.3l-11.8 11.8a130 130 0 0 1-179.9 0 130.4 130.4 0 0 1 0-184.2 130 130 0 0 1 182.2-1.7l30.4 29.8 28.5-31.5-30.8-30.2a173.35 173.35 0 0 0-243.6 2.3 173.35 173.35 0 0 0 0 245.2 173.35 173.35 0 0 0 240 0l11.4-11.4v21.3a139 139 0 0 1 138.5 138.8h42.9a181.8 181.8 0 0 0-181.4-181.8z"></path>
+</svg>
+<span class="text-sm">OnlyFans</span>
+<span class="bottom-gradient"></span>
+</button>
+</div>
+</form>
+</div>
+</div>
+</section>
+<!-- 3. PAIN POINTS SECTION -->
+<section class="section-pain" id="pain">
+<div class="container">
+<h2 class="section-title scroll-fade-in">Почему ремонт автомобиля<br/>всегда превращается в проблему?
                 </h2>
-
-                <div class="glowing-grid">
-                    <!-- Item 1: Calls -->
-                    <div class="glowing-card scroll-slide-up delay-1">
-                        <div class="glowing-card-border"></div>
-                        <div class="glowing-card-glow"></div>
-                        <div class="glowing-card-content">
-                            <div class="glowing-card-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #2563eb;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                            </div>
-                            <h3>Бесконечные звонки</h3>
-                            <p>Нужно обзванивать десятки СТО, объяснять одно и то же, тратить часы на поиск.</p>
-                        </div>
-                    </div>
-
-                    <!-- Item 2: Price -->
-                    <div class="glowing-card scroll-slide-up delay-2">
-                        <div class="glowing-card-border"></div>
-                        <div class="glowing-card-glow"></div>
-                        <div class="glowing-card-content">
-                            <div class="glowing-card-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #2563eb;"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                            </div>
-                            <h3>Цены «с потолка»</h3>
-                            <p>Стоимость называют на глаз. В итоге она вырастает в 2-3 раза в процессе ремонта.</p>
-                        </div>
-                    </div>
-
-                    <!-- Item 3: Services -->
-                    <div class="glowing-card scroll-slide-up delay-3">
-                        <div class="glowing-card-border"></div>
-                        <div class="glowing-card-glow"></div>
-                        <div class="glowing-card-content">
-                            <div class="glowing-card-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #2563eb;"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
-                            </div>
-                            <h3>Навязанные услуги</h3>
-                            <p>Мастера находят «новые проблемы», чтобы увеличить чек, пользуясь вашим незнанием.</p>
-                        </div>
-                    </div>
-
-                    <!-- Item 4: Deadlines -->
-                    <div class="glowing-card scroll-slide-up delay-4">
-                        <div class="glowing-card-border"></div>
-                        <div class="glowing-card-glow"></div>
-                        <div class="glowing-card-content">
-                            <div class="glowing-card-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #2563eb;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                            </div>
-                            <h3>Срывы сроков</h3>
-                            <p>«Завтра будет готово» превращается в недели ожидания без машины.</p>
-                        </div>
-                    </div>
-
-                    <!-- Item 5: Risk -->
-                    <div class="glowing-card scroll-slide-up delay-5">
-                        <div class="glowing-card-border"></div>
-                        <div class="glowing-card-glow"></div>
-                        <div class="glowing-card-content">
-                            <div class="glowing-card-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #2563eb;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                            </div>
-                            <h3>Риск и недоверие</h3>
-                            <p>Страшно оставить машину в гараже у незнакомцев без гарантий и договоров.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <p class="pain-summary scroll-fade-in">👉 Вы тратите время, деньги и нервы — ещё до начала ремонта</p>
-            </div>
-        </section>
-
-        <!-- 4. SOLUTION SECTION -->
-        <section class="section-solution" id="solution">
-            <div class="container">
-                <div class="solution-grid">
-                    <div class="solution-text scroll-fade-in">
-                        <h2 class="section-title nowrap">Теперь всё наоборот</h2>
-                        <p class="solution-desc">В AutoBid вы не ищете автосервис.<br>Вы размещаете заявку — автосервисы
+<div class="glowing-grid">
+<!-- Item 1: Calls -->
+<div class="glowing-card scroll-slide-up delay-1">
+<div class="glowing-card-border"></div>
+<div class="glowing-card-glow"></div>
+<div class="glowing-card-content">
+<div class="glowing-card-icon">
+<svg fill="none" height="40" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="color: #2563eb;" viewbox="0 0 24 24" width="40" xmlns="http://www.w3.org/2000/svg"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+</div>
+<h3>Бесконечные звонки</h3>
+<p>Нужно обзванивать десятки СТО, объяснять одно и то же, тратить часы на поиск.</p>
+</div>
+</div>
+<!-- Item 2: Price -->
+<div class="glowing-card scroll-slide-up delay-2">
+<div class="glowing-card-border"></div>
+<div class="glowing-card-glow"></div>
+<div class="glowing-card-content">
+<div class="glowing-card-icon">
+<svg fill="none" height="40" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="color: #2563eb;" viewbox="0 0 24 24" width="40" xmlns="http://www.w3.org/2000/svg"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+</div>
+<h3>Цены «с потолка»</h3>
+<p>Стоимость называют на глаз. В итоге она вырастает в 2-3 раза в процессе ремонта.</p>
+</div>
+</div>
+<!-- Item 3: Services -->
+<div class="glowing-card scroll-slide-up delay-3">
+<div class="glowing-card-border"></div>
+<div class="glowing-card-glow"></div>
+<div class="glowing-card-content">
+<div class="glowing-card-icon">
+<svg fill="none" height="40" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="color: #2563eb;" viewbox="0 0 24 24" width="40" xmlns="http://www.w3.org/2000/svg"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+</div>
+<h3>Навязанные услуги</h3>
+<p>Мастера находят «новые проблемы», чтобы увеличить чек, пользуясь вашим незнанием.</p>
+</div>
+</div>
+<!-- Item 4: Deadlines -->
+<div class="glowing-card scroll-slide-up delay-4">
+<div class="glowing-card-border"></div>
+<div class="glowing-card-glow"></div>
+<div class="glowing-card-content">
+<div class="glowing-card-icon">
+<svg fill="none" height="40" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="color: #2563eb;" viewbox="0 0 24 24" width="40" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+</div>
+<h3>Срывы сроков</h3>
+<p>«Завтра будет готово» превращается в недели ожидания без машины.</p>
+</div>
+</div>
+<!-- Item 5: Risk -->
+<div class="glowing-card scroll-slide-up delay-5">
+<div class="glowing-card-border"></div>
+<div class="glowing-card-glow"></div>
+<div class="glowing-card-content">
+<div class="glowing-card-icon">
+<svg fill="none" height="40" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="color: #2563eb;" viewbox="0 0 24 24" width="40" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+</div>
+<h3>Риск и недоверие</h3>
+<p>Страшно оставить машину в гараже у незнакомцев без гарантий и договоров.</p>
+</div>
+</div>
+</div>
+<p class="pain-summary scroll-fade-in">👉 Вы тратите время, деньги и нервы — ещё до начала ремонта</p>
+</div>
+</section>
+<!-- 4. SOLUTION SECTION -->
+<section class="section-solution" id="solution">
+<div class="container">
+<div class="solution-grid">
+<div class="solution-text scroll-fade-in">
+<h2 class="section-title nowrap">Теперь всё наоборот</h2>
+<p class="solution-desc">В AutoBid вы не ищете автосервис.<br/>Вы размещаете заявку — автосервисы
                             сами предлагают вам условия.</p>
-
-                        <p class="solution-desc">Вы спокойно сравниваете:</p>
-                        <ul class="solution-list">
-                            <li>✓ стоимость ремонта</li>
-                            <li>✓ сроки выполнения</li>
-                            <li>✓ рейтинги и отзывы</li>
-                        </ul>
-
-                        <p class="h3-highlight">И выбираете лучшее предложение.</p>
-                    </div>
-
-                    <!-- Car Interactive Zone (Moved from Hero) -->
-                    <div class="car-container scroll-slide-up delay-2" id="car-zone">
-                        <div class="scratch-container" id="scratch-container"
-                            style="position: relative; width: 100%; height: auto; min-height: 400px; border-radius: 20px; overflow: hidden; cursor: none;">
-                            <!-- Base Image (Damaged) -->
-                            <img id="car-damaged" src="assets/images/car-damaged.png" alt="Do Remonta"
-                                style="width: 100%; height: auto; display: block; object-fit: cover;">
-
-                            <!-- Lens (Window into Fixed) -->
-                            <div id="repair-lens" style="
+<p class="solution-desc">Вы спокойно сравниваете:</p>
+<ul class="solution-list">
+<li>✓ стоимость ремонта</li>
+<li>✓ сроки выполнения</li>
+<li>✓ рейтинги и отзывы</li>
+</ul>
+<p class="h3-highlight">И выбираете лучшее предложение.</p>
+</div>
+<!-- Car Interactive Zone (Moved from Hero) -->
+<div class="car-container scroll-slide-up delay-2" id="car-zone">
+<div class="scratch-container" id="scratch-container" style="position: relative; width: 100%; height: auto; min-height: 400px; border-radius: 20px; overflow: hidden; cursor: none;">
+<!-- Base Image (Damaged) -->
+<img alt="Do Remonta" id="car-damaged" src="assets/images/car-damaged.png" style="width: 100%; height: auto; display: block; object-fit: cover;"/>
+<!-- Lens (Window into Fixed) -->
+<div id="repair-lens" style="
                                 position: absolute; 
                                 top: 0; left: 0; 
                                 width: 200px; height: 200px; 
@@ -292,357 +238,300 @@
                                 pointer-events: none;
                                 background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
                             ">
-                                <!-- Overlay Image (Fixed) - Moved inversely in JS -->
-                                <img id="car-fixed" src="assets/images/car-fixed.png" alt="Posle Remonta" style="
+<!-- Overlay Image (Fixed) - Moved inversely in JS -->
+<img alt="Posle Remonta" id="car-fixed" src="assets/images/car-fixed.png" style="
                                     position: absolute; 
                                     top: 0; left: 0; 
                                     width: auto; height: auto; 
                                     max-width: none;
-                                ">
-                            </div>
-
-                            <div id="scratch-instruction" class="car-instructions"
-                                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; font-size: 24px; font-weight: bold; color: rgba(255,255,255,0.8); text-align: center; text-shadow: 0 2px 10px rgba(0,0,0,0.8); transition: opacity 0.5s;">
+                                "/>
+</div>
+<div class="car-instructions" id="scratch-instruction" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; font-size: 24px; font-weight: bold; color: rgba(255,255,255,0.8); text-align: center; text-shadow: 0 2px 10px rgba(0,0,0,0.8); transition: opacity 0.5s;">
                                 💡 Наведите курсор, чтобы увидеть результат
                             </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. HOW IT WORKS SECTION -->
-        <section class="section-steps" id="steps">
-            <div class="container">
-                <h2 class="section-title center scroll-fade-in">Всего 4 простых шага</h2>
-
-                <div class="steps-container">
-                    <div class="step-card scroll-slide-up delay-1">
-                        <div class="step-num">1</div>
-                        <h3>Опишите повреждения</h3>
-                        <p>автомобиля и загрузите фото</p>
-                    </div>
-                    <div class="step-card scroll-slide-up delay-2">
-                        <div class="step-num">2</div>
-                        <h3>Получите предложения</h3>
-                        <p>от СТО вашего города</p>
-                    </div>
-                    <div class="step-card scroll-slide-up delay-3">
-                        <div class="step-num">3</div>
-                        <h3>Сравните условия</h3>
-                        <p>цену, сроки и рейтинг сервисов</p>
-                    </div>
-                    <div class="step-card scroll-slide-up delay-4">
-                        <div class="step-num">4</div>
-                        <h3>Выберите лучший вариант</h3>
-                        <p>и свяжитесь с СТО</p>
-                    </div>
-                </div>
-
-                <div class="center-cta scroll-fade-in" style="display: flex; justify-content: center;">
-                    <div class="button-container">
-                        <a href="#request" class="real-button"></a>
-                        <div class="button-border">
-                            <div class="button">Получить предложения бесплатно</div>
-                        </div>
-                        <div class="backdrop"></div>
-                        <div class="spin spin-blur"></div>
-                        <div class="spin spin-intense"></div>
-                        <div class="spin spin-inside"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 6. REQUEST FORM SECTION -->
-        <section class="section-request" id="request">
-            <div class="container">
-                <div class="request-card scroll-fade-in">
-                    <div class="register-header">
-                        <h2>Расскажите, что случилось с автомобилем</h2>
-                        <p>Мы найдем лучших мастеров</p>
-                    </div>
-
-                    <form class="aceternity-form">
-                        <div class="aceternity-row">
-                            <div class="aceternity-input-container">
-                                <label class="aceternity-label" for="car-model">Марка и модель автомобиля</label>
-                                <input class="aceternity-input" id="car-model" type="text" placeholder="Например, Toyota Camry 2019">
-                            </div>
-                            <div class="aceternity-input-container">
-                                <label class="aceternity-label" for="car-year">Год выпуска</label>
-                                <input class="aceternity-input" id="car-year" type="text" placeholder="2018">
-                            </div>
-                        </div>
-
-                        <div class="aceternity-row">
-                            <div class="aceternity-input-container">
-                                <label class="aceternity-label" for="damage-desc">Описание повреждений</label>
-                                <textarea class="aceternity-input" id="damage-desc" style="height: auto; padding-top: 12px; min-height: 80px;" placeholder="Кратко опишите, что произошло"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="aceternity-row">
-                            <div class="aceternity-input-container">
-                                <label class="aceternity-label">Фотографии автомобиля</label>
-                                <div class="file-upload-box">
-                                    <span>📷 Нажмите или перетащите фото сюда</span>
-                                    <small>Фото помогут СТО точнее рассчитать стоимость</small>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="aceternity-row">
-                            <div class="aceternity-input-container">
-                                <label class="aceternity-label" for="repair-city">Город ремонта</label>
-                                <input class="aceternity-input" id="repair-city" type="text" placeholder="Москва">
-                            </div>
-                        </div>
-
-                        <div class="button-container" style="width: 100%; display: block;">
-                            <button type="submit" class="real-button" style="width: 100%;"></button>
-                            <div class="button-border" style="width: 100%;">
-                                <div class="button" style="width: 100%;">Отправить заявку</div>
-                            </div>
-                            <div class="backdrop"></div>
-                            <div class="spin spin-blur"></div>
-                            <div class="spin spin-intense"></div>
-                            <div class="spin spin-inside"></div>
-                        </div>
-
-                        <p class="form-note">Бесплатно. Контакты не передаются автосервисам.</p>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <!-- 7. NO CALLS SECTION -->
-        <section class="section-nocalls" id="nocalls">
-            <div class="container">
-                <div class="nocalls-box scroll-fade-in">
-                    <h2 class="section-title">Никаких звонков и навязчивых предложений</h2>
-                    <p>Автосервисы не получают ваши контакты при подаче заявки.<br>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. HOW IT WORKS SECTION -->
+<section class="section-steps" id="steps">
+<div class="container">
+<h2 class="section-title center scroll-fade-in">Всего 4 простых шага</h2>
+<div class="steps-container">
+<div class="step-card scroll-slide-up delay-1">
+<div class="step-num">1</div>
+<h3>Опишите повреждения</h3>
+<p>автомобиля и загрузите фото</p>
+</div>
+<div class="step-card scroll-slide-up delay-2">
+<div class="step-num">2</div>
+<h3>Получите предложения</h3>
+<p>от СТО вашего города</p>
+</div>
+<div class="step-card scroll-slide-up delay-3">
+<div class="step-num">3</div>
+<h3>Сравните условия</h3>
+<p>цену, сроки и рейтинг сервисов</p>
+</div>
+<div class="step-card scroll-slide-up delay-4">
+<div class="step-num">4</div>
+<h3>Выберите лучший вариант</h3>
+<p>и свяжитесь с СТО</p>
+</div>
+</div>
+<div class="center-cta scroll-fade-in" style="display: flex; justify-content: center;">
+<a class="button-drawing type--A" href="#request"><div class="button-drawing__text">Получить предложения</div><div class="button-drawing__line"></div><div class="button-drawing__line"></div><div class="button-drawing__drow1"></div><div class="button-drawing__drow2"></div></a>
+</div>
+</div>
+</section>
+<!-- 6. REQUEST FORM SECTION -->
+<section class="section-request" id="request">
+<div class="container">
+<div class="request-card scroll-fade-in">
+<div class="register-header">
+<h2>Расскажите, что случилось с автомобилем</h2>
+<p>Мы найдем лучших мастеров</p>
+</div>
+<form class="aceternity-form">
+<div class="aceternity-row">
+<div class="aceternity-input-container">
+<label class="aceternity-label" for="car-model">Марка и модель автомобиля</label>
+<input class="aceternity-input" id="car-model" placeholder="Например, Toyota Camry 2019" type="text"/>
+</div>
+<div class="aceternity-input-container">
+<label class="aceternity-label" for="car-year">Год выпуска</label>
+<input class="aceternity-input" id="car-year" placeholder="2018" type="text"/>
+</div>
+</div>
+<div class="aceternity-row">
+<div class="aceternity-input-container">
+<label class="aceternity-label" for="damage-desc">Описание повреждений</label>
+<textarea class="aceternity-input" id="damage-desc" placeholder="Кратко опишите, что произошло" style="height: auto; padding-top: 12px; min-height: 80px;"></textarea>
+</div>
+</div>
+<div class="aceternity-row">
+<div class="aceternity-input-container">
+<label class="aceternity-label">Фотографии автомобиля</label>
+<div class="file-upload-box">
+<span>📷 Нажмите или перетащите фото сюда</span>
+<small>Фото помогут СТО точнее рассчитать стоимость</small>
+</div>
+</div>
+</div>
+<div class="aceternity-row">
+<div class="aceternity-input-container">
+<label class="aceternity-label" for="repair-city">Город ремонта</label>
+<input class="aceternity-input" id="repair-city" placeholder="Москва" type="text"/>
+</div>
+</div>
+<button class="button-drawing type--A" style="width: 100%; border: none; background: transparent;" type="submit"><div class="button-drawing__text">Отправить заявку</div><div class="button-drawing__line"></div><div class="button-drawing__line"></div><div class="button-drawing__drow1"></div><div class="button-drawing__drow2"></div></button>
+<p class="form-note">Бесплатно. Контакты не передаются автосервисам.</p>
+</form>
+</div>
+</div>
+</section>
+<!-- 7. NO CALLS SECTION -->
+<section class="section-nocalls" id="nocalls"><div class="video-bg-container"><video autoplay="" loop="" muted="" playsinline=""><source src="assets/videos/123.mp4" type="video/mp4"/></video><div class="video-overlay"></div></div>
+<div class="container">
+<div class="nocalls-box scroll-fade-in">
+<h2 class="section-title">Никаких звонков и навязчивых предложений</h2>
+<p>Автосервисы не получают ваши контакты при подаче заявки.<br/>
                         Они видят только описание и фотографии повреждений.</p>
-                    <p>Контакты передаются только тому СТО, которое вы выберете.</p>
-                    <p class="tagline">❗ Вы полностью контролируете процесс.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 8. BENEFITS SECTION (ScrollStack) -->
-        <section class="section-benefits scroll-stack-section" id="benefits">
-            <div class="container">
-                <h2 class="section-title center scroll-fade-in" style="margin-bottom: 4rem;">Почему AutoBid выгоднее обычного поиска СТО</h2>
-
-                <!-- Inner container with padding for scroll space -->
-                <div class="scroll-stack-wrapper" style="padding-bottom: 50rem; position: relative;">
-                    <!-- Card 1 -->
-                    <div class="scroll-stack-card benefit-card">
-                        <div class="benefit-icon" style="margin-bottom: 1rem; color: #2563eb;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                        </div>
-                        <h3>Экономите время</h3>
-                        <p>одна заявка вместо десятков звонков</p>
-                    </div>
-                    <!-- Card 2 -->
-                    <div class="scroll-stack-card benefit-card">
-                        <div class="benefit-icon" style="margin-bottom: 1rem; color: #2563eb;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                        </div>
-                        <h3>Экономите деньги</h3>
-                        <p>СТО и продавцы конкурируют за заказ</p>
-                    </div>
-                    <!-- Card 3 -->
-                    <div class="scroll-stack-card benefit-card">
-                        <div class="benefit-icon" style="margin-bottom: 1rem; color: #2563eb;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="20" y2="10"></line><line x1="18" x2="18" y1="20" y2="4"></line><line x1="6" x2="6" y1="20" y2="16"></line></svg>
-                        </div>
-                        <h3>Прозрачные цены</h3>
-                        <p>и реальные сроки выполнения</p>
-                    </div>
-                    <!-- Card 4 -->
-                    <div class="scroll-stack-card benefit-card">
-                        <div class="benefit-icon" style="margin-bottom: 1rem; color: #2563eb;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
-                        </div>
-                        <h3>Свобода выбора</h3>
-                        <p>сами решаете, где ремонтировать</p>
-                    </div>
-                    <!-- Card 5 -->
-                    <div class="scroll-stack-card benefit-card">
-                        <div class="benefit-icon" style="margin-bottom: 1rem; color: #2563eb;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                        </div>
-                        <h3>Рейтинги и отзывы</h3>
-                        <p>видите перед выбором</p>
-                    </div>
-                    <!-- Card 6 -->
-                    <div class="scroll-stack-card benefit-card">
-                        <div class="benefit-icon" style="margin-bottom: 1rem; color: #2563eb;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                        </div>
-                        <h3>Никакого давления</h3>
-                        <p>со стороны продавцов и СТО</p>
-                    </div>
-                </div>
-
-                <p class="benefits-summary scroll-fade-in" style="margin-top: 4rem;">❗ Вы выбираете сервис, а не наоборот.</p>
-            </div>
-        </section>
-
-        <!-- 9. TRUST & SECURITY SECTION -->
-        <section class="section-security" id="security">
-            <h2 class="section-title center" style="margin-bottom: 60px;">Безопасно и прозрачно</h2>
-            <div class="container glass-container" id="glass-cards-container">
-                <div style="--r:-15;" class="glass">
-                    <div class="glass-content">
-                        <h3>Все автосервисы и продавцы проходят проверку перед допуском</h3>
-                    </div>
-                    <div class="glass-icon">
-                        <svg viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                    </div>
-                </div>
-                <div style="--r:-5;" class="glass">
-                    <div class="glass-content">
-                        <h3>Контакты передаются только с вашего согласия</h3>
-                    </div>
-                    <div class="glass-icon">
-                        <svg viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                    </div>
-                </div>
-                <div style="--r:5;" class="glass">
-                    <div class="glass-content">
-                        <h3>Данные защищены шифрованием SSL/TLS</h3>
-                    </div>
-                    <div class="glass-icon">
-                        <svg viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                    </div>
-                </div>
-                <div style="--r:15;" class="glass">
-                    <div class="glass-content">
-                        <h3>Работаем в соответствии с законодательством РФ</h3>
-                    </div>
-                    <div class="glass-icon">
-                        <svg viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-                <!-- 9.5 TESTIMONIALS SECTION -->
-        <section class="section-testimonials" id="testimonials">
-            <div class="container">
-                <h2 class="section-title center">Что говорят автовладельцы</h2>
-
-                <div class="testimonials-wrapper">
-                    <!-- Column 1 -->
-                    <div class="testimonials-column">
-                        <div class="testimonials-track track-down">
-                            <!-- Items inserted by JS -->
-                        </div>
-                    </div>
-                    <!-- Column 2 -->
-                    <div class="testimonials-column">
-                        <div class="testimonials-track track-up">
-                            <!-- Items inserted by JS -->
-                        </div>
-                    </div>
-                    <!-- Column 3 -->
-                    <div class="testimonials-column desktop-only">
-                        <div class="testimonials-track track-down">
-                            <!-- Items inserted by JS -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+<p>Контакты передаются только тому СТО, которое вы выберете.</p>
+<p class="tagline">❗ Вы полностью контролируете процесс.</p>
+</div>
+</div>
+</section>
+<!-- 8. BENEFITS SECTION (ScrollStack) -->
+<section class="section-benefits scroll-stack-section" id="benefits">
+<div class="container">
+<h2 class="section-title center scroll-fade-in" style="margin-bottom: 4rem;">Почему AutoBid выгоднее обычного поиска СТО</h2>
+<!-- Inner container with padding for scroll space -->
+<div class="scroll-stack-wrapper" style="padding-bottom: 50rem; position: relative;">
+<!-- Card 1 -->
+<div class="scroll-stack-card benefit-card">
+<div class="benefit-icon" style="margin-bottom: 1rem; color: #2563eb;">
+<svg fill="none" height="32" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="32" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+</div>
+<h3>Экономите время</h3>
+<p>одна заявка вместо десятков звонков</p>
+</div>
+<!-- Card 2 -->
+<div class="scroll-stack-card benefit-card">
+<div class="benefit-icon" style="margin-bottom: 1rem; color: #2563eb;">
+<svg fill="none" height="32" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="32" xmlns="http://www.w3.org/2000/svg"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+</div>
+<h3>Экономите деньги</h3>
+<p>СТО и продавцы конкурируют за заказ</p>
+</div>
+<!-- Card 3 -->
+<div class="scroll-stack-card benefit-card">
+<div class="benefit-icon" style="margin-bottom: 1rem; color: #2563eb;">
+<svg fill="none" height="32" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="32" xmlns="http://www.w3.org/2000/svg"><line x1="12" x2="12" y1="20" y2="10"></line><line x1="18" x2="18" y1="20" y2="4"></line><line x1="6" x2="6" y1="20" y2="16"></line></svg>
+</div>
+<h3>Прозрачные цены</h3>
+<p>и реальные сроки выполнения</p>
+</div>
+<!-- Card 4 -->
+<div class="scroll-stack-card benefit-card">
+<div class="benefit-icon" style="margin-bottom: 1rem; color: #2563eb;">
+<svg fill="none" height="32" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="32" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+</div>
+<h3>Свобода выбора</h3>
+<p>сами решаете, где ремонтировать</p>
+</div>
+<!-- Card 5 -->
+<div class="scroll-stack-card benefit-card">
+<div class="benefit-icon" style="margin-bottom: 1rem; color: #2563eb;">
+<svg fill="none" height="32" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="32" xmlns="http://www.w3.org/2000/svg"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+</div>
+<h3>Рейтинги и отзывы</h3>
+<p>видите перед выбором</p>
+</div>
+<!-- Card 6 -->
+<div class="scroll-stack-card benefit-card">
+<div class="benefit-icon" style="margin-bottom: 1rem; color: #2563eb;">
+<svg fill="none" height="32" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="32" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+</div>
+<h3>Никакого давления</h3>
+<p>со стороны продавцов и СТО</p>
+</div>
+</div>
+<p class="benefits-summary scroll-fade-in" style="margin-top: 4rem;">❗ Вы выбираете сервис, а не наоборот.</p>
+</div>
+</section>
+<!-- 9. TRUST & SECURITY SECTION -->
+<section class="section-security" id="security">
+<h2 class="section-title center" style="margin-bottom: 60px;">Безопасно и прозрачно</h2>
+<div class="container glass-container" id="glass-cards-container">
+<div class="glass" style="--r:-15;">
+<div class="glass-content">
+<h3>Все автосервисы и продавцы проходят проверку перед допуском</h3>
+</div>
+<div class="glass-icon">
+<svg fill="none" height="1em" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+</div>
+</div>
+<div class="glass" style="--r:-5;">
+<div class="glass-content">
+<h3>Контакты передаются только с вашего согласия</h3>
+</div>
+<div class="glass-icon">
+<svg fill="none" height="1em" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+</div>
+</div>
+<div class="glass" style="--r:5;">
+<div class="glass-content">
+<h3>Данные защищены шифрованием SSL/TLS</h3>
+</div>
+<div class="glass-icon">
+<svg fill="none" height="1em" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+</div>
+</div>
+<div class="glass" style="--r:15;">
+<div class="glass-content">
+<h3>Работаем в соответствии с законодательством РФ</h3>
+</div>
+<div class="glass-icon">
+<svg fill="none" height="1em" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+</div>
+</div>
+</div>
+</section>
+<!-- 9.5 TESTIMONIALS SECTION -->
+<section class="section-testimonials" id="testimonials">
+<div class="container">
+<h2 class="section-title center">Что говорят автовладельцы</h2>
+<div class="testimonials-wrapper">
+<!-- Column 1 -->
+<div class="testimonials-column">
+<div class="testimonials-track track-down">
+<!-- Items inserted by JS -->
+</div>
+</div>
+<!-- Column 2 -->
+<div class="testimonials-column">
+<div class="testimonials-track track-up">
+<!-- Items inserted by JS -->
+</div>
+</div>
+<!-- Column 3 -->
+<div class="testimonials-column desktop-only">
+<div class="testimonials-track track-down">
+<!-- Items inserted by JS -->
+</div>
+</div>
+</div>
+</div>
+</section>
 <!-- 10. FAQ SECTION -->
-        <section class="section-faq" id="faq">
-            <div class="container">
-                <h2 class="section-title center scroll-fade-in">Частые вопросы</h2>
-
-                <div class="faq-wrapper">
-                    <div class="faq-item scroll-slide-up delay-1">
-                        <button class="faq-question">
+<section class="section-faq" id="faq">
+<div class="container">
+<h2 class="section-title center scroll-fade-in">Частые вопросы</h2>
+<div class="faq-wrapper">
+<div class="faq-item scroll-slide-up delay-1">
+<button class="faq-question">
                             Сколько это стоит?
-                            <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-inner">
+                            <svg class="faq-icon" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24">
+<polyline points="6 9 12 15 18 9"></polyline>
+</svg>
+</button>
+<div class="faq-answer">
+<div class="faq-answer-inner">
                                 Для автовладельцев сервис полностью бесплатен.
                             </div>
-                        </div>
-                    </div>
-                    <div class="faq-item scroll-slide-up delay-2">
-                        <button class="faq-question">
+</div>
+</div>
+<div class="faq-item scroll-slide-up delay-2">
+<button class="faq-question">
                             Почему автосервисы отвечают?
-                            <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-inner">
+                            <svg class="faq-icon" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24">
+<polyline points="6 9 12 15 18 9"></polyline>
+</svg>
+</button>
+<div class="faq-answer">
+<div class="faq-answer-inner">
                                 Они платят за участие в заявке и заинтересованы предложить лучшие условия.
                             </div>
-                        </div>
-                    </div>
-                    <div class="faq-item scroll-slide-up delay-3">
-                        <button class="faq-question">
+</div>
+</div>
+<div class="faq-item scroll-slide-up delay-3">
+<button class="faq-question">
                             Мои контакты увидят все?
-                            <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-inner">
+                            <svg class="faq-icon" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24">
+<polyline points="6 9 12 15 18 9"></polyline>
+</svg>
+</button>
+<div class="faq-answer">
+<div class="faq-answer-inner">
                                 Нет. Контакты получает только выбранный вами сервис.
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- FINAL CTA SECTION -->
-        <section class="section-final-cta" id="final-cta">
-            <div class="container scroll-fade-in" style="display: flex; flex-direction: column; align-items: center;">
-                <h2>Получите предложения на ремонт уже сегодня</h2>
-                <p>Без звонков. Без давления. Бесплатно.</p>
-                <div class="button-container">
-                    <a href="#request" class="real-button"></a>
-                    <div class="button-border">
-                        <div class="button">Подать заявку на ремонт</div>
-                    </div>
-                    <div class="backdrop"></div>
-                    <div class="spin spin-blur"></div>
-                    <div class="spin spin-intense"></div>
-                    <div class="spin spin-inside"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- FOOTER -->
-        <footer>
-            <div class="container">
-                <p>&copy; 2024 AutoBid. Все права защищены.</p>
-            </div>
-        </footer>
-
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
-    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-    <script src="lottie-data.js"></script>
-    <script src="animations.js"></script>
-    <script src="cursor.js"></script>
-    <script src="scroll-stack.js"></script>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- FINAL CTA SECTION -->
+<section class="section-final-cta" id="final-cta">
+<div class="container scroll-fade-in" style="display: flex; flex-direction: column; align-items: center;">
+<h2>Получите предложения на ремонт уже сегодня</h2>
+<p>Без звонков. Без давления. Бесплатно.</p>
+<a class="button-drawing type--A" href="#request"><div class="button-drawing__text">Подать заявку на ремонт</div><div class="button-drawing__line"></div><div class="button-drawing__line"></div><div class="button-drawing__drow1"></div><div class="button-drawing__drow2"></div></a>
+</div>
+</section>
+<!-- FOOTER -->
+<footer>
+<div class="container">
+<p>© 2024 AutoBid. Все права защищены.</p>
+</div>
+</footer>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script src="lottie-data.js"></script>
+<script src="animations.js"></script>
+<script src="cursor.js"></script>
+<script src="scroll-stack.js"></script>
 </body>
-
 </html>
