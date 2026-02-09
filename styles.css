@@ -244,14 +244,18 @@ svg {
     z-index: 10;
     max-width: 900px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .hero-title {
     font-size: 48px;
     font-weight: 800;
     line-height: 1.2;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
     color: var(--text-dark);
+    width: 100%;
 }
 
 /* ... existing code ... */
@@ -813,6 +817,7 @@ svg {
     justify-content: center;
     text-decoration: none;
     margin-bottom: 32px;
+    max-width: 100%;
 }
 
 .animated-badge {
@@ -828,6 +833,7 @@ svg {
     transition: all 0.3s ease;
     overflow: hidden;
     backdrop-filter: blur(8px);
+    width: auto;
 }
 
 .animated-badge:hover {
@@ -960,11 +966,12 @@ svg {
     width: 100%;
     border-radius: 6px;
     border: none;
-    background-color: #f9fafb;
+    background-color: #f9fafb; /* bg-gray-50 */
     padding: 0 12px;
     font-size: 14px;
     color: #000;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    /* shadow-input equivalent */
+    box-shadow: 0px 2px 3px -1px rgba(0,0,0,0.1), 0px 1px 0px 0px rgba(25,28,33,0.02), 0px 0px 0px 1px rgba(25,28,33,0.08);
     transition: all 0.4s;
     outline: none;
 }
@@ -986,6 +993,7 @@ svg {
     position: relative;
     cursor: pointer;
     overflow: hidden;
+    /* shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] */
     box-shadow: 0px 1px 0px 0px rgba(255, 255, 255, 0.25) inset, 0px -1px 0px 0px rgba(255, 255, 255, 0.25) inset;
     transition: all 0.2s;
     text-align: center;
@@ -1017,13 +1025,15 @@ svg {
     height: 40px;
     width: 100%;
     border-radius: 6px;
-    background-color: #f9fafb;
+    background-color: #f9fafb; /* bg-gray-50 */
     padding: 0 16px;
     font-weight: 500;
     color: #000;
     border: none;
     cursor: pointer;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    /* shadow-input */
+    box-shadow: 0px 2px 3px -1px rgba(0,0,0,0.1), 0px 1px 0px 0px rgba(25,28,33,0.02), 0px 0px 0px 1px rgba(25,28,33,0.08);
+    transition: background-color 0.2s;
 }
 
 .aceternity-social-btn:hover {
