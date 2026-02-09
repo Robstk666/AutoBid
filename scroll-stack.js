@@ -1,128 +1,101 @@
-// SCROLL STACK (Ported from React)
-// Using Lenis for smooth scrolling
+
+// SCROLL STACK (Simplified & Optimized Deck Animation)
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Configuration
-    const CONFIG = {
-        itemDistance: 100, // Distance between items in stack
-        itemScale: 0.03, // Scale difference per item
-        itemStackDistance: 30, // Visual stack offset
-        stackPosition: '20%', // Where the stack locks
-        scaleEndPosition: '10%', // Where scaling finishes
-        baseScale: 0.85, // Starting scale for cards
-        rotationAmount: 0, // Optional rotation
-        blurAmount: 0, // Optional blur
-    };
-
-    const container = document.querySelector('.scroll-stack-section');
-    const scrollerRef = document.querySelector('.scroll-stack-wrapper');
-    if (!container || !scrollerRef) return;
-
-    // Use window scrolling for this implementation as it wraps a section of the main page
-    // The provided React code had 'useWindowScroll' option. We'll simulate that environment.
-    // However, the CSS `scroll-stack-wrapper` has `overflow: hidden`. We might need to change structure.
-    // Let's check the HTML structure in index.html.
-    // The current structure is: section#benefits > .container > .scroll-stack-wrapper > .scroll-stack-card
-    // The React code expects a "scroll-stack-inner" with lots of padding. Let's adjust HTML first if needed.
-
-    // Actually, let's implement the logic using the existing structure but injecting the spacer.
-    // We need to initialize Lenis globally or for this section. The existing site uses Lenis (from animations.js likely).
-    // Let's assume global Lenis is active or we create a new one if not.
-    // Wait, animations.js usually initializes Lenis on window.
-    // We will hook into the window scroll event.
-
+    const wrapper = document.querySelector('.scroll-stack-wrapper');
     const cards = Array.from(document.querySelectorAll('.scroll-stack-card'));
-    const spacer = document.createElement('div');
-    spacer.className = 'scroll-stack-end';
-    spacer.style.height = '1px';
-    spacer.style.width = '100%';
-    // The spacer needs to be far down to allow scrolling.
-    // The React code has `pb-[50rem]` on inner.
-    scrollerRef.appendChild(spacer);
 
-    // Add padding to wrapper to allow scroll space
-    // scrollerRef.style.paddingBottom = '50rem'; // We can set this in CSS or here
-    // The React code pins items based on window scroll.
+    if (!wrapper || cards.length === 0) return;
 
-    // Helper: Parse percentage
-    const parsePercentage = (value, total) => {
-        if (typeof value === 'string' && value.includes('%')) {
-            return (parseFloat(value) / 100) * total;
+    // Configuration
+    const STACK_OFFSET_TOP = 150; // Sticky top position in pixels
+    const SCROLL_PER_CARD = window.innerHeight * 0.6; // Scroll distance to clear one card
+
+    // Set total wrapper height to allow scrolling through all cards
+    // This creates the scrollable area.
+    const totalHeight = SCROLL_PER_CARD * (cards.length + 1) + window.innerHeight; // Added buffer
+    wrapper.style.height = `${totalHeight}px`;
+    wrapper.style.position = 'relative';
+
+    // Initial Styles for Cards
+    cards.forEach((card, i) => {
+        card.style.position = 'sticky';
+        card.style.top = `${STACK_OFFSET_TOP}px`;
+        card.style.width = '100%';
+        card.style.zIndex = cards.length - i; // Stack order: First is top (highest z-index)
+        card.style.transformOrigin = 'center top';
+        card.style.transition = 'none'; // Remove transition for smooth scroll scrub
+        card.style.willChange = 'transform, opacity';
+    });
+
+    const onScroll = () => {
+        const rect = wrapper.getBoundingClientRect();
+        // Calculate scroll progress relative to the wrapper hitting the sticky point
+        // When rect.top is at STACK_OFFSET_TOP, we start.
+        // We want positive progress: how far have we scrolled PAST the start point?
+        // rect.top decreases as we scroll down.
+        const scrollProgressPx = STACK_OFFSET_TOP - rect.top;
+
+        if (scrollProgressPx < 0) {
+            // Not yet reached the sticky point. Reset all to initial stack.
+            cards.forEach((card, i) => {
+                const y = i * 15; // Visual stack offset (15px per card)
+                const scale = 1 - (i * 0.05); // Visual scale reduction
+                card.style.transform = `translateY(${y}px) scale(${scale})`;
+                card.style.opacity = '1';
+            });
+            return;
         }
-        return parseFloat(value);
-    };
-
-    const calculateProgress = (scrollTop, start, end) => {
-        if (scrollTop < start) return 0;
-        if (scrollTop > end) return 1;
-        return (scrollTop - start) / (end - start);
-    };
-
-    const getOffset = (el) => {
-        const rect = el.getBoundingClientRect();
-        return rect.top + window.scrollY;
-    };
-
-    // Main Update Function
-    const updateTransforms = () => {
-        const scrollTop = window.scrollY;
-        const viewportHeight = window.innerHeight;
-
-        const stackPosPx = parsePercentage(CONFIG.stackPosition, viewportHeight);
-        const scaleEndPx = parsePercentage(CONFIG.scaleEndPosition, viewportHeight);
-
-        const endOffset = getOffset(spacer); // Position of the bottom marker
-
-        // Pin end boundary: when the bottom of the section reaches middle of screen?
-        // The React code uses: `pinEnd = endElementTop - containerHeight / 2`
-        const pinEnd = endOffset - viewportHeight / 2;
 
         cards.forEach((card, i) => {
-            const cardTop = getOffset(card); // Initial position (static)
+            // Each card's animation window starts at i * SCROLL_PER_CARD
+            const myStart = i * SCROLL_PER_CARD;
 
-            // Logic from React:
-            // triggerStart = cardTop - stackPosition - (distance * i)
-            const triggerStart = cardTop - stackPosPx - (CONFIG.itemStackDistance * i);
-            const triggerEnd = cardTop - scaleEndPx;
+            if (scrollProgressPx >= myStart) {
+                // I am active or leaving (or gone)
+                // Calculate progress within my window (0 to 1+)
+                const activeProgress = (scrollProgressPx - myStart) / SCROLL_PER_CARD;
 
-            const pinStart = triggerStart;
+                if (activeProgress > 1) {
+                    // Fully left
+                    // Move way up off screen.
+                    card.style.transform = `translateY(-150vh) scale(1)`;
+                    card.style.opacity = '0';
+                } else {
+                    // Currently leaving animation
+                    // Move UP and Fade Out
+                    const y = -activeProgress * (window.innerHeight * 0.8);
+                    const opacity = 1 - activeProgress;
+                    const scale = 1; // Keep full scale while leaving
 
-            // Scaling
-            const scaleProgress = calculateProgress(scrollTop, triggerStart, triggerEnd);
-            const targetScale = CONFIG.baseScale + (i * CONFIG.itemScale);
-            // Interpolate between 1 and targetScale
-            // React: scale = 1 - scaleProgress * (1 - targetScale)
-            const scale = 1 - scaleProgress * (1 - targetScale);
+                    card.style.transform = `translateY(${y}px) scale(${scale})`;
+                    card.style.opacity = `${opacity}`;
+                }
+            } else {
+                // I am waiting in the stack
+                // Visual position depends on how close I am to becoming active.
+                // Distance in pixels from my start:
+                const distPx = myStart - scrollProgressPx;
+                // Convert to "steps" away (visual index)
+                // e.g. if I am 1 full scroll away, stepsAway = 1.
+                const stepsAway = distPx / SCROLL_PER_CARD;
 
-            // Translation (Pinning)
-            let translateY = 0;
-            const isPinned = scrollTop >= pinStart && scrollTop <= pinEnd;
+                // Visual stack offset logic:
+                // As card above leaves (stepsAway goes 1 -> 0), I move up (15px -> 0px) and grow (0.95 -> 1.0).
 
-            if (isPinned) {
-                // Pin it: counteract scroll + visual stack offset
-                // React: scrollTop - cardTop + stackPosition + stackDistance*i
-                translateY = scrollTop - cardTop + stackPosPx + (CONFIG.itemStackDistance * i);
-            } else if (scrollTop > pinEnd) {
-                // Release at bottom
-                // React: pinEnd - cardTop + stackPosition + stackDistance*i
-                translateY = pinEnd - cardTop + stackPosPx + (CONFIG.itemStackDistance * i);
+                const y = stepsAway * 15; // 15px per step
+                const scale = 1 - (stepsAway * 0.05);
+
+                // Clamp scale to prevent weirdness if scrolling fast
+                const safeScale = Math.max(0.5, Math.min(1, scale));
+
+                card.style.transform = `translateY(${y}px) scale(${safeScale})`;
+                card.style.opacity = '1';
             }
-
-            // Apply
-            card.style.transform = `translate3d(0, ${translateY}px, 0) scale(${scale})`;
-            card.style.zIndex = i + 1;
-
-            // Optional: Opacity/Blur for cards "behind"
-            // The top card (closest to view) should be clear.
-            // Simplified: no blur for now, just stacking.
         });
     };
 
-    // Attach to scroll
-    window.addEventListener('scroll', updateTransforms);
-    window.addEventListener('resize', updateTransforms);
-
-    // Initial call
-    // We need to wait for layout to settle?
-    setTimeout(updateTransforms, 100);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    onScroll(); // Initial paint
 });

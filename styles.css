@@ -1932,3 +1932,442 @@ svg {
   0% { scale: 1; }
   100% { scale: 1.1; }
 }
+
+/* ============================================
+   NEW DRAWING BUTTON STYLE
+   ============================================ */
+
+/* Button type A - Primary Blue */
+.type--A {
+    --line_color: #ffffff; /* White text/lines on blue bg? Wait, user said blue fill. */
+    --back_color: #2563eb; /* Primary Blue */
+    --text_color: #1f2937; /* Dark text initially? */
+}
+
+/* Let's adapt the user's provided CSS to fit the context */
+/* User's CSS had:
+   .type--A { --line_color: #555555; --back_color: #ffecf6; }
+   User said: "цвет закрашивания поставь наш синий" -> so --back_color should be #2563eb
+   And likely want the text/lines to be dark or contrasting initially, then white on hover?
+
+   Actually, looking at the effect:
+   The "back_color" is the fill that animates IN.
+   The "line_color" is the border/text color BEFORE hover.
+
+   So:
+   --line_color: #2563eb (Blue border/text initially)
+   --back_color: #2563eb (Blue fill on hover)
+
+   Wait, if fill is blue, text needs to become white.
+   The provided CSS doesn't seem to swap text color on hover easily without modification.
+   Let's check the CSS carefully.
+
+   .button { color: var(--line_color); }
+
+   There is no color change on hover in the provided CSS.
+   I should add `transition: color 0.3s;` and `.button:hover { color: white; }` if the background becomes dark blue.
+*/
+
+.type--A {
+    --line_color: #2563eb;
+    --back_color: #2563eb;
+}
+
+.button-drawing {
+    position: relative;
+    z-index: 0;
+    width: 240px;
+    height: 56px;
+    text-decoration: none;
+    font-size: 16px; /* Slightly larger for readability */
+    font-weight: bold;
+    color: var(--line_color);
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    display: inline-block; /* Ensure it sits correctly */
+    cursor: pointer;
+    background: transparent; /* Ensure no default bg */
+    border: none; /* Reset standard button styles */
+    padding: 0;
+}
+
+.button-drawing__text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 10;
+}
+
+.button-drawing::before,
+.button-drawing::after,
+.button-drawing__text::before,
+.button-drawing__text::after {
+    content: "";
+    position: absolute;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--line_color);
+    transition: all 0.5s ease;
+}
+
+.button-drawing::before {
+    top: 0;
+    left: 54px;
+    width: calc(100% - 56px * 2 - 16px);
+}
+
+.button-drawing::after {
+    top: 0;
+    right: 54px;
+    width: 8px;
+}
+
+.button-drawing__text::before {
+    bottom: 0;
+    right: 54px;
+    width: calc(100% - 56px * 2 - 16px);
+}
+
+.button-drawing__text::after {
+    bottom: 0;
+    left: 54px;
+    width: 8px;
+}
+
+.button-drawing__line {
+    position: absolute;
+    top: 0;
+    width: 56px;
+    height: 100%;
+    overflow: hidden;
+}
+
+.button-drawing__line::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 150%;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 300px;
+    border: solid 3px var(--line_color);
+}
+
+.button-drawing__line:nth-child(1),
+.button-drawing__line:nth-child(1)::before {
+    left: 0;
+}
+
+.button-drawing__line:nth-child(2),
+.button-drawing__line:nth-child(2)::before {
+    right: 0;
+}
+
+/* Hover States */
+.button-drawing:hover {
+    letter-spacing: 3px; /* Reduced slightly from 6px to prevent layout shift */
+    color: white; /* Text turns white on hover */
+}
+
+.button-drawing:hover::before,
+.button-drawing:hover .button-drawing__text::before {
+    width: 8px;
+    background: white; /* Lines turn white on hover */
+}
+
+.button-drawing:hover::after,
+.button-drawing:hover .button-drawing__text::after {
+    width: calc(100% - 56px * 2 - 16px);
+    background: white;
+}
+
+/* Fix circular borders on hover to be white?
+   The provided CSS doesn't change line color.
+   If the fill is blue, the blue lines will be invisible.
+   We need to target the pseudo-elements of .button-drawing__line on hover.
+*/
+.button-drawing:hover .button-drawing__line::before {
+    border-color: white;
+    transition: border-color 0.3s;
+}
+
+/* Drow (Fill) Animations */
+.button-drawing__drow1,
+.button-drawing__drow2 {
+    position: absolute;
+    z-index: -1;
+    border-radius: 16px;
+    transform-origin: 16px 16px;
+}
+
+.button-drawing__drow1 {
+    top: -16px;
+    left: 40px;
+    width: 32px;
+    height: 0;
+    transform: rotate(30deg);
+}
+
+.button-drawing__drow2 {
+    top: 44px;
+    left: 77px;
+    width: 32px;
+    height: 0;
+    transform: rotate(-127deg);
+}
+
+.button-drawing__drow1::before,
+.button-drawing__drow1::after,
+.button-drawing__drow2::before,
+.button-drawing__drow2::after {
+    content: "";
+    position: absolute;
+}
+
+.button-drawing__drow1::before {
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 32px;
+    border-radius: 16px;
+    transform-origin: 16px 16px;
+    transform: rotate(-60deg);
+}
+
+.button-drawing__drow1::after {
+    top: -10px;
+    left: 45px;
+    width: 0;
+    height: 32px;
+    border-radius: 16px;
+    transform-origin: 16px 16px;
+    transform: rotate(69deg);
+}
+
+.button-drawing__drow2::before {
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 32px;
+    border-radius: 16px;
+    transform-origin: 16px 16px;
+    transform: rotate(-146deg);
+}
+
+.button-drawing__drow2::after {
+    bottom: 26px;
+    left: -40px;
+    width: 0;
+    height: 32px;
+    border-radius: 16px;
+    transform-origin: 16px 16px;
+    transform: rotate(-262deg);
+}
+
+.button-drawing__drow1,
+.button-drawing__drow1::before,
+.button-drawing__drow1::after,
+.button-drawing__drow2,
+.button-drawing__drow2::before,
+.button-drawing__drow2::after {
+    background: var(--back_color);
+}
+
+.button-drawing:hover .button-drawing__drow1 {
+    animation: drow1 ease-in 0.06s;
+    animation-fill-mode: forwards;
+}
+
+.button-drawing:hover .button-drawing__drow1::before {
+    animation: drow2 linear 0.08s 0.06s;
+    animation-fill-mode: forwards;
+}
+
+.button-drawing:hover .button-drawing__drow1::after {
+    animation: drow3 linear 0.03s 0.14s;
+    animation-fill-mode: forwards;
+}
+
+.button-drawing:hover .button-drawing__drow2 {
+    animation: drow4 linear 0.06s 0.2s;
+    animation-fill-mode: forwards;
+}
+
+.button-drawing:hover .button-drawing__drow2::before {
+    animation: drow3 linear 0.03s 0.26s;
+    animation-fill-mode: forwards;
+}
+
+.button-drawing:hover .button-drawing__drow2::after {
+    animation: drow5 linear 0.06s 0.32s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes drow1 {
+    0% { height: 0; }
+    100% { height: 100px; }
+}
+
+@keyframes drow2 {
+    0% { width: 0; opacity: 0; }
+    10% { opacity: 0; }
+    11% { opacity: 1; }
+    100% { width: 120px; }
+}
+
+@keyframes drow3 {
+    0% { width: 0; }
+    100% { width: 80px; }
+}
+
+@keyframes drow4 {
+    0% { height: 0; }
+    100% { height: 120px; }
+}
+
+@keyframes drow5 {
+    0% { width: 0; }
+    100% { width: 124px; }
+}
+
+/* ============================================
+   VIDEO BACKGROUND OVERLAY (For No Calls)
+   ============================================ */
+.video-bg-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.video-bg-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.85); /* White veil */
+    z-index: 1;
+}
+
+/* Adjustments for No Calls Section Content */
+.section-nocalls .container {
+    position: relative;
+    z-index: 2; /* Text above video */
+}
+
+
+/* Update Request Form Section */
+
+/* 1. Aurora Background for Request Section */
+.section-request {
+    position: relative;
+    overflow: hidden;
+    background: #ffffff; /* Fallback */
+    /* Remove padding override here, handle in general or specifically */
+}
+
+/* Add the Aurora effect to .section-request::before */
+.section-request::before {
+    content: "";
+    position: absolute;
+    inset: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 50% 50%, #ffffff 0%, #f3f4f6 20%, #e0f2fe 40%, #ffffff 100%),
+                radial-gradient(circle at 0% 0%, #dbeafe 0%, transparent 50%),
+                radial-gradient(circle at 100% 0%, #e0e7ff 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, #dbeafe 0%, transparent 50%),
+                radial-gradient(circle at 0% 100%, #e0e7ff 0%, transparent 50%);
+    background-size: 50% 50%;
+    filter: blur(60px);
+    opacity: 0.8;
+    z-index: 0;
+    animation: aurora 60s linear infinite;
+    pointer-events: none;
+}
+
+/* Ensure content is above background */
+.section-request .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* 2. Compact Request Card */
+.request-card {
+    /* Use padding: 24px 32px from previous style, but reduce vertical */
+    padding: 20px 32px; /* Reduced vertical padding */
+    margin: 0 auto;
+    /* Ensure no huge margins on elements inside */
+}
+
+/* Compact header */
+.request-card .register-header {
+    margin-bottom: 20px; /* Reduced from 32px */
+}
+
+.request-card .register-header h2 {
+    font-size: 24px; /* Slightly smaller title */
+    margin-bottom: 4px;
+}
+
+.request-card .register-header p {
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+/* Compact inputs */
+.request-card .aceternity-row {
+    margin-bottom: 12px; /* Reduced gap */
+}
+
+.request-card .aceternity-input-container {
+    gap: 4px;
+}
+
+.request-card .aceternity-label {
+    font-size: 13px;
+}
+
+.request-card .aceternity-input {
+    height: 36px; /* Slightly smaller input height */
+    font-size: 14px;
+}
+
+.request-card textarea.aceternity-input {
+    min-height: 60px;
+    padding-top: 8px;
+}
+
+/* Compact file upload */
+.request-card .file-upload-box {
+    padding: 16px;
+    font-size: 13px;
+}
+
+/* Button spacing */
+.request-card .button-container {
+    margin-top: 16px; /* Reduced margin */
+}
+
+.request-card .form-note {
+    margin-top: 12px;
+    font-size: 12px;
+}
+
+/* Remove Aurora from No Calls section */
+.section-nocalls::before {
+    display: none;
+}
