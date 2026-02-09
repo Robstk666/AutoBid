@@ -1,84 +1,128 @@
-// Initialize Lenis
-const lenis = new Lenis({
-    duration: 1.2,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    smoothWheel: true,
-    wheelMultiplier: 1,
-    orientation: 'vertical',
-    gestureOrientation: 'vertical',
-    smoothTouch: false,
-    touchMultiplier: 2,
-});
+// SCROLL STACK (Ported from React)
+// Using Lenis for smooth scrolling
 
-function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-}
-requestAnimationFrame(raf);
-
-// Scroll Stack Logic
 document.addEventListener('DOMContentLoaded', () => {
-    const wrapper = document.querySelector('.scroll-stack-wrapper');
-    const cards = document.querySelectorAll('.scroll-stack-card');
+    // Configuration
+    const CONFIG = {
+        itemDistance: 100, // Distance between items in stack
+        itemScale: 0.03, // Scale difference per item
+        itemStackDistance: 30, // Visual stack offset
+        stackPosition: '20%', // Where the stack locks
+        scaleEndPosition: '10%', // Where scaling finishes
+        baseScale: 0.85, // Starting scale for cards
+        rotationAmount: 0, // Optional rotation
+        blurAmount: 0, // Optional blur
+    };
 
-    if (!wrapper || cards.length === 0) return;
+    const container = document.querySelector('.scroll-stack-section');
+    const scrollerRef = document.querySelector('.scroll-stack-wrapper');
+    if (!container || !scrollerRef) return;
 
-    const stickyTop = 150; // The 'top' value in CSS
-    const gap = 30; // Gap between pinned cards
+    // Use window scrolling for this implementation as it wraps a section of the main page
+    // The provided React code had 'useWindowScroll' option. We'll simulate that environment.
+    // However, the CSS `scroll-stack-wrapper` has `overflow: hidden`. We might need to change structure.
+    // Let's check the HTML structure in index.html.
+    // The current structure is: section#benefits > .container > .scroll-stack-wrapper > .scroll-stack-card
+    // The React code expects a "scroll-stack-inner" with lots of padding. Let's adjust HTML first if needed.
 
-    // Set initial sticky tops to create the stack offset
-    cards.forEach((card, index) => {
-        card.style.top = `${stickyTop + index * gap}px`;
-        card.style.zIndex = index + 1;
-    });
+    // Actually, let's implement the logic using the existing structure but injecting the spacer.
+    // We need to initialize Lenis globally or for this section. The existing site uses Lenis (from animations.js likely).
+    // Let's assume global Lenis is active or we create a new one if not.
+    // Wait, animations.js usually initializes Lenis on window.
+    // We will hook into the window scroll event.
 
-    const updateCards = (scrollTop) => {
-        // Get absolute position of wrapper relative to document
-        // We calculate this dynamically or cache it? Dynamically is safer for reflows, but slightly slower.
-        // Given Lenis, let's cache it and update on resize if needed, or just calc every frame (modern browsers handle it fine).
-        const wrapperRect = wrapper.getBoundingClientRect();
-        const wrapperTop = wrapperRect.top + scrollTop;
+    const cards = Array.from(document.querySelectorAll('.scroll-stack-card'));
+    const spacer = document.createElement('div');
+    spacer.className = 'scroll-stack-end';
+    spacer.style.height = '1px';
+    spacer.style.width = '100%';
+    // The spacer needs to be far down to allow scrolling.
+    // The React code has `pb-[50rem]` on inner.
+    scrollerRef.appendChild(spacer);
 
-        cards.forEach((card, index) => {
-            // Original position of card in document flow
-            const cardTop = wrapperTop + card.offsetTop;
+    // Add padding to wrapper to allow scroll space
+    // scrollerRef.style.paddingBottom = '50rem'; // We can set this in CSS or here
+    // The React code pins items based on window scroll.
 
-            // The scroll position where this card starts sticking
-            // It sticks when (cardTop - scrollTop) = (stickyTop + index * gap)
-            const stickPoint = cardTop - (stickyTop + index * gap);
+    // Helper: Parse percentage
+    const parsePercentage = (value, total) => {
+        if (typeof value === 'string' && value.includes('%')) {
+            return (parseFloat(value) / 100) * total;
+        }
+        return parseFloat(value);
+    };
 
-            // How far have we scrolled past the stick point?
-            const scrollDistance = scrollTop - stickPoint;
+    const calculateProgress = (scrollTop, start, end) => {
+        if (scrollTop < start) return 0;
+        if (scrollTop > end) return 1;
+        return (scrollTop - start) / (end - start);
+    };
 
-            if (scrollDistance > 0) {
-                // We are scrolling past the stick point.
-                // Scale down based on distance.
-                // Scale = 1 - (scrollDistance / 1000) * 0.1
-                let scale = 1 - (scrollDistance / 1000) * 0.1;
-                // Clamp scale
-                if (scale < 0.85) scale = 0.85;
+    const getOffset = (el) => {
+        const rect = el.getBoundingClientRect();
+        return rect.top + window.scrollY;
+    };
 
-                // Blur
-                let blur = (scrollDistance / 500) * 5;
-                if (blur > 5) blur = 5;
+    // Main Update Function
+    const updateTransforms = () => {
+        const scrollTop = window.scrollY;
+        const viewportHeight = window.innerHeight;
 
-                // Opacity fade for very old cards
-                let opacity = 1 - (scrollDistance / 1500);
-                if (opacity < 0.4) opacity = 0.4;
+        const stackPosPx = parsePercentage(CONFIG.stackPosition, viewportHeight);
+        const scaleEndPx = parsePercentage(CONFIG.scaleEndPosition, viewportHeight);
 
-                card.style.transform = `scale(${scale})`;
-                card.style.filter = `blur(${blur}px)`;
-                // card.style.opacity = opacity;
-                // Opacity might conflict with stacking visibility, keeping it simple
-            } else {
-                card.style.transform = `scale(1)`;
-                card.style.filter = `blur(0px)`;
-                // card.style.opacity = 1;
+        const endOffset = getOffset(spacer); // Position of the bottom marker
+
+        // Pin end boundary: when the bottom of the section reaches middle of screen?
+        // The React code uses: `pinEnd = endElementTop - containerHeight / 2`
+        const pinEnd = endOffset - viewportHeight / 2;
+
+        cards.forEach((card, i) => {
+            const cardTop = getOffset(card); // Initial position (static)
+
+            // Logic from React:
+            // triggerStart = cardTop - stackPosition - (distance * i)
+            const triggerStart = cardTop - stackPosPx - (CONFIG.itemStackDistance * i);
+            const triggerEnd = cardTop - scaleEndPx;
+
+            const pinStart = triggerStart;
+
+            // Scaling
+            const scaleProgress = calculateProgress(scrollTop, triggerStart, triggerEnd);
+            const targetScale = CONFIG.baseScale + (i * CONFIG.itemScale);
+            // Interpolate between 1 and targetScale
+            // React: scale = 1 - scaleProgress * (1 - targetScale)
+            const scale = 1 - scaleProgress * (1 - targetScale);
+
+            // Translation (Pinning)
+            let translateY = 0;
+            const isPinned = scrollTop >= pinStart && scrollTop <= pinEnd;
+
+            if (isPinned) {
+                // Pin it: counteract scroll + visual stack offset
+                // React: scrollTop - cardTop + stackPosition + stackDistance*i
+                translateY = scrollTop - cardTop + stackPosPx + (CONFIG.itemStackDistance * i);
+            } else if (scrollTop > pinEnd) {
+                // Release at bottom
+                // React: pinEnd - cardTop + stackPosition + stackDistance*i
+                translateY = pinEnd - cardTop + stackPosPx + (CONFIG.itemStackDistance * i);
             }
+
+            // Apply
+            card.style.transform = `translate3d(0, ${translateY}px, 0) scale(${scale})`;
+            card.style.zIndex = i + 1;
+
+            // Optional: Opacity/Blur for cards "behind"
+            // The top card (closest to view) should be clear.
+            // Simplified: no blur for now, just stacking.
         });
     };
 
-    lenis.on('scroll', (e) => {
-        updateCards(e.scroll);
-    });
+    // Attach to scroll
+    window.addEventListener('scroll', updateTransforms);
+    window.addEventListener('resize', updateTransforms);
+
+    // Initial call
+    // We need to wait for layout to settle?
+    setTimeout(updateTransforms, 100);
 });
