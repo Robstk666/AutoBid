@@ -2,10 +2,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Configuration
     // Increased spacing to avoid overlap issue ("first one runs into second")
-    // Previous spacing was 10px. Let's make it 30px to see clear headers.
+    // Previous spacing was 30px. Increased to 60px to match margins and give breathing room.
     const CONFIG = {
         stackOffsetTop: 150, // Sticky top position in pixels
-        stackSpacing: 30, // Increased vertical spacing
+        stackSpacing: 60, // Increased vertical spacing
         scaleReduction: 0.05, // How much cards shrink
     };
 
