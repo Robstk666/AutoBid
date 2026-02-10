@@ -251,26 +251,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 8.3 Lottie Animation for 'Risk' Icon
-    const riskContainer = document.getElementById('lottie-risk-container');
-    if (riskContainer && typeof lottie !== 'undefined' && typeof riskData !== 'undefined') {
-        const animRisk = lottie.loadAnimation({
-            container: riskContainer,
-            renderer: 'svg',
-            loop: true,
-            autoplay: false,
-            animationData: riskData
-        });
-        animRisk.addEventListener('DOMLoaded', () => {
-            animRisk.goToAndStop(0, true);
-        });
-
-        const cardRisk = riskContainer.closest('.glowing-card');
-        if (cardRisk) {
-            cardRisk.addEventListener('mouseenter', () => animRisk.play());
-            cardRisk.addEventListener('mouseleave', () => animRisk.stop());
-        }
-    }
 
 
     /* ==========================================================================
