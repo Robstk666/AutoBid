@@ -215,13 +215,11 @@ svg {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* Left aligned content */
+    /* Use standard container alignment instead of fixed padding */
+    justify-content: center;
     padding-top: 80px;
-    /* Shifted 25% further left from previous 10% */
-    padding-left: 20%;
-    padding-right: 5%;
     overflow: hidden;
-    text-align: left; /* Left aligned text base */
+    text-align: left;
 }
 
 .hero-background {
@@ -233,6 +231,16 @@ svg {
     z-index: -1;
 }
 
+/* Add gradient overlay to .hero-background */
+.hero-background::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* White 100% left -> White 10% right (transparent 90%?) */
+    background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.1) 100%);
+    z-index: 1; /* Above video */
+}
+
 .hero-bg-video {
     width: 100%;
     height: 100%;
@@ -240,13 +248,23 @@ svg {
     opacity: 0.4;
 }
 
+/* Ensure content is above overlay */
+.hero .container {
+    position: relative;
+    z-index: 2;
+    /* Ensure container aligns left too */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%; /* Take full width of max-width */
+}
+
 .hero-text {
     position: relative;
     z-index: 10;
     width: 100%;
-    /* Widen max-width to ensure the text fits on one line */
     max-width: 800px;
-    margin: 0; /* Remove auto margin */
+    margin: 0;
     display: flex;
     flex-direction: column;
     align-items: flex-start; /* Left align items */
@@ -260,13 +278,61 @@ svg {
     margin-bottom: 32px;
     color: var(--text-dark);
     width: 100%;
-    text-align: left; /* Left aligned text */
+    text-align: left;
 }
 
-/* ... existing code ... */
+.hero-logo-wrapper {
+    display: block;
+    text-align: left;
+    margin-bottom: 16px;
+    width: 100%;
+    /* Margin top is handled inline in HTML as per plan */
+}
+
+.hero-logo-large {
+    height: 72px;
+    margin-bottom: 16px;
+    display: inline-block;
+}
+
+.hero-trust {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: flex-start;
+    margin-top: 32px;
+    font-size: 16px;
+    color: #111827;
+}
+
+.trust-item {
+    background: transparent;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Wave Divider */
+.wave-divider {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    line-height: 0;
+    z-index: 2;
+}
+
+.wave-divider svg {
+    width: 100%;
+    height: 60px;
+}
 
 /* ============================================
-   GLOWING CARDS (Aceternity Port)
+   GLOWING CARDS
    ============================================ */
 .glowing-grid {
     display: grid;
@@ -280,80 +346,36 @@ svg {
 .glowing-card {
     position: relative;
     border-radius: 1.5rem;
-    /* 24px */
-    padding: 3px;
-    /* visual border width */
+    padding: 1px; /* visual border width */
     background: transparent;
     overflow: hidden;
     min-height: 14rem;
     list-style: none;
 }
 
-/* The invisible track for the glow */
-.glowing-card-border {
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-/* The actual glowing gradient - UPDATED for GlowingEffect */
+/* The actual glowing gradient */
 .glowing-card-glow {
     position: absolute;
-    inset: -1px; /* border width */
+    inset: 0;
     border-radius: inherit;
     opacity: var(--active, 0);
     transition: opacity 0.3s;
 
-    /* Conic gradient mask logic from React component */
-    mask-image: linear-gradient(#0000,#0000), conic-gradient(from calc((var(--start, 0) - 20) * 1deg), transparent 0deg, #fff, transparent 40deg);
-    -webkit-mask-image: linear-gradient(#0000,#0000), conic-gradient(from calc((var(--start, 0) - 20) * 1deg), transparent 0deg, #fff, transparent 40deg);
-    mask-composite: intersect;
-    -webkit-mask-composite: source-in; /* Use source-in for WebKit/Chrome which often behaves like intersect for this */
-    mask-clip: padding-box, border-box;
-    -webkit-mask-clip: padding-box, border-box;
-
-    padding: 1px; /* border width */
-    background: radial-gradient(circle, #dd7bbb 10%, #dd7bbb00 20%),
-                radial-gradient(circle at 40% 40%, #d79f1e 5%, #d79f1e00 15%),
-                radial-gradient(circle at 60% 60%, #5a922c 10%, #5a922c00 20%),
-                radial-gradient(circle at 40% 60%, #4c7894 10%, #4c789400 20%),
-                repeating-conic-gradient(
-                  from 236.84deg at 50% 50%,
-                  #dd7bbb 0%,
-                  #d79f1e calc(25% / 5),
-                  #5a922c calc(50% / 5),
-                  #4c7894 calc(75% / 5),
-                  #dd7bbb calc(100% / 5)
-                );
-    background-attachment: fixed;
-}
-
-/* Override with the requested BLUE color scheme (Google/Yandex style) */
-.glowing-card-glow.blue-glow {
-    background: #2563eb; /* Fallback */
-    background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%); /* Blue/Cyan gradient */
-    /* Remove complex gradients if we just want the blue hover effect as requested */
-}
-
-/* Simplified approach as per user request: "Animation when hovering ... color should be blue like on Google/Yandex buttons" */
-/* The user asked to implement the logic, but use the blue color. */
-.glowing-card-glow {
-    background: #3b82f6; /* Blue-500 equivalent */
     background: conic-gradient(from calc((var(--start, 0) - 20) * 1deg), transparent 0deg, #3b82f6 30deg, transparent 60deg);
-    /* We don't need mask composite if we just draw the gradient directly on the pseudo-border layer */
-    -webkit-mask-image: none;
-    mask-image: none;
-}
 
+    /* Masking for border */
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 1;
+}
 
 .glowing-card-content {
     position: relative;
     height: 100%;
     background: #ffffff;
-    border-radius: 1.25rem;
+    border-radius: 1.5rem; /* Match parent */
     padding: 24px;
     z-index: 2;
     display: flex;
@@ -362,17 +384,21 @@ svg {
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-/* Remove square background from icons */
 .glowing-card-icon {
-    width: 60px; /* Increased slightly */
-    height: 60px;
+    width: 100%; /* Allow full width for centering if needed */
+    height: auto;
+    min-height: 60px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    border-radius: 0; /* Remove radius */
-    background: transparent; /* Transparent */
-    border: none; /* Remove border */
+    justify-content: flex-start; /* Default left */
+    background: transparent;
+    border: none;
     margin-bottom: 8px;
+}
+
+/* Center icon for Risk card specifically */
+.glowing-card:last-child .glowing-card-icon {
+    justify-content: center;
 }
 
 .glowing-card h3 {
@@ -388,51 +414,8 @@ svg {
     line-height: 1.5;
 }
 
-.hero-logo-large {
-    height: 72px; /* Increased by 20% */
-    margin-bottom: 16px;
-    display: inline-block;
-}
-
-.hero-trust {
-    display: flex;
-    flex-direction: column; /* Stack vertically */
-    gap: 12px;
-    justify-content: flex-start;
-    margin-top: 32px;
-    font-size: 16px; /* Slightly larger text */
-    color: #111827; /* Darker text */
-}
-
-.trust-item {
-    background: transparent; /* No background */
-    padding: 0;
-    border: none;
-    border-radius: 0;
-    font-weight: 600; /* Bold text */
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-/* Wave Divider */
-.wave-divider {
-    position: absolute;
-    bottom: -1px;
-    /* overlapping slightly to prevent gaps */
-    left: 0;
-    width: 100%;
-    line-height: 0;
-    z-index: 2;
-}
-
-.wave-divider svg {
-    width: 100%;
-    height: 60px;
-}
-
 /* ============================================
-   PAIN POINTS (Glowing Grid)
+   PAIN POINTS
    ============================================ */
 .section-pain {
     padding: 80px 0;
@@ -446,57 +429,12 @@ svg {
     margin-bottom: 48px;
 }
 
-.glowing-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; /* Centers the last row if fewer items */
-    gap: 16px;
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.glowing-card {
-    flex: 0 1 350px; /* Base width */
-    min-width: 300px; /* Minimum width */
-    max-width: 380px; /* Cap width for better centering appearance */
-}
-
-.glow-card {
-    position: relative;
-    background: #fff;
-    border-radius: var(--radius-lg);
-    padding: 32px;
-    box-shadow: var(--shadow-md);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-    transition: transform 0.3s;
-}
-
-.glow-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
-}
-
-.pain-icon-box {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 20px;
-}
-
-.pain-text h3 {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 10px;
-}
-
-.pain-text p {
-    color: var(--text-light);
-    font-size: 16px;
+.center-text {
+    text-align: center !important;
 }
 
 /* ============================================
-   REGISTRATION (Aceternity) & Steps
+   REGISTRATION (Aceternity)
    ============================================ */
 .section-register {
     padding: 80px 0;
@@ -507,7 +445,7 @@ svg {
     background: #ffffff;
     border-radius: 20px;
     padding: 40px;
-    box-shadow: 0px 2px 3px -1px rgba(0,0,0,0.1), 0px 1px 0px 0px rgba(25,28,33,0.02), 0px 0px 0px 1px rgba(25,28,33,0.08); /* shadow-input */
+    box-shadow: 0px 2px 3px -1px rgba(0,0,0,0.1), 0px 1px 0px 0px rgba(25,28,33,0.02), 0px 0px 0px 1px rgba(25,28,33,0.08);
     max-width: 600px;
     margin: 0 auto;
 }
@@ -523,458 +461,7 @@ svg {
     margin-bottom: 8px;
 }
 
-.form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-bottom: 16px;
-}
-
-.input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.input-group label {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-dark);
-}
-
-.input-group input {
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #e5e7eb;
-    font-size: 16px;
-    width: 100%;
-}
-
-.auth-divider {
-    text-align: center;
-    margin: 20px 0;
-    color: var(--text-light);
-    font-size: 14px;
-}
-
-.social-auth {
-    display: flex;
-    gap: 12px;
-}
-
-.social-auth .btn-secondary {
-    flex: 1;
-    text-align: center;
-}
-
-/* Steps Section */
-.section-steps {
-    padding: 80px 0;
-}
-
-.steps-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    margin-bottom: 40px;
-}
-
-.step-card {
-    background: var(--bg-light);
-    padding: 24px;
-    border-radius: var(--radius-lg);
-    text-align: center;
-}
-
-.step-num {
-    background: var(--primary-color);
-    color: white;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    margin: 0 auto 16px;
-}
-
-.step-card h3 {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 8px;
-}
-
-.step-card p {
-    font-size: 14px;
-    color: var(--text-light);
-}
-
-/* ============================================
-   SOLUTION & INTERACTIVE ZONE
-   ============================================ */
-.section-solution {
-    padding: 80px 0;
-    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-    color: white;
-}
-
-.solution-grid {
-    display: grid;
-    grid-template-columns: 0.8fr 1.2fr;
-    gap: 48px;
-    align-items: center;
-}
-
-.solution-text h2 {
-    font-size: 32px;
-    margin-bottom: 24px;
-}
-
-.solution-list li {
-    font-size: 18px;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.h3-highlight {
-    color: #fbbf24;
-    /* Amber */
-    font-size: 20px;
-    font-weight: 700;
-    margin-top: 24px;
-    display: block;
-}
-
-/* Animations */
-.scroll-fade-in {
-    animation: fadeIn 0.6s ease-out forwards;
-    opacity: 0;
-}
-
-.scroll-slide-up {
-    animation: slideUp 0.6s ease-out forwards;
-    opacity: 0;
-    transform: translateY(20px);
-}
-
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes slideUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.delay-1 {
-    animation-delay: 0.1s;
-}
-
-.delay-2 {
-    animation-delay: 0.2s;
-}
-
-.delay-3 {
-    animation-delay: 0.3s;
-}
-
-.delay-4 {
-    animation-delay: 0.4s;
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-    .steps-container {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .solution-grid {
-        grid-template-columns: 1fr;
-        box-sizing: border-box;
-    }
-}
-
-@media (max-width: 600px) {
-    .nav-center-links {
-        display: none;
-    }
-
-    .hero-title {
-        font-size: 32px;
-    }
-
-    .steps-container {
-        grid-template-columns: 1fr;
-    }
-
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* ============================================
-   ACETERNITY STYLE ENHANCEMENTS
-   ============================================ */
-
-/* Card Styling */
-.register-card,
-.request-form-wrapper {
-    background: #ffffff;
-    border-radius: 24px;
-    /* Reduced padding to fit height better */
-    padding: 32px;
-    box-shadow: var(--shadow-input);
-    /* Shadow-xl */
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    max-width: 550px;
-    margin: 0 auto;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Input Styling */
-.input-group input,
-.form-group input,
-.form-group textarea {
-    background-color: #f9fafb;
-    /* bg-gray-50 */
-    border: 1px solid #e5e7eb;
-    /* border-gray-200 */
-    border-radius: 12px;
-    padding: 14px 16px;
-    font-size: 15px;
-    transition: all 0.2s ease;
-    width: 100%;
-    color: #111827;
-    outline: none;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-}
-
-.input-group input:focus,
-.form-group input:focus,
-.form-group textarea:focus {
-    background-color: #fff;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
-}
-
-.input-group label,
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: #374151;
-    /* text-gray-700 */
-    font-size: 14px;
-}
-
-/* Button Gradients */
-.btn-primary,
-.btn-hero {
-    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    position: relative;
-    overflow: hidden;
-    color: white;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-weight: 700;
-}
-
-.btn-primary:hover,
-.btn-hero:hover {
-    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.4);
-    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
-    transform: translateY(-1px);
-}
-
-/* File Upload Box */
-.file-upload-box {
-    border: 2px dashed #d1d5db;
-    border-radius: 12px;
-    padding: 24px;
-    text-align: center;
-    background: #f9fafb;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    color: #6b7280;
-}
-
-.file-upload-box:hover {
-    border-color: var(--primary-color);
-    background: #eff6ff;
-    color: var(--primary-color);
-}
-
-.form-note {
-    text-align: center;
-    margin-top: 16px;
-    font-size: 13px;
-    color: #9ca3af;
-}
-
-/* Benefits Grid */
-.benefits-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 24px;
-    margin-top: 48px;
-}
-
-.benefit-card {
-    background: #fff;
-    padding: 24px;
-    border-radius: 16px;
-    box-shadow: var(--shadow-sm);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    text-align: center;
-    transition: transform 0.2s;
-}
-
-.benefit-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-md);
-    border-color: rgba(37, 99, 235, 0.2);
-}
-
-.benefit-card h3 {
-    color: var(--primary-color);
-    margin-bottom: 8px;
-    font-size: 18px;
-}
-/* ============================================
-   ANIMATED BADGE BUTTON (FIX)
-   ============================================ */
-.animated-badge-container {
-    display: inline-flex;
-    justify-content: center;
-    text-decoration: none;
-    margin-bottom: 32px;
-    max-width: 100%;
-}
-
-.animated-badge {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 8px 16px 8px 12px;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 9999px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    transition: all 0.3s ease;
-    overflow: hidden;
-    backdrop-filter: blur(8px);
-    width: auto;
-}
-
-.animated-badge:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    background: #ffffff;
-    border-color: rgba(37, 99, 235, 0.2);
-}
-
-.badge-svg-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0.6;
-}
-
-.badge-dot-container {
-    position: relative;
-    width: 12px;
-    height: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-}
-
-.badge-dot-outer {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background-color: #2563eb;
-    opacity: 0.2;
-}
-
-.badge-dot-ping {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background-color: #2563eb;
-    animation: badge-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
-    opacity: 0.7;
-}
-
-.badge-dot-inner {
-    position: relative;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: #2563eb;
-}
-
-.badge-divider {
-    width: 1px;
-    height: 16px;
-    background-color: rgba(0, 0, 0, 0.1);
-    z-index: 1;
-}
-
-.badge-text {
-    font-weight: 600;
-    font-size: 14px;
-    color: #374151;
-    z-index: 1;
-}
-
-.badge-icon {
-    width: 16px;
-    height: 16px;
-    color: #9ca3af;
-    transition: transform 0.2s, color 0.2s;
-    z-index: 1;
-}
-
-.animated-badge:hover .badge-icon {
-    transform: translateX(2px);
-    color: #2563eb;
-}
-
-@keyframes badge-ping {
-    75%, 100% {
-        transform: scale(2);
-        opacity: 0;
-    }
-}
-
-/* ============================================
-   ACETERNITY FORM STYLES
-   ============================================ */
+/* ACETERNITY FORM STYLES */
 .aceternity-form {
     margin: 32px 0;
 }
@@ -1013,11 +500,10 @@ svg {
     width: 100%;
     border-radius: 6px;
     border: none;
-    background-color: #f9fafb; /* bg-gray-50 */
+    background-color: #f9fafb;
     padding: 0 12px;
     font-size: 14px;
     color: #000;
-    /* shadow-input equivalent */
     box-shadow: 0px 2px 3px -1px rgba(0,0,0,0.1), 0px 1px 0px 0px rgba(25,28,33,0.02), 0px 0px 0px 1px rgba(25,28,33,0.08);
     transition: all 0.4s;
     outline: none;
@@ -1026,10 +512,6 @@ svg {
 .aceternity-input:focus {
     box-shadow: 0 0 0 2px #9ca3af;
     background-color: #fff;
-}
-
-.aceternity-input::placeholder {
-    color: #a3a3a3; /* neutral-400/500 */
 }
 
 .aceternity-button {
@@ -1044,7 +526,6 @@ svg {
     position: relative;
     cursor: pointer;
     overflow: hidden;
-    /* shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] */
     box-shadow: 0px 1px 0px 0px rgba(255, 255, 255, 0.25) inset, 0px -1px 0px 0px rgba(255, 255, 255, 0.25) inset;
     transition: all 0.2s;
     text-align: center;
@@ -1076,13 +557,12 @@ svg {
     height: 40px;
     width: 100%;
     border-radius: 6px;
-    background-color: #f9fafb; /* bg-gray-50 */
+    background-color: #f9fafb;
     padding: 0 16px;
     font-weight: 500;
     color: #000;
     border: none;
     cursor: pointer;
-    /* shadow-input */
     box-shadow: 0px 2px 3px -1px rgba(0,0,0,0.1), 0px 1px 0px 0px rgba(25,28,33,0.02), 0px 0px 0px 1px rgba(25,28,33,0.08);
     transition: background-color 0.2s;
 }
@@ -1091,7 +571,6 @@ svg {
     background-color: #f3f4f6;
 }
 
-/* Bottom Gradient Effect */
 .bottom-gradient {
     position: absolute;
     bottom: 0;
@@ -1122,1120 +601,64 @@ svg {
 }
 
 /* ============================================
-   PULSE BEAM BUTTON
+   SOLUTION SECTION
    ============================================ */
-.pulse-beam-button {
-    position: relative;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    padding: 12px 24px;
-    background: transparent;
-    border-radius: 9999px;
-    text-decoration: none;
-    color: var(--text-dark);
-    font-weight: 600;
+.section-solution {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: white;
+}
+
+/* Override center align for solution section title */
+.section-solution .section-title {
+    text-align: left;
+    font-size: 48px;
+    line-height: 1.2;
     margin-bottom: 32px;
-    overflow: hidden;
-    cursor: pointer;
-    /* Create a border area via padding or pseudo element */
-    /* We'll use a pseudo element for the gradient border */
-    z-index: 1;
-    width: fit-content;
-    max-width: 100%;
 }
 
-/* The running border effect */
-.pulse-beam-border {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 9999px;
-    padding: 2px; /* Border width */
-    background: linear-gradient(90deg, #18CCFC, #6344F5, #AE48FF, #18CCFC);
-    background-size: 300% 100%;
-    -webkit-mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    animation: pulse-beam-move 4s linear infinite;
+.solution-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    max-width: 1440px;
+    margin: 0 auto;
 }
 
-@keyframes pulse-beam-move {
-    0% { background-position: 0% 0%; }
-    100% { background-position: 100% 0%; }
+.solution-text {
+    max-width: 800px;
 }
 
-/* Inner content background */
-.pulse-beam-button::before {
-    content: "";
-    position: absolute;
-    inset: 2px; /* Match border width */
-    background: white;
-    border-radius: 9999px;
-    z-index: -1;
-}
-
-.pulse-beam-content {
+.solution-list li {
+    font-size: 20px;
+    margin-bottom: 12px;
     display: flex;
     align-items: center;
-    gap: 8px;
-    z-index: 2;
+    gap: 12px;
 }
 
-.pulse-beam-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 15px -3px rgba(99, 68, 245, 0.2);
-    transition: transform 0.2s, box-shadow 0.2s;
+.solution-desc {
+    font-size: 20px;
 }
 
-/* Glowing Card Effect - Corrected Implementation */
-.glowing-card {
-    /* ... existing props ... */
-    position: relative;
-    border-radius: 1.5rem;
-    background: transparent;
-    padding: 1px; /* Gap for border */
-}
-
-/* The glow container */
-.glowing-card-glow {
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px; /* border width */
-
-    /* The gradient that rotates */
-    background: conic-gradient(
-        from calc(var(--start, 0) * 1deg),
-        transparent 0deg,
-        #2563eb 20deg,
-        transparent 40deg
-    );
-
-    /* Hide by default */
-    opacity: var(--active, 0);
-    transition: opacity 0.3s ease;
-
-    /* Masking to create border only */
-    -webkit-mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-
-    pointer-events: none;
-    z-index: 1;
-}
-
-.glowing-card-content {
-    position: relative;
-    z-index: 2;
-    background: #fff;
-    border-radius: inherit;
-    height: 100%;
-    /* ensure content covers the card background if needed */
-}
-
-/* Update request card style to match registration card */
-.request-card {
-    background: #ffffff;
-    border-radius: 20px;
-    /* Reduced padding for compactness */
-    padding: 24px 32px;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+.car-container {
+    width: 100%;
     max-width: 600px;
     margin: 0 auto;
 }
 
-/* Specific compact style for request form text area */
-.request-card textarea.aceternity-input {
-    min-height: 60px; /* Reduced from 80px */
-}
-
 /* ============================================
-   TESTIMONIALS SECTION
+   NO CALLS SECTION
    ============================================ */
-.section-testimonials {
-    padding: 80px 0;
-    background: #f9fafb;
-    overflow: hidden;
-}
-
-.testimonials-wrapper {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-    height: 500px; /* Fixed height for the scrolling area */
-    overflow: hidden;
-    position: relative;
-    mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
-    -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
-}
-
-.testimonials-column {
-    flex: 1;
-    max-width: 320px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-}
-
-.testimonials-track {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    /* Animation duration will be set by JS or default */
-}
-
-/* Animations */
-@keyframes scroll-down {
-    0% { transform: translateY(-50%); }
-    100% { transform: translateY(0%); }
-}
-
-@keyframes scroll-up {
-    0% { transform: translateY(0%); }
-    100% { transform: translateY(-50%); }
-}
-
-.track-down {
-    animation: scroll-down 30s linear infinite;
-}
-
-.track-up {
-    animation: scroll-up 30s linear infinite;
-}
-
-/* Card Styling */
-.testimonial-card {
-    background: #fff;
-    border-radius: 12px;
-    padding: 24px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.testimonial-text {
-    font-size: 14px;
-    color: #4b5563;
-    line-height: 1.5;
-}
-
-.testimonial-author {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 8px;
-}
-
-.testimonial-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background-color: #e5e7eb;
-    overflow: hidden;
-}
-
-.testimonial-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.testimonial-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.testimonial-name {
-    font-weight: 600;
-    font-size: 14px;
-    color: #111827;
-}
-
-.testimonial-role {
-    font-size: 12px;
-    color: #9ca3af;
-}
-
-@media (max-width: 768px) {
-    .desktop-only {
-        display: none;
-    }
-}
-/* ============================================
-   REFINEMENTS & POLISH
-   ============================================ */
-
-/* Benefits Section - Aceternity Vibe */
-.benefit-card {
-    background: #ffffff;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-    border-radius: 20px;
-    padding: 32px;
-    transition: all 0.3s ease;
-}
-
-.benefit-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    border-color: rgba(37, 99, 235, 0.1);
-}
-
-.benefit-card h3 {
-    font-size: 20px;
-    font-weight: 700;
-    color: #111827;
-    margin-bottom: 12px;
-}
-
-.benefit-card p {
-    color: #6b7280;
-    font-size: 15px;
-    line-height: 1.6;
-}
-
-/* FAQ Section - Cleaner Look */
-.faq-wrapper {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.faq-item {
-    border-bottom: 1px solid #e5e7eb;
-    margin-bottom: 0; /* Remove gap, strictly list-like */
-}
-
-.faq-item:first-child {
-    border-top: 1px solid #e5e7eb;
-}
-
-.faq-question {
-    width: 100%;
-    padding: 24px 0;
-    background: none;
-    border: none;
-    text-align: left;
-    font-size: 18px;
-    font-weight: 600;
-    color: #111827;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: color 0.2s;
-}
-
-.faq-question:hover {
-    color: var(--primary-color);
-}
-
-.faq-icon {
-    transition: transform 0.3s ease;
-    color: #9ca3af;
-}
-
-.faq-item.active .faq-icon {
-    transform: rotate(180deg);
-    color: var(--primary-color);
-}
-
-.faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-}
-
-.faq-answer-inner {
-    padding-bottom: 24px;
-    color: #4b5563;
-    line-height: 1.6;
-}
-
-/* No Calls Section - Refine Typography */
 .section-nocalls {
     padding: 100px 0;
-    background: #ffffff; /* Fallback */
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
-
-/* AURORA BACKGROUND ANIMATION */
-.section-nocalls::before {
-    content: "";
-    position: absolute;
-    inset: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at 50% 50%, #ffffff 0%, #f3f4f6 20%, #e0f2fe 40%, #ffffff 100%),
-                radial-gradient(circle at 0% 0%, #dbeafe 0%, transparent 50%),
-                radial-gradient(circle at 100% 0%, #e0e7ff 0%, transparent 50%),
-                radial-gradient(circle at 100% 100%, #dbeafe 0%, transparent 50%),
-                radial-gradient(circle at 0% 100%, #e0e7ff 0%, transparent 50%);
-    background-size: 50% 50%; /* Tiling */
-    filter: blur(60px);
-    opacity: 0.8;
-    z-index: 0;
-    animation: aurora 60s linear infinite;
-}
-
-.section-nocalls .container {
-    position: relative;
-    z-index: 1; /* Ensure text is above aurora */
-}
-
-@keyframes aurora {
-    from {
-        transform: translate(0, 0) rotate(0deg);
-    }
-    to {
-        transform: translate(-10%, -10%) rotate(360deg); /* Gentle movement */
-    }
-}
-
-.nocalls-box h2 {
-    font-size: 36px;
-    font-weight: 800;
-    color: #111827;
-    margin-bottom: 24px;
-}
-
-.nocalls-box p {
-    font-size: 18px;
-    color: #4b5563;
-    max-width: 700px;
-    margin: 0 auto 16px;
-    line-height: 1.6;
-}
-
-.tagline {
-    font-weight: 700;
-    color: var(--primary-color) !important;
-    margin-top: 24px !important;
-}
-
-/* Security Section - Modern List */
-.security-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
-    max-width: 900px;
-    margin: 48px auto 0;
-}
-
-.security-item {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    background: #f9fafb;
-    padding: 16px 20px;
-    border-radius: 12px;
-    border: 1px solid #e5e7eb;
-}
-
-.security-icon {
-    font-size: 24px;
-}
-
-.security-item span:last-child {
-    font-weight: 500;
-    color: #374151;
-}
-
-/* ============================================
-   GLASS CARDS (Security Section)
-   ============================================ */
-.glass-container {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 60px 0;
-    perspective: 1000px;
-}
-
-.glass-container .glass {
-    position: relative;
-    width: 260px; /* Widened from 180px */
-    height: 220px; /* Increased height slightly */
-    /* Glassmorphism for light background */
-    background: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-
-    /* Original logic */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: stretch;
-    transition: 0.5s ease-out;
-    margin: 0 -45px;
-    transform: rotate(calc(var(--r) * 1deg));
-    z-index: 1;
-    overflow: hidden;
-}
-
-/* Hover state OR Expanded state (scroll) */
-.glass-container:hover .glass,
-.glass-container.expanded .glass {
-    transform: rotate(0deg);
-    margin: 0 10px;
-    z-index: 10; /* Bring to front on hover/expand */
-}
-
-/* Ensure hovered item is on top if multiple overlap */
-.glass-container .glass:hover {
-    z-index: 20;
-    transform: scale(1.1);
-}
-
-.glass-content {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 16px 8px;
-    text-align: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.glass-content h3 {
-    font-size: 14px;
-    font-weight: 700;
-    margin: 0;
-    color: #1f2937;
-    /* white-space: nowrap; Removed to allow text wrap */
-    line-height: 1.4;
-}
-
-.glass-icon {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.glass-container .glass svg {
-    width: 48px;
-    height: 48px;
-    color: #2563eb; /* Primary color */
-    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
-}
-
-/* ============================================
-   SCROLL STACK (Benefits Section)
-   ============================================ */
-.section-benefits {
-    background-color: #f8fafc; /* Slate-50 - New background as requested */
-    padding: 100px 0;
-    overflow: hidden; /* Ensure transforms don't cause scrollbar issues */
-}
-
-.scroll-stack-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 800px; /* Limit width for card look */
-    margin: 0 auto;
-    padding-bottom: 20vh; /* Space for scrolling through */
-}
-
-.scroll-stack-card {
-    position: sticky;
-    top: 150px; /* Sticky fallback / base position */
     background: #ffffff;
-    border-radius: 24px;
-    padding: 40px;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 40px; /* Spacing between cards when not stacked */
-    transform-origin: center top;
-    will-change: transform, filter;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    /* Ensure cards stack visually */
-    z-index: 1;
-}
-
-.scroll-stack-card h3 {
-    font-size: 24px;
-    margin-bottom: 12px;
-    color: #1e293b;
-}
-
-.scroll-stack-card p {
-    font-size: 18px;
-    color: #64748b;
-    line-height: 1.6;
-}
-
-/* Specific background for Request Form as requested */
-.section-request {
-    background-color: #f1f5f9; /* Slate-100 */
-}
-
-/* ============================================
-   INTERACTIVE HOVER BUTTON (Ported)
-   ============================================ */
-.interactive-hover-btn {
-    position: relative;
-    display: inline-flex; /* Changed to inline-flex for better centering */
-    align-items: center;
-    justify-content: center;
-    width: auto; /* Allow auto width for text, or fixed min-width */
-    min-width: 160px; /* Slightly wider base */
-    height: 48px; /* Fixed height for consistency */
-    cursor: pointer;
-    overflow: hidden;
-    border-radius: 9999px;
-    border: 1px solid #e5e7eb; /* border-input/border */
-    background-color: #ffffff; /* bg-background */
-    padding: 8px 24px; /* p-2 equivalent but adjusted */
     text-align: center;
-    font-weight: 600;
-    color: #000000;
-    transition: all 0.3s ease;
-    text-decoration: none; /* For <a> tags */
-    box-sizing: border-box;
-}
-
-/* Initial Text */
-.interactive-hover-btn .btn-text-initial {
-    display: inline-block;
-    transform: translateX(4px); /* translate-x-1 */
-    transition: all 0.3s ease;
-    opacity: 1;
-}
-
-/* Hover State - Initial Text */
-.interactive-hover-btn:hover .btn-text-initial {
-    transform: translateX(48px); /* translate-x-12 */
-    opacity: 0;
-}
-
-/* Hidden Hover Content (Text + Icon) */
-.interactive-hover-btn .btn-text-hover {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 10;
-    display: flex;
-    height: 100%;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    gap: 8px; /* gap-2 */
-    color: #ffffff; /* text-primary-foreground */
-    opacity: 0;
-    transform: translateX(48px); /* translate-x-12 */
-    transition: all 0.3s ease;
-}
-
-/* Hover State - Hover Content */
-.interactive-hover-btn:hover .btn-text-hover {
-    transform: translateX(-4px); /* -translate-x-1 */
-    opacity: 1;
-}
-
-/* Background Circle Animation */
-.interactive-hover-btn .btn-bg-circle {
-    position: absolute;
-    left: 20%;
-    top: 40%;
-    height: 8px; /* h-2 */
-    width: 8px; /* w-2 */
-    transform: scale(1);
-    border-radius: 8px; /* rounded-lg */
-    background-color: #2563eb; /* bg-primary (using our variable) */
-    transition: all 0.3s ease;
-    z-index: 0;
-}
-
-/* Hover State - Background Circle */
-.interactive-hover-btn:hover .btn-bg-circle {
-    left: 0%;
-    top: 0%;
-    height: 100%;
-    width: 100%;
-    transform: scale(1.8);
-}
-
-/* Ensure text is above background */
-.interactive-hover-btn span,
-.interactive-hover-btn div {
     position: relative;
-    z-index: 10;
-}
-
-.interactive-hover-btn .btn-bg-circle {
-    z-index: 1;
-}
-
-/* Primary color override to match site theme if needed */
-:root {
-    --primary-foreground: #ffffff;
-}
-/* ============================================
-   SPIN BUTTON (New Style)
-   ============================================ */
-.button-container {
-  position: relative;
-  /* margin: 0 2em; - Removed to allow layout flexibility */
-  display: inline-block;
-  width: auto;
-  height: auto;
-}
-
-.button-border {
-  padding: 3px;
-  position: relative; /* Changed from inset:0 to allow flow */
-  background: #0005;
-  border-radius: 0.875em; /* Match button radius */
-  /* clip-path removed to prevent cutting off if size changes slightly */
-}
-
-.button {
-  justify-content: center;
-  align-items: center;
-  border: none;
-  border-radius: 0.875em;
-  /* Fixed width/height removed to allow text flow, using min/padding instead */
-  min-width: 140px;
-  height: 50px;
-  padding: 0 24px;
-  background: #111215;
-  display: flex;
-  color: #fff;
-  overflow: hidden;
-  font-weight: 600;
-  font-size: 15px;
-  position: relative;
-  z-index: 2;
-}
-
-.real-button {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
-  outline: none;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  opacity: 0; /* Invisible clickable layer */
-}
-
-.backdrop {
-  position: absolute;
-  inset: -20px; /* Slight bleed */
-  background: radial-gradient(
-    circle at 50% 50%,
-    #0000 0,
-    #0000 20%,
-    #111111aa 50%
-  );
-  background-size: 3px 3px;
-  z-index: -1;
-  pointer-events: none;
-}
-
-.spin {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  opacity: 0.5;
-  overflow: hidden;
-  transition: 0.3s;
-  border-radius: inherit; /* Follow parent radius */
-}
-
-.real-button:active ~ .spin,
-.real-button:hover ~ .spin { /* Allow hover to trigger too */
-  opacity: 1;
-}
-
-.spin-blur {
-  filter: blur(2em);
-}
-
-.spin-intense {
-  inset: -0.125em;
-  filter: blur(0.25em);
-  border-radius: 0.75em;
-}
-
-.spin-inside {
-  inset: -2px;
-  border-radius: inherit;
-  filter: blur(2px);
-  z-index: 0;
-}
-
-.spin::before {
-  content: "";
-  position: absolute;
-  inset: -150%;
-  animation:
-    speen 4s linear infinite,
-    woah 4s ease-in-out infinite alternate;
-  animation-play-state: paused;
-}
-
-/* Updated Colors: Blue (#2563eb) and Light Blue (#60a5fa) */
-.spin-blur::before {
-  background: linear-gradient(90deg, #2563eb 30%, #0000 50%, #60a5fa 70%);
-}
-
-.spin-intense::before {
-  background: linear-gradient(90deg, #3b82f6 20%, #0000 45% 55%, #93c5fd 80%);
-}
-
-.spin-inside::before {
-  background: linear-gradient(90deg, #1d4ed8 30%, #0000 45% 55%, #bfdbfe 70%);
-}
-
-.real-button:hover ~ .spin::before {
-  animation-play-state: running;
-}
-
-@keyframes speen {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes woah {
-  0% {
-    transform: scale(1) rotate(0deg);
-  }
-  100% {
-    transform: scale(1.2) rotate(360deg); /* Combine transforms if needed, or separate */
-  }
-}
-/* Fix for rotation/scale conflict */
-@keyframes speen {
-  0% { rotate: 0deg; }
-  100% { rotate: 360deg; }
-}
-@keyframes woah {
-  0% { scale: 1; }
-  100% { scale: 1.1; }
-}
-
-/* ============================================
-   NEW DRAWING BUTTON STYLE
-   ============================================ */
-
-/* Button type A - Primary Blue */
-.type--A {
-    --line_color: #ffffff; /* White text/lines on blue bg? Wait, user said blue fill. */
-    --back_color: #2563eb; /* Primary Blue */
-    --text_color: #1f2937; /* Dark text initially? */
-}
-
-/* Let's adapt the user's provided CSS to fit the context */
-/* User's CSS had:
-   .type--A { --line_color: #555555; --back_color: #ffecf6; }
-   User said: "цвет закрашивания поставь наш синий" -> so --back_color should be #2563eb
-   And likely want the text/lines to be dark or contrasting initially, then white on hover?
-
-   Actually, looking at the effect:
-   The "back_color" is the fill that animates IN.
-   The "line_color" is the border/text color BEFORE hover.
-
-   So:
-   --line_color: #2563eb (Blue border/text initially)
-   --back_color: #2563eb (Blue fill on hover)
-
-   Wait, if fill is blue, text needs to become white.
-   The provided CSS doesn't seem to swap text color on hover easily without modification.
-   Let's check the CSS carefully.
-
-   .button { color: var(--line_color); }
-
-   There is no color change on hover in the provided CSS.
-   I should add `transition: color 0.3s;` and `.button:hover { color: white; }` if the background becomes dark blue.
-*/
-
-.type--A {
-    --line_color: #2563eb;
-    --back_color: #2563eb;
-}
-
-.button-drawing {
-    position: relative;
-    z-index: 0;
-    width: 240px;
-    height: 56px;
-    text-decoration: none;
-    font-size: 16px; /* Slightly larger for readability */
-    font-weight: bold;
-    color: var(--line_color);
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-    display: inline-block; /* Ensure it sits correctly */
-    cursor: pointer;
-    background: transparent; /* Ensure no default bg */
-    border: none; /* Reset standard button styles */
-    padding: 0;
-}
-
-.button-drawing__text {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    z-index: 10;
-}
-
-.button-drawing::before,
-.button-drawing::after,
-.button-drawing__text::before,
-.button-drawing__text::after {
-    content: "";
-    position: absolute;
-    height: 3px;
-    border-radius: 2px;
-    background: var(--line_color);
-    transition: all 0.5s ease;
-}
-
-.button-drawing::before {
-    top: 0;
-    left: 54px;
-    width: calc(100% - 56px * 2 - 16px);
-}
-
-.button-drawing::after {
-    top: 0;
-    right: 54px;
-    width: 8px;
-}
-
-.button-drawing__text::before {
-    bottom: 0;
-    right: 54px;
-    width: calc(100% - 56px * 2 - 16px);
-}
-
-.button-drawing__text::after {
-    bottom: 0;
-    left: 54px;
-    width: 8px;
-}
-
-.button-drawing__line {
-    position: absolute;
-    top: 0;
-    width: 56px;
-    height: 100%;
     overflow: hidden;
 }
 
-.button-drawing__line::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    width: 150%;
-    height: 100%;
-    box-sizing: border-box;
-    border-radius: 300px;
-    border: solid 3px var(--line_color);
-}
-
-.button-drawing__line:nth-child(1),
-.button-drawing__line:nth-child(1)::before {
-    left: 0;
-}
-
-.button-drawing__line:nth-child(2),
-.button-drawing__line:nth-child(2)::before {
-    right: 0;
-}
-
-/* Hover States */
-.button-drawing:hover {
-    letter-spacing: 3px; /* Reduced slightly from 6px to prevent layout shift */
-    color: white; /* Text turns white on hover */
-}
-
-.button-drawing:hover::before,
-.button-drawing:hover .button-drawing__text::before {
-    width: 8px;
-    background: white; /* Lines turn white on hover */
-}
-
-.button-drawing:hover::after,
-.button-drawing:hover .button-drawing__text::after {
-    width: calc(100% - 56px * 2 - 16px);
-    background: white;
-}
-
-/* Fix circular borders on hover to be white?
-   The provided CSS doesn't change line color.
-   If the fill is blue, the blue lines will be invisible.
-   We need to target the pseudo-elements of .button-drawing__line on hover.
-*/
-.button-drawing:hover .button-drawing__line::before {
-    border-color: white;
-    transition: border-color 0.3s;
-}
-
-/* Drow (Fill) Animations */
-.button-drawing__drow1,
-.button-drawing__drow2 {
-    position: absolute;
-    z-index: -1;
-    border-radius: 16px;
-    transform-origin: 16px 16px;
-}
-
-.button-drawing__drow1 {
-    top: -16px;
-    left: 40px;
-    width: 32px;
-    height: 0;
-    transform: rotate(30deg);
-}
-
-.button-drawing__drow2 {
-    top: 44px;
-    left: 77px;
-    width: 32px;
-    height: 0;
-    transform: rotate(-127deg);
-}
-
-.button-drawing__drow1::before,
-.button-drawing__drow1::after,
-.button-drawing__drow2::before,
-.button-drawing__drow2::after {
-    content: "";
-    position: absolute;
-}
-
-.button-drawing__drow1::before {
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 32px;
-    border-radius: 16px;
-    transform-origin: 16px 16px;
-    transform: rotate(-60deg);
-}
-
-.button-drawing__drow1::after {
-    top: -10px;
-    left: 45px;
-    width: 0;
-    height: 32px;
-    border-radius: 16px;
-    transform-origin: 16px 16px;
-    transform: rotate(69deg);
-}
-
-.button-drawing__drow2::before {
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 32px;
-    border-radius: 16px;
-    transform-origin: 16px 16px;
-    transform: rotate(-146deg);
-}
-
-.button-drawing__drow2::after {
-    bottom: 26px;
-    left: -40px;
-    width: 0;
-    height: 32px;
-    border-radius: 16px;
-    transform-origin: 16px 16px;
-    transform: rotate(-262deg);
-}
-
-.button-drawing__drow1,
-.button-drawing__drow1::before,
-.button-drawing__drow1::after,
-.button-drawing__drow2,
-.button-drawing__drow2::before,
-.button-drawing__drow2::after {
-    background: var(--back_color);
-}
-
-.button-drawing:hover .button-drawing__drow1 {
-    animation: drow1 ease-in 0.06s;
-    animation-fill-mode: forwards;
-}
-
-.button-drawing:hover .button-drawing__drow1::before {
-    animation: drow2 linear 0.08s 0.06s;
-    animation-fill-mode: forwards;
-}
-
-.button-drawing:hover .button-drawing__drow1::after {
-    animation: drow3 linear 0.03s 0.14s;
-    animation-fill-mode: forwards;
-}
-
-.button-drawing:hover .button-drawing__drow2 {
-    animation: drow4 linear 0.06s 0.2s;
-    animation-fill-mode: forwards;
-}
-
-.button-drawing:hover .button-drawing__drow2::before {
-    animation: drow3 linear 0.03s 0.26s;
-    animation-fill-mode: forwards;
-}
-
-.button-drawing:hover .button-drawing__drow2::after {
-    animation: drow5 linear 0.06s 0.32s;
-    animation-fill-mode: forwards;
-}
-
-@keyframes drow1 {
-    0% { height: 0; }
-    100% { height: 100px; }
-}
-
-@keyframes drow2 {
-    0% { width: 0; opacity: 0; }
-    10% { opacity: 0; }
-    11% { opacity: 1; }
-    100% { width: 120px; }
-}
-
-@keyframes drow3 {
-    0% { width: 0; }
-    100% { width: 80px; }
-}
-
-@keyframes drow4 {
-    0% { height: 0; }
-    100% { height: 120px; }
-}
-
-@keyframes drow5 {
-    0% { width: 0; }
-    100% { width: 124px; }
-}
-
-/* ============================================
-   VIDEO BACKGROUND OVERLAY (For No Calls)
-   ============================================ */
 .video-bg-container {
     position: absolute;
     top: 0;
@@ -2252,173 +675,171 @@ svg {
     object-fit: cover;
 }
 
+/* Transparent overlay as requested (5%) */
 .video-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.85); /* White veil */
+    background: rgba(255, 255, 255, 0.05);
     z-index: 1;
 }
 
-/* Adjustments for No Calls Section Content */
 .section-nocalls .container {
     position: relative;
-    z-index: 2; /* Text above video */
+    z-index: 2;
 }
 
-
-/* Update Request Form Section */
-
-/* 1. Aurora Background for Request Section */
-.section-request {
-    position: relative;
-    overflow: hidden;
-    background: #ffffff; /* Fallback */
-    /* Remove padding override here, handle in general or specifically */
-}
-
-/* Add the Aurora effect to .section-request::before */
-.section-request::before {
-    content: "";
-    position: absolute;
-    inset: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at 50% 50%, #ffffff 0%, #f3f4f6 20%, #e0f2fe 40%, #ffffff 100%),
-                radial-gradient(circle at 0% 0%, #dbeafe 0%, transparent 50%),
-                radial-gradient(circle at 100% 0%, #e0e7ff 0%, transparent 50%),
-                radial-gradient(circle at 100% 100%, #dbeafe 0%, transparent 50%),
-                radial-gradient(circle at 0% 100%, #e0e7ff 0%, transparent 50%);
-    background-size: 50% 50%;
-    filter: blur(60px);
-    opacity: 0.8;
-    z-index: 0;
-    animation: aurora 60s linear infinite;
-    pointer-events: none;
-}
-
-/* Ensure content is above background */
-.section-request .container {
-    position: relative;
-    z-index: 1;
-}
-
-/* 2. Compact Request Card */
-.request-card {
-    /* Use padding: 24px 32px from previous style, but reduce vertical */
-    padding: 20px 32px; /* Reduced vertical padding */
-    margin: 0 auto;
-    /* Ensure no huge margins on elements inside */
-}
-
-/* Compact header */
-.request-card .register-header {
-    margin-bottom: 20px; /* Reduced from 32px */
-}
-
-.request-card .register-header h2 {
-    font-size: 24px; /* Slightly smaller title */
-    margin-bottom: 4px;
-}
-
-.request-card .register-header p {
-    font-size: 14px;
-    margin-bottom: 0;
-}
-
-/* Compact inputs */
-.request-card .aceternity-row {
-    margin-bottom: 12px; /* Reduced gap */
-}
-
-.request-card .aceternity-input-container {
-    gap: 4px;
-}
-
-.request-card .aceternity-label {
-    font-size: 13px;
-}
-
-.request-card .aceternity-input {
-    height: 36px; /* Slightly smaller input height */
-    font-size: 14px;
-}
-
-.request-card textarea.aceternity-input {
-    min-height: 60px;
-    padding-top: 8px;
-}
-
-/* Compact file upload */
-.request-card .file-upload-box {
-    padding: 16px;
-    font-size: 13px;
-}
-
-/* Button spacing */
-.request-card .button-container {
-    margin-top: 16px; /* Reduced margin */
-}
-
-.request-card .form-note {
-    margin-top: 12px;
-    font-size: 12px;
-}
-
-/* Remove Aurora from No Calls section */
-.section-nocalls::before {
-    display: none;
-}
-
-/* Update No Calls Section Styles */
 .section-nocalls .nocalls-box {
     position: relative;
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
-    /* Apply Glassmorphism Effect */
-    background: rgba(255, 255, 255, 0.45); /* Semi-transparent white */
-    backdrop-filter: blur(12px); /* Blur behind */
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
+    /* Transparent background as requested */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     padding: 40px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    /* Text alignment handled by classes */
 }
 
-/* Ensure text is readable */
 .section-nocalls h2 {
-    color: #111827; /* Dark text */
-    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+    font-size: 48px;
+    line-height: 1.2;
+    margin-bottom: 24px;
+    color: #111827;
+    /* Add white shadow for readability on transparent bg if needed */
+    text-shadow: 0 0 10px rgba(255,255,255,0.5);
 }
 
 .section-nocalls p {
-    color: #1f2937; /* Dark gray */
+    font-size: 20px;
+    text-align: left;
+    margin-bottom: 16px;
+    line-height: 1.6;
+    color: #1f2937;
     font-weight: 500;
 }
 
-/* Update Button Style - Shine Effect */
-/* Revert the previous complex "drawing" button style first? Or just override. */
-/* I will override with the class .button-shine and apply it everywhere. */
+.accent-phrase {
+    color: #2563eb;
+    font-weight: 800;
+    font-size: 24px;
+    margin-top: 16px;
+    display: block;
+}
 
+/* ============================================
+   BENEFITS SECTION
+   ============================================ */
+.section-benefits {
+    background-color: #f8fafc;
+    padding: 100px 0;
+    overflow: hidden;
+}
+
+.scroll-stack-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding-bottom: 20vh;
+}
+
+.scroll-stack-card {
+    position: sticky;
+    top: 150px;
+    background: #2563eb; /* Blue Theme */
+    color: white;
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.4);
+    margin-bottom: 60px; /* Increased margin to prevent sticking */
+    transform-origin: center top;
+    will-change: transform, filter;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1;
+    max-width: 70%;
+    width: 100%;
+}
+
+.scroll-stack-card h3 {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 12px;
+}
+
+.scroll-stack-card p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.scroll-stack-card .benefit-icon {
+    color: white !important;
+    margin-bottom: 1rem;
+}
+
+/* ============================================
+   FINAL CTA SECTION
+   ============================================ */
+.section-final-cta {
+    background-color: #2563eb;
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.section-final-cta h2 {
+    color: white;
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 24px;
+}
+
+.section-final-cta .cta-text-content {
+    font-size: 20px;
+    margin-bottom: 32px;
+    font-weight: 600;
+}
+
+.section-final-cta .button-shine {
+    background: white;
+    color: #2563eb;
+    border-color: white;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+}
+
+.section-final-cta .button-shine:hover {
+    background: white;
+    color: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 20px 30px -5px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   BUTTON SHINE
+   ============================================ */
 .button-shine {
   position: relative;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  padding: 14px 28px; /* Slightly larger padding for touch */
-  border-radius: 99px; /* Rounded pill shape as per design theme */
-  /* User requested: border: 1px solid rgb(61, 106, 255); */
+  padding: 14px 28px;
+  border-radius: 99px;
   border: 1px solid rgb(61, 106, 255);
   font-size: 16px;
-  text-transform: none; /* Keep normal case for readability? Or uppercase per request? Request: uppercase */
   text-transform: uppercase;
   font-weight: 700;
   letter-spacing: 2px;
-  /* User requested: background: transparent; color: #fff; */
-  /* BUT user clarification: "Добавь кнопке синий фон а при наведении он эффект блика" */
-  /* So: Blue background initially. */
   background: rgb(61, 106, 255);
   color: #fff;
   overflow: hidden;
@@ -2426,13 +847,13 @@ svg {
   transition: all 0.2s ease-in;
   cursor: pointer;
   text-decoration: none;
-  width: auto; /* Fit content */
-  min-width: 200px; /* Minimum width */
+  width: auto;
+  min-width: 200px;
 }
 
 .button-shine:hover {
-  background: rgb(61, 106, 255); /* Keep blue */
-  box-shadow: 0 0 30px 5px rgba(0, 142, 236, 0.815); /* Glow effect */
+  background: rgb(61, 106, 255);
+  box-shadow: 0 0 30px 5px rgba(0, 142, 236, 0.815);
   transition: all 0.2s ease-out;
   transform: translateY(-2px);
 }
@@ -2469,344 +890,38 @@ svg {
   }
 }
 
-.button-shine:active {
-  box-shadow: 0 0 0 0 transparent;
-  transition: box-shadow 0.2s ease-in;
-  transform: translateY(0);
+/* Animations Classes */
+.scroll-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+    opacity: 0;
 }
 
-/* Ensure buttons take full width in mobile/forms if needed */
-@media (max-width: 600px) {
-    .button-shine {
-        width: 100%;
+.scroll-slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+@media (max-width: 900px) {
+    .steps-container {
+        grid-template-columns: 1fr 1fr;
+    }
+    .solution-grid {
+        grid-template-columns: 1fr;
     }
 }
 
-/* Tighter Request Form */
-.request-card {
-    padding-bottom: 16px; /* Further reduced from 20px */
-}
-
-.request-card .form-note {
-    margin-top: 8px; /* Further reduced */
-    margin-bottom: 0;
-    font-size: 11px;
-}
-
-.request-card .button-container {
-    margin-top: 12px;
-}
-
-/* Update Hero Styles */
-.hero {
-    /* Align text to left */
-    text-align: left;
-    justify-content: flex-start;
-    align-items: flex-start;
-    /* User said "100% left - 10% right" gradient. */
-    /* This implies a gradient overlay on the video. */
-    /* The video is .hero-background::before or overlay? */
-    /* .hero-background contains a video. We need an overlay ON TOP of the video. */
-}
-
-/* Add gradient overlay to .hero-background */
-.hero-background::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    /* White 100% left -> White 10% right (transparent 90%?) */
-    /* linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0.1) 100%) */
-    background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.1) 100%);
-    z-index: 1; /* Above video */
-}
-
-/* Ensure content is above overlay */
-.hero .container {
-    position: relative;
-    z-index: 2;
-    /* Ensure container aligns left too */
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.hero-text {
-    align-items: flex-start;
-    text-align: left;
-    /* Ensure max-width doesn't constrain it too much if needed */
-    max-width: 100%;
-}
-
-.hero-title {
-    text-align: left;
-}
-
-/* Logo wrapper */
-.hero-logo-wrapper {
-    display: block;
-    text-align: left;
-    margin-bottom: 16px;
-    width: 100%;
-}
-
-/* Update Solution Section Styles */
-
-.section-solution .section-title {
-    /* Match hero title */
-    font-size: 48px; /* Assuming hero title is 48px from earlier inspection */
-    line-height: 1.2;
-    margin-bottom: 32px;
-}
-
-.section-solution .solution-desc,
-.section-solution li {
-    font-size: 20px; /* Assuming hero desc/text is around 20px? Or larger? Let's check hero styles */
-    /* Hero text usually 18-20px. Let's make it consistent. */
-}
-
-/* Make block wider but keep car image size */
-.solution-grid {
-    max-width: 1440px; /* Expand container */
-    margin: 0 auto;
-    /* Current grid is 0.8fr 1.2fr. Maybe change ratio or padding? */
-    /* Increase text column width */
-    grid-template-columns: 1fr 1fr; /* Equal split? Or text wider? */
-    gap: 64px; /* More gap */
-    width: 100%;
-}
-
-.solution-text {
-    max-width: 800px; /* Allow text to be wider */
-}
-
-/* Ensure car container doesn't shrink or grow unexpectedly */
-.car-container {
-    width: 100%;
-    max-width: 600px; /* Keep constraint if needed */
-    margin: 0 auto;
-}
-
-/* Increase highlight text size */
-.h3-highlight {
-    font-size: 24px;
-}
-
-/* Update No Calls Section Styles */
-.section-nocalls .nocalls-box {
-    /* Use gradient overlay similar to Hero? */
-    /* Hero has ::after on background. No Calls has a box overlay. */
-    /* User said: "make the same gradient overlay... match font size". */
-    /* The box itself IS the overlay. */
-    /* So background should be linear-gradient(to right, white 100%, white 10%)? */
-    /* Wait, white 100% at left means solid white. White 10% (opacity 0.1) at right means transparent-ish. */
-    background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.4) 100%);
-    /* Adjust backdrop filter to match or enhance */
-    backdrop-filter: blur(8px);
-
-    /* Font sizes match Hero */
-    max-width: 1000px; /* Wider? Or match hero width? */
-    text-align: left; /* Match hero alignment? Usually yes. */
-    align-items: flex-start;
-    display: flex;
-    flex-direction: column;
-}
-
-.section-nocalls h2 {
-    font-size: 48px; /* Match hero title */
-    line-height: 1.2;
-    margin-bottom: 24px;
-    text-align: left;
-}
-
-.section-nocalls p {
-    font-size: 20px; /* Match hero text */
-    text-align: left;
-    margin-bottom: 16px;
-    line-height: 1.6;
-}
-
-/* Accent Phrase Style (Common) */
-.accent-phrase {
-    color: #2563eb; /* Primary Blue */
-    font-weight: 800; /* Extra Bold */
-    font-size: 24px; /* Larger than body text */
-    margin-top: 16px;
-    display: block;
-}
-
-/* Update Security Section */
-
-.glass-container .glass {
-    flex-direction: column-reverse; /* Swap: Icon (was last) moves to first (visual) */
-    /* Icon was last in DOM, content (text) first. */
-    /* Wait, if Flex Direction is column-reverse, last child (icon) becomes top. */
-    /* Default direction: column. */
-    justify-content: flex-end; /* Icon at top? */
-    padding: 24px;
-    align-items: center; /* Center horizontally */
-}
-
-.glass-content {
-    border-bottom: none; /* Remove separator */
-    border-top: 1px solid rgba(255, 255, 255, 0.2); /* Move separator? Or remove? */
-    padding-top: 16px;
-    padding-bottom: 0;
-}
-
-.glass-icon {
-    flex: 0 0 auto; /* Don't grow */
-    width: 64px; /* Uniform size */
-    height: 64px;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.glass-icon svg {
-    width: 100%; /* Fill container */
-    height: 100%;
-}
-
-/* Update Benefits Section */
-
-.scroll-stack-wrapper {
-    /* Center cards if they are narrower */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.scroll-stack-card {
-    /* 30% narrower */
-    /* Original width: was 100% or contained in .container */
-    /* .benefit-card has padding etc. */
-    /* Let's set max-width relative to previous */
-    max-width: 70%; /* Reduction */
-    width: 100%; /* within max-width */
-
-    /* Blue background */
-    background: #2563eb; /* Primary Blue */
-    color: white; /* Text white */
-
-    /* Adjust border and shadow for blue bg */
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.4);
-}
-
-.scroll-stack-card h3 {
-    color: white; /* Title white */
-}
-
-.scroll-stack-card p {
-    color: rgba(255, 255, 255, 0.9); /* Text light white */
-}
-
-.scroll-stack-card .benefit-icon {
-    color: white !important; /* Icon white */
-}
-
-/* Ensure equal spacing (fix overlap) handled in JS by increasing STACK_OFFSET or SPACING */
-
-/* Update Button Styles - Remove Hover Shadow */
-
-.button-shine {
-    /* Existing box-shadow is: 0 4px 6px rgba(...) */
-    /* Remove hover box-shadow "backlight" */
-}
-
-.button-shine:hover {
-    box-shadow: none; /* Remove "backlight" */
-    /* Keep animation */
-}
-
-/* Final CTA Blue Block */
-.cta-blue-block {
-    background: #2563eb; /* Primary Blue */
-    color: white; /* Text white */
-    padding: 16px 32px;
-    border-radius: 12px;
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 32px; /* Space before button */
-    margin-top: 16px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Update Request Form Section */
-
-/* White Background */
-.section-request {
-    background: #ffffff !important; /* Force white, override gradient */
-}
-
-/* Remove Aurora Effect */
-.section-request::before {
-    display: none;
-}
-
-/* Increase Padding (Expand Boundaries) */
-.section-request {
-    padding-top: 120px; /* Increased from 80px */
-    padding-bottom: 120px;
-}
-
-/* Blue Card */
-.request-card {
-    background: #2563eb; /* Primary Blue */
-    color: white; /* Text white */
-    /* Add border to separate from white bg if needed, or shadow */
-    box-shadow: 0 20px 40px -5px rgba(37, 99, 235, 0.3);
-}
-
-/* Update text inside card to be readable on blue */
-.request-card h2,
-.request-card p,
-.request-card label {
-    color: white !important;
-}
-
-/* Inputs on blue background */
-.request-card .aceternity-input {
-    background: white; /* Keep inputs white */
-    color: #111827; /* Text inside input dark */
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.request-card .aceternity-input:focus {
-    border-color: white;
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
-}
-
-.request-card .file-upload-box {
-    background: rgba(255, 255, 255, 0.1); /* Transparent white */
-    border-color: rgba(255, 255, 255, 0.4);
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.request-card .file-upload-box:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: white;
-    color: white;
-}
-
-/* Request Button on Blue Card */
-.request-card .button-shine {
-    background: white; /* White button */
-    color: #2563eb; /* Blue text */
-    border-color: white;
-}
-
-.request-card .button-shine:hover {
-    background: white;
-    color: #1d4ed8;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* White glow */
-}
-
-.request-card .button-shine::before {
-    background: rgba(37, 99, 235, 0.2); /* Blue shine on white button? Or just white shine */
-    /* Use default white shine, but on white button it might not show well. */
-    /* Let's make shine color subtle grey or blueish */
-    background: rgba(0, 0, 0, 0.1);
+@media (max-width: 600px) {
+    .nav-center-links {
+        display: none;
+    }
+    .hero-title {
+        font-size: 32px;
+    }
+    .steps-container {
+        grid-template-columns: 1fr;
+    }
+    .form-grid, .aceternity-row {
+        flex-direction: column;
+    }
 }
