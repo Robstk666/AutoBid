@@ -2496,3 +2496,317 @@ svg {
 .request-card .button-container {
     margin-top: 12px;
 }
+
+/* Update Hero Styles */
+.hero {
+    /* Align text to left */
+    text-align: left;
+    justify-content: flex-start;
+    align-items: flex-start;
+    /* User said "100% left - 10% right" gradient. */
+    /* This implies a gradient overlay on the video. */
+    /* The video is .hero-background::before or overlay? */
+    /* .hero-background contains a video. We need an overlay ON TOP of the video. */
+}
+
+/* Add gradient overlay to .hero-background */
+.hero-background::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* White 100% left -> White 10% right (transparent 90%?) */
+    /* linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0.1) 100%) */
+    background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.1) 100%);
+    z-index: 1; /* Above video */
+}
+
+/* Ensure content is above overlay */
+.hero .container {
+    position: relative;
+    z-index: 2;
+    /* Ensure container aligns left too */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.hero-text {
+    align-items: flex-start;
+    text-align: left;
+    /* Ensure max-width doesn't constrain it too much if needed */
+    max-width: 100%;
+}
+
+.hero-title {
+    text-align: left;
+}
+
+/* Logo wrapper */
+.hero-logo-wrapper {
+    display: block;
+    text-align: left;
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+/* Update Solution Section Styles */
+
+.section-solution .section-title {
+    /* Match hero title */
+    font-size: 48px; /* Assuming hero title is 48px from earlier inspection */
+    line-height: 1.2;
+    margin-bottom: 32px;
+}
+
+.section-solution .solution-desc,
+.section-solution li {
+    font-size: 20px; /* Assuming hero desc/text is around 20px? Or larger? Let's check hero styles */
+    /* Hero text usually 18-20px. Let's make it consistent. */
+}
+
+/* Make block wider but keep car image size */
+.solution-grid {
+    max-width: 1440px; /* Expand container */
+    margin: 0 auto;
+    /* Current grid is 0.8fr 1.2fr. Maybe change ratio or padding? */
+    /* Increase text column width */
+    grid-template-columns: 1fr 1fr; /* Equal split? Or text wider? */
+    gap: 64px; /* More gap */
+    width: 100%;
+}
+
+.solution-text {
+    max-width: 800px; /* Allow text to be wider */
+}
+
+/* Ensure car container doesn't shrink or grow unexpectedly */
+.car-container {
+    width: 100%;
+    max-width: 600px; /* Keep constraint if needed */
+    margin: 0 auto;
+}
+
+/* Increase highlight text size */
+.h3-highlight {
+    font-size: 24px;
+}
+
+/* Update No Calls Section Styles */
+.section-nocalls .nocalls-box {
+    /* Use gradient overlay similar to Hero? */
+    /* Hero has ::after on background. No Calls has a box overlay. */
+    /* User said: "make the same gradient overlay... match font size". */
+    /* The box itself IS the overlay. */
+    /* So background should be linear-gradient(to right, white 100%, white 10%)? */
+    /* Wait, white 100% at left means solid white. White 10% (opacity 0.1) at right means transparent-ish. */
+    background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.4) 100%);
+    /* Adjust backdrop filter to match or enhance */
+    backdrop-filter: blur(8px);
+
+    /* Font sizes match Hero */
+    max-width: 1000px; /* Wider? Or match hero width? */
+    text-align: left; /* Match hero alignment? Usually yes. */
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+}
+
+.section-nocalls h2 {
+    font-size: 48px; /* Match hero title */
+    line-height: 1.2;
+    margin-bottom: 24px;
+    text-align: left;
+}
+
+.section-nocalls p {
+    font-size: 20px; /* Match hero text */
+    text-align: left;
+    margin-bottom: 16px;
+    line-height: 1.6;
+}
+
+/* Accent Phrase Style (Common) */
+.accent-phrase {
+    color: #2563eb; /* Primary Blue */
+    font-weight: 800; /* Extra Bold */
+    font-size: 24px; /* Larger than body text */
+    margin-top: 16px;
+    display: block;
+}
+
+/* Update Security Section */
+
+.glass-container .glass {
+    flex-direction: column-reverse; /* Swap: Icon (was last) moves to first (visual) */
+    /* Icon was last in DOM, content (text) first. */
+    /* Wait, if Flex Direction is column-reverse, last child (icon) becomes top. */
+    /* Default direction: column. */
+    justify-content: flex-end; /* Icon at top? */
+    padding: 24px;
+    align-items: center; /* Center horizontally */
+}
+
+.glass-content {
+    border-bottom: none; /* Remove separator */
+    border-top: 1px solid rgba(255, 255, 255, 0.2); /* Move separator? Or remove? */
+    padding-top: 16px;
+    padding-bottom: 0;
+}
+
+.glass-icon {
+    flex: 0 0 auto; /* Don't grow */
+    width: 64px; /* Uniform size */
+    height: 64px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.glass-icon svg {
+    width: 100%; /* Fill container */
+    height: 100%;
+}
+
+/* Update Benefits Section */
+
+.scroll-stack-wrapper {
+    /* Center cards if they are narrower */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.scroll-stack-card {
+    /* 30% narrower */
+    /* Original width: was 100% or contained in .container */
+    /* .benefit-card has padding etc. */
+    /* Let's set max-width relative to previous */
+    max-width: 70%; /* Reduction */
+    width: 100%; /* within max-width */
+
+    /* Blue background */
+    background: #2563eb; /* Primary Blue */
+    color: white; /* Text white */
+
+    /* Adjust border and shadow for blue bg */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.4);
+}
+
+.scroll-stack-card h3 {
+    color: white; /* Title white */
+}
+
+.scroll-stack-card p {
+    color: rgba(255, 255, 255, 0.9); /* Text light white */
+}
+
+.scroll-stack-card .benefit-icon {
+    color: white !important; /* Icon white */
+}
+
+/* Ensure equal spacing (fix overlap) handled in JS by increasing STACK_OFFSET or SPACING */
+
+/* Update Button Styles - Remove Hover Shadow */
+
+.button-shine {
+    /* Existing box-shadow is: 0 4px 6px rgba(...) */
+    /* Remove hover box-shadow "backlight" */
+}
+
+.button-shine:hover {
+    box-shadow: none; /* Remove "backlight" */
+    /* Keep animation */
+}
+
+/* Final CTA Blue Block */
+.cta-blue-block {
+    background: #2563eb; /* Primary Blue */
+    color: white; /* Text white */
+    padding: 16px 32px;
+    border-radius: 12px;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 32px; /* Space before button */
+    margin-top: 16px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Update Request Form Section */
+
+/* White Background */
+.section-request {
+    background: #ffffff !important; /* Force white, override gradient */
+}
+
+/* Remove Aurora Effect */
+.section-request::before {
+    display: none;
+}
+
+/* Increase Padding (Expand Boundaries) */
+.section-request {
+    padding-top: 120px; /* Increased from 80px */
+    padding-bottom: 120px;
+}
+
+/* Blue Card */
+.request-card {
+    background: #2563eb; /* Primary Blue */
+    color: white; /* Text white */
+    /* Add border to separate from white bg if needed, or shadow */
+    box-shadow: 0 20px 40px -5px rgba(37, 99, 235, 0.3);
+}
+
+/* Update text inside card to be readable on blue */
+.request-card h2,
+.request-card p,
+.request-card label {
+    color: white !important;
+}
+
+/* Inputs on blue background */
+.request-card .aceternity-input {
+    background: white; /* Keep inputs white */
+    color: #111827; /* Text inside input dark */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.request-card .aceternity-input:focus {
+    border-color: white;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+.request-card .file-upload-box {
+    background: rgba(255, 255, 255, 0.1); /* Transparent white */
+    border-color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.request-card .file-upload-box:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: white;
+    color: white;
+}
+
+/* Request Button on Blue Card */
+.request-card .button-shine {
+    background: white; /* White button */
+    color: #2563eb; /* Blue text */
+    border-color: white;
+}
+
+.request-card .button-shine:hover {
+    background: white;
+    color: #1d4ed8;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* White glow */
+}
+
+.request-card .button-shine::before {
+    background: rgba(37, 99, 235, 0.2); /* Blue shine on white button? Or just white shine */
+    /* Use default white shine, but on white button it might not show well. */
+    /* Let's make shine color subtle grey or blueish */
+    background: rgba(0, 0, 0, 0.1);
+}
