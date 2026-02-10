@@ -219,7 +219,7 @@ svg {
     justify-content: center;
     padding-top: 80px;
     overflow: hidden;
-    text-align: center;
+    text-align: left;
 }
 
 .hero-background {
@@ -255,7 +255,7 @@ svg {
     /* Ensure container aligns left too */
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     width: 100%; /* Take full width of max-width */
 }
 
@@ -264,11 +264,11 @@ svg {
     z-index: 10;
     width: 100%;
     max-width: 800px;
-    margin: 0 auto;
+    margin: 0;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Left align items */
-    text-align: center;
+    align-items: flex-start; /* Left align items */
+    text-align: left;
 }
 
 .hero-title {
@@ -278,12 +278,12 @@ svg {
     margin-bottom: 32px;
     color: var(--text-dark);
     width: 100%;
-    text-align: center;
+    text-align: left;
 }
 
 .hero-logo-wrapper {
     display: block;
-    text-align: center;
+    text-align: left;
     margin-bottom: 16px;
     width: 100%;
     /* Margin top is handled inline in HTML as per plan */
@@ -299,8 +299,7 @@ svg {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     margin-top: 32px;
     font-size: 16px;
     color: #111827;
@@ -342,6 +341,45 @@ svg {
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
+    justify-content: center;
+}
+
+/* Center the last two items in the glowing grid if they are on a new row */
+.glowing-grid > *:nth-last-child(-n+2) {
+    /* This logic depends on the number of items and columns.
+       If there are 5 items and 3 columns, the last 2 will be on a new row.
+       However, grid auto-fit handles placement.
+       To force centering, we can use flex for the container or specific grid placement.
+       But auto-fit makes it hard to target specific items for centering without media queries.
+       A simpler approach for "centering the bottom cards" in a grid is
+       to use justify-content: center on the container, which works if the grid tracks don't fill width.
+       With auto-fit minmax, they fill width.
+       Let's try a different approach for the last row if known.
+       There are 5 cards: Calls, Price, Services, Deadlines, Risk.
+       Calls, Price, Services (3)
+       Deadlines, Risk (2) -> Center these.
+    */
+}
+
+@media (min-width: 1000px) {
+    /* Assuming 3 columns layout */
+    .glowing-grid {
+        grid-template-columns: repeat(6, 1fr);
+    }
+    .glowing-card {
+        grid-column: span 2;
+    }
+    /* 1st row: 3 cards (span 2 each = 6 cols) */
+    /* 2nd row: 2 cards. To center them, we need them to be offset?
+       Or we can just change the grid for the last two items?
+       Actually, `justify-content: center` works if we don't use auto-fit but fixed columns.
+    */
+    .glowing-card:nth-child(4) {
+        grid-column: 2 / span 2;
+    }
+    .glowing-card:nth-child(5) {
+        grid-column: 4 / span 2;
+    }
 }
 
 .glowing-card {
@@ -823,7 +861,7 @@ svg {
     background: white;
     color: #1d4ed8;
     transform: translateY(-2px);
-    box-shadow: 0 20px 30px -5px rgba(0, 0, 0, 0.3);
+    box-shadow: none;
 }
 
 /* ============================================
@@ -854,7 +892,7 @@ svg {
 
 .button-shine:hover {
   background: rgb(61, 106, 255);
-  box-shadow: 0 0 30px 5px rgba(0, 142, 236, 0.815);
+  box-shadow: none;
   transition: all 0.2s ease-out;
   transform: translateY(-2px);
 }
