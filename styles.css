@@ -2371,3 +2371,128 @@ svg {
 .section-nocalls::before {
     display: none;
 }
+
+/* Update No Calls Section Styles */
+.section-nocalls .nocalls-box {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    /* Apply Glassmorphism Effect */
+    background: rgba(255, 255, 255, 0.45); /* Semi-transparent white */
+    backdrop-filter: blur(12px); /* Blur behind */
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure text is readable */
+.section-nocalls h2 {
+    color: #111827; /* Dark text */
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.section-nocalls p {
+    color: #1f2937; /* Dark gray */
+    font-weight: 500;
+}
+
+/* Update Button Style - Shine Effect */
+/* Revert the previous complex "drawing" button style first? Or just override. */
+/* I will override with the class .button-shine and apply it everywhere. */
+
+.button-shine {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 28px; /* Slightly larger padding for touch */
+  border-radius: 99px; /* Rounded pill shape as per design theme */
+  /* User requested: border: 1px solid rgb(61, 106, 255); */
+  border: 1px solid rgb(61, 106, 255);
+  font-size: 16px;
+  text-transform: none; /* Keep normal case for readability? Or uppercase per request? Request: uppercase */
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 2px;
+  /* User requested: background: transparent; color: #fff; */
+  /* BUT user clarification: "Добавь кнопке синий фон а при наведении он эффект блика" */
+  /* So: Blue background initially. */
+  background: rgb(61, 106, 255);
+  color: #fff;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(61, 106, 255, 0.2);
+  transition: all 0.2s ease-in;
+  cursor: pointer;
+  text-decoration: none;
+  width: auto; /* Fit content */
+  min-width: 200px; /* Minimum width */
+}
+
+.button-shine:hover {
+  background: rgb(61, 106, 255); /* Keep blue */
+  box-shadow: 0 0 30px 5px rgba(0, 142, 236, 0.815); /* Glow effect */
+  transition: all 0.2s ease-out;
+  transform: translateY(-2px);
+}
+
+.button-shine:hover::before {
+  animation: sh02 0.5s 0s linear;
+}
+
+.button-shine::before {
+  content: '';
+  display: block;
+  width: 0px;
+  height: 86%;
+  position: absolute;
+  top: 7%;
+  left: 0%;
+  opacity: 0;
+  background: #fff;
+  box-shadow: 0 0 50px 30px #fff;
+  transform: skewX(-20deg);
+}
+
+@keyframes sh02 {
+  from {
+    opacity: 0;
+    left: 0%;
+  }
+  50% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    left: 100%;
+  }
+}
+
+.button-shine:active {
+  box-shadow: 0 0 0 0 transparent;
+  transition: box-shadow 0.2s ease-in;
+  transform: translateY(0);
+}
+
+/* Ensure buttons take full width in mobile/forms if needed */
+@media (max-width: 600px) {
+    .button-shine {
+        width: 100%;
+    }
+}
+
+/* Tighter Request Form */
+.request-card {
+    padding-bottom: 16px; /* Further reduced from 20px */
+}
+
+.request-card .form-note {
+    margin-top: 8px; /* Further reduced */
+    margin-bottom: 0;
+    font-size: 11px;
+}
+
+.request-card .button-container {
+    margin-top: 12px;
+}
