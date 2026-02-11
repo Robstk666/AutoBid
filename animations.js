@@ -576,3 +576,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
         requestAnimationFrame(animateGrid);
     }
+
+    /* ==========================================================================
+       14. Modal Logic (Registration & Request)
+       ========================================================================== */
+    const modalRegister = document.getElementById('modal-register');
+    const modalRequest = document.getElementById('modal-request');
+
+    // Triggers
+    const registerBtns = document.querySelectorAll('a[href="#register"], .register-trigger');
+    const requestBtns = document.querySelectorAll('a[href="#request"], .request-trigger, #floating-request-btn');
+
+    const openModal = (modal) => {
+        if (!modal) return;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Lock scroll
+    };
+
+    const closeModal = (modal) => {
+        if (!modal) return;
+        modal.classList.remove('active');
+        document.body.style.overflow = ''; // Unlock scroll
+    };
+
+    // Bind Register Buttons
+    registerBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal(modalRegister);
+        });
+    });
+
+    // Bind Request Buttons
+    requestBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal(modalRequest);
+        });
+    });
+
+    // Close Logic (Overlay click & Close button)
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                closeModal(overlay);
+            }
+        });
+
+        const closeBtn = overlay.querySelector('.modal-close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => closeModal(overlay));
+        }
+    });
