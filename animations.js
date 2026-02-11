@@ -537,3 +537,42 @@ document.addEventListener('DOMContentLoaded', () => {
             updateCursor(initialActive);
         }
     }
+
+    /* ==========================================================================
+       13. Infinite Grid Animation (Benefits Section)
+       ========================================================================== */
+    const benefitsSection = document.querySelector('.section-benefits');
+    const gridHighlight = document.querySelector('.grid-highlight');
+
+    if (benefitsSection && gridHighlight) {
+        let gridX = 0;
+        let gridY = 0;
+        const speed = 0.5;
+        const gridSize = 40;
+
+        // Mouse Mask Logic
+        benefitsSection.addEventListener('mousemove', (e) => {
+            const rect = benefitsSection.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // Update CSS variables for mask position
+            // Using setProperty on the grid-highlight element or section
+            gridHighlight.style.setProperty('--mouse-x', `${x}px`);
+            gridHighlight.style.setProperty('--mouse-y', `${y}px`);
+        });
+
+        // Infinite Scroll Animation Loop
+        const animateGrid = () => {
+            gridX = (gridX + speed) % gridSize;
+            gridY = (gridY + speed) % gridSize;
+
+            // Apply translation
+            gridHighlight.style.setProperty('--grid-x', `${gridX}px`);
+            gridHighlight.style.setProperty('--grid-y', `${gridY}px`);
+
+            requestAnimationFrame(animateGrid);
+        };
+
+        requestAnimationFrame(animateGrid);
+    }
