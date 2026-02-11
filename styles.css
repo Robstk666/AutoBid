@@ -2046,3 +2046,103 @@ svg {
     color: rgba(255, 255, 255, 0.9);
     line-height: 1.4;
 }
+
+/* ============================================
+   MODALS & FLOATING BUTTON
+   ============================================ */
+
+.floating-btn {
+    position: fixed;
+    bottom: 32px;
+    left: 32px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    cursor: pointer;
+    z-index: 999; /* Above everything */
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.floating-btn:hover {
+    transform: scale(1.1);
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none; /* Hidden state */
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-container {
+    position: relative;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-container {
+    transform: translateY(0);
+}
+
+.modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: inherit;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* NEUMORPHIC REQUEST CARD STYLE */
+.neumorphic-card {
+    background: #f3f4f6; /* bg-gray-100 */
+    border-radius: 24px; /* rounded-3xl */
+    padding: 32px;
+    box-shadow: 12px 12px 24px rgba(0,0,0,0.15), -12px -12px 24px rgba(255,255,255,0.9);
+    border: 1px solid rgba(255,255,255,0.5);
+    color: var(--text-dark);
+}
+
+/* Neumorphic Input overrides */
+.neumorphic-input {
+    background: #f3f4f6;
+    box-shadow: inset 4px 4px 8px rgba(0,0,0,0.1), inset -4px -4px 8px rgba(255,255,255,0.9);
+    border: none;
+    color: var(--text-dark);
+}
+
+.neumorphic-input:focus {
+    box-shadow: inset 6px 6px 12px rgba(0,0,0,0.15), inset -6px -6px 12px rgba(255,255,255,0.9);
+    background: #f3f4f6;
+}
