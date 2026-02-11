@@ -335,51 +335,18 @@ svg {
    GLOWING CARDS
    ============================================ */
 .glowing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
-    justify-content: center;
 }
 
-/* Center the last two items in the glowing grid if they are on a new row */
-.glowing-grid > *:nth-last-child(-n+2) {
-    /* This logic depends on the number of items and columns.
-       If there are 5 items and 3 columns, the last 2 will be on a new row.
-       However, grid auto-fit handles placement.
-       To force centering, we can use flex for the container or specific grid placement.
-       But auto-fit makes it hard to target specific items for centering without media queries.
-       A simpler approach for "centering the bottom cards" in a grid is
-       to use justify-content: center on the container, which works if the grid tracks don't fill width.
-       With auto-fit minmax, they fill width.
-       Let's try a different approach for the last row if known.
-       There are 5 cards: Calls, Price, Services, Deadlines, Risk.
-       Calls, Price, Services (3)
-       Deadlines, Risk (2) -> Center these.
-    */
-}
-
-@media (min-width: 1000px) {
-    /* Assuming 3 columns layout */
-    .glowing-grid {
-        grid-template-columns: repeat(6, 1fr);
-    }
-    .glowing-card {
-        grid-column: span 2;
-    }
-    /* 1st row: 3 cards (span 2 each = 6 cols) */
-    /* 2nd row: 2 cards. To center them, we need them to be offset?
-       Or we can just change the grid for the last two items?
-       Actually, `justify-content: center` works if we don't use auto-fit but fixed columns.
-    */
-    .glowing-card:nth-child(4) {
-        grid-column: 2 / span 2;
-    }
-    .glowing-card:nth-child(5) {
-        grid-column: 4 / span 2;
-    }
+.card-3d-container {
+    flex: 0 1 350px; /* Base width */
+    max-width: 100%;
 }
 
 .glowing-card {
@@ -1676,6 +1643,97 @@ svg {
         display: none;
     }
     .header-contacts {
+        display: none;
+    }
+}
+
+/* ============================================
+   DOCK NAVIGATION (Mac Style)
+   ============================================ */
+
+.dock-navbar {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 12px;
+    padding: 10px 20px;
+    border-radius: 99px;
+    background: rgba(249, 250, 251, 0.8); /* gray-50 with opacity */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0,0,0,0.05);
+    height: 64px; /* Base panel height */
+    box-sizing: border-box;
+    position: relative;
+    /* Disable layout shift */
+    margin: 0 16px;
+}
+
+.dock-item {
+    position: relative;
+    width: 40px; /* Base width */
+    height: 40px; /* Base height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* Rounded */
+    background: transparent;
+    transition: width 0.1s linear, height 0.1s linear; /* Smooth resizing */
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* Icon Container - Scales with item */
+.dock-icon {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px; /* Matching rounded corners as requested */
+    background: #e5e7eb; /* Placeholder bg like in React code */
+    border: 1px solid rgba(255,255,255,0.5);
+    transition: all 0.1s linear;
+}
+
+.dock-icon svg {
+    width: 50%;
+    height: 50%;
+    color: var(--text-dark);
+}
+
+.dock-item:hover .dock-icon {
+    background: var(--text-dark);
+}
+
+.dock-item:hover .dock-icon svg {
+    color: white;
+}
+
+/* Tooltip Label */
+.dock-label {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: rgba(31, 41, 55, 0.9); /* Dark tooltip */
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.dock-item:hover .dock-label {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 900px) {
+    .dock-navbar {
         display: none;
     }
 }

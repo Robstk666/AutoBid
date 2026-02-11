@@ -430,3 +430,50 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(glassContainer);
     }
 });
+
+    /* ==========================================================================
+       11. Dock Navigation Interaction (Magnification)
+       ========================================================================== */
+    const dock = document.querySelector('.dock-navbar');
+    if (dock) {
+        const dockItems = dock.querySelectorAll('.dock-item');
+        const defaultSize = 40;
+        const magnification = 80;
+        const distance = 150;
+
+        dock.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX;
+
+            dockItems.forEach(item => {
+                const rect = item.getBoundingClientRect();
+                const itemCenterX = rect.left + rect.width / 2;
+                const distanceFromMouse = mouseX - itemCenterX;
+
+                // Gaussian-like curve for scaling
+                // Scale factor based on distance
+                // If distance is 0, val is 1. If distance is large, val approaches 0.
+                // Linear interpolation: val = 1 - Math.abs(distanceFromMouse) / distance;
+                // Clamp between 0 and 1
+
+                let val = 1 - Math.abs(distanceFromMouse) / distance;
+                val = Math.max(0, val);
+
+                // Width = default + (magnification - default) * val
+                // Actually the React code uses spring physics but we use direct mapping for simplicity
+                const width = defaultSize + (magnification - defaultSize) * val;
+
+                item.style.width = `${width}px`;
+                item.style.height = `${width}px`; // Keep aspect ratio
+
+                // Icon scaling (half of width in React example)
+                // We just let flexbox handle it or scale svg
+            });
+        });
+
+        dock.addEventListener('mouseleave', () => {
+            dockItems.forEach(item => {
+                item.style.width = `${defaultSize}px`;
+                item.style.height = `${defaultSize}px`;
+            });
+        });
+    }
