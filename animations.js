@@ -477,3 +477,63 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    /* ==========================================================================
+       12. Slide Tabs Navigation Logic
+       ========================================================================== */
+    const slideTabsNav = document.querySelector('.slide-tabs-nav');
+    if (slideTabsNav) {
+        const tabs = slideTabsNav.querySelectorAll('.slide-tab');
+        const cursor = slideTabsNav.querySelector('.slide-cursor');
+        let activeTab = null; // No default selection unless specified
+
+        const updateCursor = (element) => {
+            if (!element || !cursor) return;
+
+            // Calculate position relative to the container
+            // The container has padding: 4px. The cursor top/bottom is fixed at 4px.
+            // We just need 'left' and 'width'.
+            const navRect = slideTabsNav.getBoundingClientRect();
+            const tabRect = element.getBoundingClientRect();
+
+            // Offset left relative to nav (including nav padding)
+            const left = tabRect.left - navRect.left;
+            const width = tabRect.width;
+
+            cursor.style.left = `${left}px`;
+            cursor.style.width = `${width}px`;
+            cursor.style.opacity = '1';
+        };
+
+        const resetCursor = () => {
+            if (activeTab) {
+                updateCursor(activeTab);
+            } else {
+                cursor.style.opacity = '0';
+            }
+        };
+
+        tabs.forEach(tab => {
+            // Hover
+            tab.addEventListener('mouseenter', () => {
+                updateCursor(tab);
+            });
+
+            // Click (set active)
+            tab.addEventListener('click', () => {
+                // Remove active class from all
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                activeTab = tab;
+            });
+        });
+
+        slideTabsNav.addEventListener('mouseleave', resetCursor);
+
+        // Initial set if one has active class (optional)
+        const initialActive = slideTabsNav.querySelector('.slide-tab.active');
+        if (initialActive) {
+            activeTab = initialActive;
+            updateCursor(initialActive);
+        }
+    }
