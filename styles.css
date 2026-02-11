@@ -1984,22 +1984,22 @@ svg {
     height: 160px; /* adjusted height */
     padding: 16px;
     border-radius: 12px;
-    border: 2px solid rgba(0,0,0,0.05);
-    background: rgba(255, 255, 255, 0.7);
+    border: 2px solid rgba(255,255,255,0.1);
+    background: rgba(37, 99, 235, 0.85); /* Blue background */
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     transform: skewY(-4deg); /* Less extreme than 8deg for readability */
     transition: all 0.5s ease;
     overflow: hidden;
     cursor: default;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
 }
 
 .display-card:hover {
-    border-color: rgba(37, 99, 235, 0.4);
-    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(37, 99, 235, 0.95);
     transform: skewY(-4deg) translateY(-10px);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.4), 0 8px 10px -6px rgba(37, 99, 235, 0.4);
 }
 
 /* Shine effect */
@@ -2010,7 +2010,7 @@ svg {
     right: -50%;
     bottom: -50%;
     left: -50%;
-    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 100%);
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
     transform: rotateZ(60deg) translate(-5em, 7.5em);
     opacity: 0;
     transition: all 0.5s;
@@ -2027,22 +2027,22 @@ svg {
     align-items: center;
     justify-content: center;
     padding: 8px;
-    background: var(--primary-color);
-    color: white;
+    background: white;
+    color: var(--primary-color);
     border-radius: 50%;
     margin-bottom: 12px;
-    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .card-title {
     font-size: 18px;
     font-weight: 700;
-    color: var(--text-dark);
+    color: white;
     margin-bottom: 4px;
 }
 
 .card-desc {
     font-size: 16px;
-    color: var(--text-light);
+    color: rgba(255, 255, 255, 0.9);
     line-height: 1.4;
 }
