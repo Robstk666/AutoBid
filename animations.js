@@ -563,10 +563,10 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         tabs.forEach(tab => {
-            // Hover
-            tab.addEventListener('mouseenter', () => {
-                updateCursor(tab);
-            });
+            // Remove hover listener to prevent cursor movement on hover
+            // tab.addEventListener('mouseenter', () => {
+            //     updateCursor(tab);
+            // });
 
             // Click (set active)
             tab.addEventListener('click', () => {
@@ -574,6 +574,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 tabs.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
                 activeTab = tab;
+                updateCursor(tab); // Update cursor position on click
             });
         });
 
