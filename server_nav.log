@@ -1,0 +1,14 @@
+127.0.0.1 - - [12/Feb/2026 12:35:55] "GET /index.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Feb/2026 12:35:55] "GET /styles.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Feb/2026 12:35:55] "GET /assets/images/logo2.png HTTP/1.1" 200 -
+127.0.0.1 - - [12/Feb/2026 12:35:55] "GET /assets/images/logo.png HTTP/1.1" 200 -
+127.0.0.1 - - [12/Feb/2026 12:35:55] "GET /assets/images/car-damaged.png HTTP/1.1" 200 -
+127.0.0.1 - - [12/Feb/2026 12:35:55] "GET /assets/images/car-fixed.png HTTP/1.1" 200 -
+127.0.0.1 - - [12/Feb/2026 12:35:55] "GET /lottie-data.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Feb/2026 12:35:55] "GET /animations.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Feb/2026 12:35:55] "GET /cursor.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Feb/2026 12:35:55] "GET /scroll-stack.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Feb/2026 12:35:55] "GET /floating-paths.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Feb/2026 12:35:55] "GET /assets/videos/hero-background.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [12/Feb/2026 12:35:55] "GET /assets/images/3.png HTTP/1.1" 200 -
+127.0.0.1 - - [12/Feb/2026 12:35:55] "GET /glow-cards.js HTTP/1.1" 200 -
