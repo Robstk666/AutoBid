@@ -662,83 +662,114 @@ svg {
 .section-nocalls {
     padding: 100px 0;
     background: #ffffff;
-    text-align: center;
     position: relative;
     overflow: hidden;
 }
 
-.video-bg-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    overflow: hidden;
+.nocalls-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    align-items: center;
 }
 
-.video-bg-container video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+@media (min-width: 900px) {
+    .nocalls-grid {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
-/* Transparent overlay as requested (5%) */
-.video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    z-index: 1;
-}
-
-.section-nocalls .container {
-    position: relative;
-    z-index: 2;
-}
-
-.section-nocalls .nocalls-box {
-    position: relative;
-    max-width: 1000px;
-    margin: 0 auto;
-    /* Transparent background as requested */
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+.nocalls-text {
     display: flex;
     flex-direction: column;
-    /* Text alignment handled by classes */
+    gap: 24px;
 }
 
-.section-nocalls h2 {
-    font-size: 48px;
-    line-height: 1.2;
-    margin-bottom: 24px;
-    color: #111827;
-    /* Add white shadow for readability on transparent bg if needed */
-    text-shadow: 0 0 10px rgba(255,255,255,0.5);
-}
-
-.section-nocalls p {
-    font-size: 20px;
+.nocalls-text .section-title.left-align {
     text-align: left;
-    margin-bottom: 16px;
+    margin-bottom: 32px;
+}
+
+.reveal-block {
+    position: relative;
+    overflow: hidden;
+    padding: 4px 0;
+}
+
+.reveal-block p {
+    font-size: 20px;
     line-height: 1.6;
     color: #1f2937;
     font-weight: 500;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.1s ease-out; /* Instant change handled by delay */
+}
+
+.reveal-block.active p {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.curtain-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-color);
+    transform: translateX(-100%);
+    z-index: 2;
+}
+
+.reveal-block.active .curtain-panel {
+    animation: curtainReveal 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+
+@keyframes curtainReveal {
+    0% { transform: translateX(-100%); }
+    45% { transform: translateX(0); } /* Hold briefly */
+    55% { transform: translateX(0); }
+    100% { transform: translateX(101%); }
+}
+
+/* Stagger Delays */
+.reveal-block.delay-1 .curtain-panel { animation-delay: 0s; }
+.reveal-block.delay-1 p { transition-delay: 0.4s; transition-duration: 0s; } /* Instantly appear when covered */
+
+.reveal-block.delay-2 .curtain-panel { animation-delay: 0.2s; }
+.reveal-block.delay-2 p { transition-delay: 0.6s; transition-duration: 0s; }
+
+.reveal-block.delay-3 .curtain-panel { animation-delay: 0.4s; }
+.reveal-block.delay-3 p { transition-delay: 0.8s; transition-duration: 0s; }
+
+.nocalls-visual {
+    position: relative;
+    height: 100%;
+    min-height: 400px;
+}
+
+.visual-card-glass {
+    position: relative;
+    width: 100%;
+    height: auto;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.nocalls-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
 }
 
 .accent-phrase {
     color: #2563eb;
     font-weight: 800;
     font-size: 24px;
-    margin-top: 16px;
     display: block;
 }
 
