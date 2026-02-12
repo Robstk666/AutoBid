@@ -2146,3 +2146,55 @@ svg {
     box-shadow: inset 6px 6px 12px rgba(0,0,0,0.15), inset -6px -6px 12px rgba(255,255,255,0.9);
     background: #f3f4f6;
 }
+
+/* REQUEST FORM EXTRAS */
+.form-hint-text {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 4px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.damage-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.checkbox-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #f3f4f6;
+    padding: 6px 12px;
+    border-radius: 99px;
+    font-size: 14px;
+    color: var(--text-dark);
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.05), -5px -5px 10px rgba(255,255,255,0.8);
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.checkbox-pill:hover {
+    transform: translateY(-1px);
+}
+
+.checkbox-pill input {
+    accent-color: var(--primary-color);
+}
+
+/* File Upload in Neumorphism */
+.neumorphic-input.file-upload-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80px;
+    color: var(--text-light);
+    font-size: 14px;
+}
+.neumorphic-input.file-upload-box:hover {
+    box-shadow: inset 8px 8px 16px rgba(0,0,0,0.1), inset -8px -8px 16px rgba(255,255,255,0.9);
+}

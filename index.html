@@ -599,27 +599,64 @@
     <div class="modal-container neumorphic-card">
         <button class="modal-close">&times;</button>
         <div class="register-header">
-            <h2 style="color: var(--text-dark);">Расскажите о проблеме</h2>
-            <p style="color: var(--text-light);">Мы найдем лучших мастеров</p>
+            <h2 style="color: var(--text-dark);">Расскажите, что случилось с автомобилем</h2>
         </div>
         <form class="aceternity-form">
             <div class="aceternity-row">
                 <div class="aceternity-input-container">
-                    <label class="aceternity-label" for="car-model-m">Марка и модель</label>
-                    <input class="aceternity-input neumorphic-input" id="car-model-m" placeholder="Toyota Camry" type="text"/>
+                    <label class="aceternity-label" for="car-model-m">Марка и модель автомобиля</label>
+                    <input class="aceternity-input neumorphic-input" id="car-model-m" placeholder="Например, Toyota Camry 2019" type="text"/>
                 </div>
                 <div class="aceternity-input-container">
                     <label class="aceternity-label" for="car-year-m">Год выпуска</label>
                     <input class="aceternity-input neumorphic-input" id="car-year-m" placeholder="2018" type="text"/>
                 </div>
             </div>
+
+            <!-- Damage Type -->
             <div class="aceternity-row">
                 <div class="aceternity-input-container">
-                    <label class="aceternity-label" for="damage-desc-m">Описание</label>
-                    <textarea class="aceternity-input neumorphic-input" id="damage-desc-m" placeholder="Опишите проблему" style="height: 80px;"></textarea>
+                    <label class="aceternity-label">Тип повреждений</label>
+                    <small class="form-hint-text">Отметьте всё, что требует ремонта</small>
+                    <div class="damage-checkboxes">
+                        <label class="checkbox-pill"><input type="checkbox" name="damage" value="body"> Кузов</label>
+                        <label class="checkbox-pill"><input type="checkbox" name="damage" value="paint"> Покраска</label>
+                        <label class="checkbox-pill"><input type="checkbox" name="damage" value="engine"> Двигатель</label>
+                        <label class="checkbox-pill"><input type="checkbox" name="damage" value="suspension"> Ходовая</label>
+                        <label class="checkbox-pill"><input type="checkbox" name="damage" value="glass"> Стекла</label>
+                        <label class="checkbox-pill"><input type="checkbox" name="damage" value="electric"> Электрика</label>
+                        <label class="checkbox-pill"><input type="checkbox" name="damage" value="other"> Другое</label>
+                    </div>
                 </div>
             </div>
-            <button class="button-shine" style="width: 100%; border: none;" type="submit">Отправить заявку</button>
+
+            <div class="aceternity-row">
+                <div class="aceternity-input-container">
+                    <label class="aceternity-label" for="damage-desc-m">Описание повреждений</label>
+                    <textarea class="aceternity-input neumorphic-input" id="damage-desc-m" placeholder="Кратко опишите, что произошло и какие есть повреждения" style="height: 100px; padding-top: 12px;"></textarea>
+                </div>
+            </div>
+
+            <div class="aceternity-row">
+                <div class="aceternity-input-container">
+                    <label class="aceternity-label">Фотографии автомобиля</label>
+                    <small class="form-hint-text">Фото помогут СТО точнее рассчитать стоимость и сроки</small>
+                    <div class="file-upload-box neumorphic-input" style="text-align: center; padding: 20px; border: 2px dashed rgba(0,0,0,0.1); cursor: pointer;">
+                        <span>📷 Нажмите или перетащите фото сюда</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="aceternity-row">
+                <div class="aceternity-input-container">
+                    <label class="aceternity-label" for="city-m">Город ремонта</label>
+                    <input class="aceternity-input neumorphic-input" id="city-m" placeholder="Москва" type="text"/>
+                    <small class="form-hint-text">Мы покажем заявку только автосервисам вашего города</small>
+                </div>
+            </div>
+
+            <button class="button-shine" style="width: 100%; border: none; margin-top: 16px;" type="submit">Отправить заявку и получить предложения</button>
+            <p class="form-note" style="color: var(--text-light);">Бесплатно. Контакты не передаются автосервисам.</p>
         </form>
     </div>
 </div>
