@@ -294,35 +294,43 @@
 </div>
 </section>
 <!-- 5. HOW IT WORKS SECTION -->
-<section class="section-steps" id="steps">
-<div class="aurora-background">
-    <div class="aurora-gradient"></div>
-</div>
+<section class="section-steps" id="steps" style="position: relative; overflow: hidden;">
+<!-- Floating Paths Background -->
+<div id="floating-paths-container"></div>
+
 <div class="container" style="position: relative; z-index: 10;">
 <h2 class="section-title center scroll-fade-in">Всего 4 простых шага</h2>
 <div class="steps-container">
-<div class="step-card scroll-slide-up delay-1">
-<div class="step-num">1</div>
-<h3>Опишите повреждения</h3>
-<p>автомобиля и загрузите фото</p>
+<div class="glow-card scroll-slide-up delay-1">
+    <div class="glow-card-content">
+        <div class="step-num">1</div>
+        <h3>Опишите повреждения</h3>
+        <p>автомобиля и загрузите фото</p>
+    </div>
 </div>
-<div class="step-card scroll-slide-up delay-2">
-<div class="step-num">2</div>
-<h3>Получите предложения</h3>
-<p>от СТО вашего города</p>
+<div class="glow-card scroll-slide-up delay-2">
+    <div class="glow-card-content">
+        <div class="step-num">2</div>
+        <h3>Получите предложения</h3>
+        <p>от СТО вашего города</p>
+    </div>
 </div>
-<div class="step-card scroll-slide-up delay-3">
-<div class="step-num">3</div>
-<h3>Сравните условия</h3>
-<p>цену, сроки и рейтинг сервисов</p>
+<div class="glow-card scroll-slide-up delay-3">
+    <div class="glow-card-content">
+        <div class="step-num">3</div>
+        <h3>Сравните условия</h3>
+        <p>цену, сроки и рейтинг сервисов</p>
+    </div>
 </div>
-<div class="step-card scroll-slide-up delay-4">
-<div class="step-num">4</div>
-<h3>Выберите лучший вариант</h3>
-<p>и свяжитесь с СТО</p>
+<div class="glow-card scroll-slide-up delay-4">
+    <div class="glow-card-content">
+        <div class="step-num">4</div>
+        <h3>Выберите лучший вариант</h3>
+        <p>и свяжитесь с СТО</p>
+    </div>
 </div>
 </div>
-<div class="center-cta scroll-fade-in" style="display: flex; justify-content: center;">
+<div class="center-cta scroll-fade-in" style="display: flex; justify-content: center; position: relative; z-index: 20;">
 <a class="button-shine" href="#request">Получить предложения</a>
 </div>
 </div>
@@ -671,5 +679,7 @@
 <script src="animations.js"></script>
 <script src="cursor.js"></script>
 <script src="scroll-stack.js"></script>
+<script src="floating-paths.js"></script>
+<script src="glow-cards.js"></script>
 </body>
 </html>
