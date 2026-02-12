@@ -236,8 +236,8 @@ svg {
     content: "";
     position: absolute;
     inset: 0;
-    /* Left: 0% transparency (Solid White) -> Right: 95% transparency (0.05 alpha) */
-    background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    /* Reduced opacity to let video show through */
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.2) 100%);
     z-index: 1; /* Above video */
 }
 
@@ -746,6 +746,7 @@ svg {
    BENEFITS SECTION
    ============================================ */
 .section-benefits {
+    position: relative; /* Fix: Contain absolute children like infinite-grid-bg */
     background-color: #f8fafc;
     padding: 100px 0;
     overflow: hidden;

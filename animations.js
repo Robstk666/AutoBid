@@ -251,6 +251,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // 8.3 Lottie Animation for 'Risk' Icon
+    const riskContainer = document.getElementById('lottie-risk-container');
+    if (riskContainer && typeof lottie !== 'undefined' && typeof riskData !== 'undefined') {
+        const animRisk = lottie.loadAnimation({
+            container: riskContainer,
+            renderer: 'svg',
+            loop: true,
+            autoplay: false,
+            animationData: riskData
+        });
+        animRisk.addEventListener('DOMLoaded', () => {
+            animRisk.goToAndStop(0, true);
+        });
+
+        // The Risk card is a 3D Tilt Card (.card-3d), not a .glowing-card (benefits section)
+        // So we target .card-3d-container or .tracker hover logic
+        // But simply targeting the container for mouseenter/leave should work if it has pointer events
+        // However, the 3D card logic uses .tracker overlays.
+        // We should attach the listener to the .card-3d-container wrapper or utilize the existing hover state if possible.
+        // Let's try attaching to the container first.
+
+        const cardRisk = riskContainer.closest('.card-3d-container');
+        if (cardRisk) {
+            // Since trackers are on top, we might need to listen on them or the container
+            cardRisk.addEventListener('mouseenter', () => animRisk.play());
+            cardRisk.addEventListener('mouseleave', () => animRisk.stop());
+        }
+    }
 
 
     /* ==========================================================================
