@@ -2199,3 +2199,171 @@ svg {
 .neumorphic-input.file-upload-box:hover {
     box-shadow: inset 8px 8px 16px rgba(0,0,0,0.1), inset -8px -8px 16px rgba(255,255,255,0.9);
 }
+
+/* ============================================
+   FLOATING PATHS BACKGROUND (Steps Section)
+   ============================================ */
+
+#floating-paths-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+    background: #ffffff; /* Fallback */
+}
+
+.floating-path {
+    fill: none;
+    stroke: rgba(15, 23, 42, 1); /* Slate-950 */
+    /* stroke-width set inline */
+    /* stroke-opacity set inline */
+
+    /* Animation setup */
+    /* We use pathLength="1" in JS to simplify dasharray */
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+
+    animation-name: floatPath;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    /* animation-duration set inline in JS */
+}
+
+@keyframes floatPath {
+    0% {
+        stroke-dasharray: 0.3 1; /* 30% dash, 70% gap */
+        stroke-dashoffset: 0;
+        opacity: 0.3;
+    }
+    50% {
+        stroke-dasharray: 1 1;   /* 100% dash */
+        stroke-dashoffset: 1;    /* Shift */
+        opacity: 0.6;
+    }
+    100% {
+        stroke-dasharray: 0.3 1;
+        stroke-dashoffset: 0;    /* Back to start (or 2 for continuous?) */
+        opacity: 0.3;
+    }
+}
+
+/* ============================================
+   GLOW CARDS (Steps Section)
+   ============================================ */
+
+.glow-card {
+    --base: 220;
+    --spread: 200;
+    --radius: 14;
+    --border: 2;
+    --backdrop: hsl(0 0% 60% / 0.12);
+    --backup-border: var(--backdrop);
+    --size: 200;
+    --outer: 1;
+    --border-size: calc(var(--border) * 1px);
+    --spotlight-size: calc(var(--size) * 1px);
+    --hue: calc(var(--base) + (var(--xp, 0) * var(--spread, 0)));
+    --bg-spot-opacity: 0.1;
+    --border-spot-opacity: 1;
+    --border-light-opacity: 1;
+    --saturation: 100;
+    --lightness: 70;
+
+    position: relative;
+    border-radius: calc(var(--radius) * 1px);
+    padding: 24px;
+    background-color: var(--backdrop, transparent);
+
+    background-image: radial-gradient(
+        var(--spotlight-size) var(--spotlight-size) at
+        calc(var(--x, 0) * 1px)
+        calc(var(--y, 0) * 1px),
+        hsl(var(--hue, 210) calc(var(--saturation, 100) * 1%) calc(var(--lightness, 70) * 1%) / var(--bg-spot-opacity, 0.1)), transparent
+    );
+
+    background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
+    background-position: 50% 50%;
+    background-attachment: fixed;
+    border: var(--border-size) solid var(--backup-border);
+    touch-action: none;
+
+    /* Layout */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    transition: transform 0.3s ease;
+
+    /* Ensure content is visible */
+    color: inherit;
+}
+
+.glow-card:hover {
+    transform: translateY(-5px);
+}
+
+.glow-card::before,
+.glow-card::after {
+    pointer-events: none;
+    content: "";
+    position: absolute;
+    inset: calc(var(--border-size) * -1);
+    border: var(--border-size) solid transparent;
+    border-radius: calc(var(--radius) * 1px);
+    background-attachment: fixed;
+    background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    mask: linear-gradient(transparent, transparent), linear-gradient(white, white);
+    -webkit-mask: linear-gradient(transparent, transparent), linear-gradient(white, white);
+    mask-clip: padding-box, border-box;
+    -webkit-mask-clip: padding-box, border-box;
+    mask-composite: intersect;
+    -webkit-mask-composite: source-in; /* correct for WebKit: source-in acts like intersect for mask layers */
+    /* Note: standard 'mask-composite: intersect' is what we want. In WebKit, 'source-in' or 'destination-in' depending on layers.
+       Usually simply not setting -webkit-mask-composite to something fancy works if we use the standard approach or rely on the background-clip trick.
+       Wait, the provided React code uses mask-composite: intersect.
+       Let's stick to standard if possible, or use the specific vendor prefixes. */
+    -webkit-mask-composite: xor; /* No, intersect is needed. */
+}
+
+/* Fix for WebKit mask composite */
+@supports (-webkit-mask: linear-gradient(#fff, #fff)) {
+    .glow-card::before,
+    .glow-card::after {
+        -webkit-mask-composite: source-in; /* closest to intersect */
+        mask-composite: intersect;
+    }
+}
+
+.glow-card::before {
+    background-image: radial-gradient(
+        calc(var(--spotlight-size) * 0.75) calc(var(--spotlight-size) * 0.75) at
+        calc(var(--x, 0) * 1px)
+        calc(var(--y, 0) * 1px),
+        hsl(var(--hue, 210) calc(var(--saturation, 100) * 1%) 50% / var(--border-spot-opacity, 1)), transparent 100%
+    );
+    filter: brightness(2);
+    z-index: 2;
+}
+
+.glow-card::after {
+    background-image: radial-gradient(
+        calc(var(--spotlight-size) * 0.5) calc(var(--spotlight-size) * 0.5) at
+        calc(var(--x, 0) * 1px)
+        calc(var(--y, 0) * 1px),
+        hsl(0 100% 100% / var(--border-light-opacity, 1)), transparent 100%
+    );
+    z-index: 2;
+}
+
+/* Inner content wrapper (optional but good practice) */
+.glow-card-content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+}
