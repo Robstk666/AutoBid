@@ -54,6 +54,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const scrollElements = document.querySelectorAll('.scroll-fade-in, .scroll-slide-up');
     scrollElements.forEach(el => animateOnScroll.observe(el));
 
+    // 2.5 Curtain Reveal Observer
+    const curtainObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // If the trigger is the parent, activate children
+                if (entry.target.classList.contains('reveal-trigger')) {
+                    const blocks = entry.target.querySelectorAll('.reveal-block');
+                    blocks.forEach(block => block.classList.add('active'));
+                } else {
+                    // If target is the block itself
+                    entry.target.classList.add('active');
+                }
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+
+    const revealTriggers = document.querySelectorAll('.reveal-trigger');
+    revealTriggers.forEach(el => curtainObserver.observe(el));
+
+
     // 3. Hero Video Loop Control (Custom 3s pause)
     const heroVideo = document.querySelector('.hero-bg-video');
     if (heroVideo) {
